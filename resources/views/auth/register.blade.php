@@ -12,7 +12,7 @@
         <!-- npk  -->
         <div class="mt-4">
             <x-input-label for="npk" :value="__('NPK')" />
-            <x-text-input id="npk" class="block mt-1 w-full" type="email" name="npk" :value="old('npk')" required />
+            <x-text-input id="npk" class="block mt-1 w-full" type="number" name="npk" :value="old('npk')" required />
             <x-input-error :messages="$errors->get('npk')" class="mt-2" />
         </div>
 
