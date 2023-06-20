@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('nama');
             $table->timestamp('start');
             $table->timestamp('deadline')->nullable();
-            $table->string('status');
-            $table->string('document');
+            $table->enum('status',['0','1'])->default(0);
+            $table->string('document')->nullable();
             $table->timestamps();
             $table->foreign('id_project')->references('id')->on('tt_project');
         });

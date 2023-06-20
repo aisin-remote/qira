@@ -25,5 +25,15 @@
                 {{ $slot }}
             </div>
         </div>
+        @if(Session::has('message'))
+        <script>
+            alert("{{ Session::get('message') }}");
+        </script>
+        @endif
+        @if($errors->any())
+        <script>
+            alert("{{ $errors->first() }}");
+        </script>
+        @endif
     </body>
 </html>

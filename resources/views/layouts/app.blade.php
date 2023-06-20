@@ -37,6 +37,11 @@
             alert("{{ Session::get('message') }}");
         </script>
         @endif
+        @if($errors->any())
+        <script>
+            alert("{{ $errors->first() }}");
+        </script>
+        @endif
         @yield('script')
     </body>
 </html>

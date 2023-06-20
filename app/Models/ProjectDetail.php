@@ -10,7 +10,7 @@ class ProjectDetail extends Model
     use HasFactory;
 
     //table project_detail
-    protected $table = 'project_detail';
+    protected $table = 'tt_project_detail';
     protected $fillable = [
         'id_project',
         'nama',
@@ -18,4 +18,9 @@ class ProjectDetail extends Model
         'deadline',
         'status'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'id_project', 'id');
+    }
 }

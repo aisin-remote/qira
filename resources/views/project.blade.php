@@ -10,11 +10,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="relative text-end my-3">
-                        <a href="" class="p-2 bg-green-200 inline-block rounded-md">Buat Baru</a>
+                        <a href="{{route('project.tambah')}}" class="p-2 bg-green-200 inline-block rounded-md">Tambah</a>
                     </div>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500 ">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-200 text-center">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
                                         Item PCR
@@ -34,74 +34,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd:bg-white even:bg-gray-50 border-b ">
+                                @foreach($projects as $project)
+                                <tr class="odd:bg-white even:bg-gray-50 border-b text-center ">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        Reduce Spray Nozel
+                                        {{$project->nama}}
                                     </th>
                                     <td class="px-6 py-4">
-                                        DC04
+                                        {{$project->line}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        30 Maret 2023
+                                        {{$project->deadline}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="text-green-400 bg-gray-100 p-1 rounded-md">10/10</span>
+                                        <span class="text-{{$project->color}}-400 bg-gray-100 p-1 rounded-md">{{$project->done}}/{{$project->total}}</span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Lihat</a>
+                                        <a href="{{route('project.detail',['id'=>$project->id])}}" class="font-medium text-blue-600 hover:underline">Lihat</a>
+
                                     </td>
                                 </tr>
-                                <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        Reduce Spray Nozel
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        DC04
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        30 Maret 2023
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="text-orange-400 bg-gray-100 p-1 rounded-md">4/10</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Lihat</a>
-                                    </td>
-                                </tr>
-                                <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        Reduce Spray Nozel
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        DC04
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        30 Maret 2023
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="text-red-400 bg-gray-100 p-1 rounded-md">0/10</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Lihat</a>
-                                    </td>
-                                </tr>
-                                <tr class="odd:bg-white even:bg-gray-50 border-b ">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        Reduce Spray Nozel
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        DC04
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        30 Maret 2023
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="text-yellow-400 bg-gray-100 p-1 rounded-md">7/10</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Lihat</a>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

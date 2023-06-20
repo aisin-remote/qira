@@ -10,10 +10,15 @@ class Project extends Model
     use HasFactory;
 
     //table project
-    protected $table = 'project';
+    protected $table = 'tt_project';
     protected $fillable = [
         'line',
         'nama',
         'deadline',
     ];
+
+    public function details()
+    {
+        return $this->hasMany(ProjectDetail::class, 'id_project', 'id');
+    }
 }

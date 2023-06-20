@@ -21,17 +21,21 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('project')->group(function () {
+        Route::get('/', [ProjectController::class, 'index'])->name('project');
+        Route::get('/tambah', [ProjectController::class, 'tambah'])->name('project.tambah');
+        Route::post('/tambah', [ProjectController::class, 'store'])->name('project.store');
+        Route::get('/{id}/detail', [ProjectController::class, 'detail'])->where('id', '[0-9]+')->name('project.detail');
+        Route::post('/{projectid}/updateStatus', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
+        Route::post('/{projectid}/uploadDocument', [ProjectController::class, 'uploadDocument'])->name('project.uploadDocument');
 
-    Route::get('/project', [ProjectController::class, 'index'])->name('project');
-    Route::get('/project/tambah', [ProjectController::class, 'tambah'])->name('project.tambah');
-    Route::post('/project/tambah', [ProjectController::class, 'store'])->name('project.store');
-    Route::get('/project/{id}/detail', [ProjectController::class, 'detail'])->where('id', '[0-9]+')->name('project.detail');
+    });
 
 });
 
