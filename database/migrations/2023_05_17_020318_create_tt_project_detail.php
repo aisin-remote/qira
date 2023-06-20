@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tt_project_detail', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('npk')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role', ['0', '1'])->default('1');
+            $table->unsignedBigInteger('id_project');
+            $table->string('nama');
+            $table->timestamp('start');
+            $table->timestamp('deadline')->nullable();
+            $table->string('status');
+            $table->string('document');
             $table->timestamps();
+            $table->foreign('id_project')->references('id')->on('tt_project');
         });
     }
 
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tt_project_detail');
     }
 };
