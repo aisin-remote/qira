@@ -49,7 +49,7 @@ class ProjectController extends Controller
             $project = Project::create([
                 'line' => $request->line,
                 'nama' => $request->nama,
-                'deadline' => date('Y-m-d 23:59:00', $request->deadline)
+                'deadline' => date('Y-m-d 23:59:00', strtotime($request->deadline))
             ]);
             //request to array
             $items = $request->items;
@@ -120,7 +120,7 @@ class ProjectController extends Controller
         $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         //get extension then add to filename
         $filename = $filename . '.' . $file->getClientOriginalExtension();
-        $file->storeAs('public', $filename);
+        $file->storeAs('public', 'project/'.$request->id.'/'.$filename);
         $res = ProjectDetail::where('id_project', $projectid)->update([
             'document' => $filename,
             'id' => $request->id
@@ -130,7 +130,5 @@ class ProjectController extends Controller
         } else {
             return redirect()->route('project.detail', $projectid)->with('message', 'File gagal diupload');
         }
-
-        dd($request->all());
     }
 }

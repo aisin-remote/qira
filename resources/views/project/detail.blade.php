@@ -73,9 +73,10 @@
                                         <input type="checkbox" onclick="updateStatus('{{$detail->id}}',this,this)" class="form-checkbox text-green-400 bg-gray-100 p-1 rounded-md" {{$detail->status == 1 ? 'checked' : ''}}>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" onclick="uploadDocument({{$detail->id}},this)" class="font-medium text-blue-600 hover:underline">Upload</a>
+                                        <a href="#" onclick="uploadDocument({{$detail->id}},this)" class="font-medium text-blue-600 hover:underline">Upload</a>                                        @if($detail->document)
                                         <span class="text-gray-400">|</span>
-                                        <a href="{{asset('storage/'.$detail->document)}}" class="font-medium text-blue-600 hover:underline">Download</a>
+                                        <a href="{{asset('storage/project/'.$detail->id.'/'.$detail->document)}}" class="font-medium text-blue-600 hover:underline">Download</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

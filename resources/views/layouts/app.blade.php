@@ -42,6 +42,6 @@
             alert("{{ $errors->first() }}");
         </script>
         @endif
-        @yield('script')
+        @stack('script')
     </body>
 </html>

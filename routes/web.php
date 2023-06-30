@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CheckController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/detail', [ProjectController::class, 'detail'])->where('id', '[0-9]+')->name('project.detail');
         Route::post('/{projectid}/updateStatus', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
         Route::post('/{projectid}/uploadDocument', [ProjectController::class, 'uploadDocument'])->name('project.uploadDocument');
+
+    });
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product');
+        Route::get('/{id}', [CheckController::class, 'index'])->where('id', '[0-9]+')->name('product.check');
+        Route::get('/{id}/tambah', [CheckController::class, 'tambah'])->where('id', '[0-9]+')->name('product.check.tambah');
+        Route::post('/{id}/tambah', [CheckController::class, 'store'])->where('id', '[0-9]+')->name('product.check.store');
 
     });
 
