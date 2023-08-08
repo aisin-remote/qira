@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tm_area', function (Blueprint $table) {
+        Schema::create('tm_project', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('line');
+            $table->string('nama');
+            $table->timestamp('planningMassPro')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tm_area');
+        Schema::dropIfExists('tt_project');
     }
 };

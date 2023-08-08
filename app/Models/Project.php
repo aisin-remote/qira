@@ -10,7 +10,7 @@ class Project extends Model
     use HasFactory;
 
     //table project
-    protected $table = 'tt_project';
+    protected $table = 'tm_project';
     protected $fillable = [
         'line',
         'nama',
