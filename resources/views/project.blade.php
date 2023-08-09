@@ -43,7 +43,7 @@
                                         {{$project->line}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{$project->deadline}}
+                                        {{$project->planningMassPro}}
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-{{$project->color}}-400 bg-gray-100 p-1 rounded-md">{{$project->done}}/{{$project->total}}</span>

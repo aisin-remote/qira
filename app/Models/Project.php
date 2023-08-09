@@ -14,7 +14,7 @@ class Project extends Model
     protected $fillable = [
         'line',
         'nama',
-        'deadline',
+        'planningMassPro',
     ];
 
     public function details()

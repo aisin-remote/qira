@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('tm_project', function (Blueprint $table) {
             $table->id();
-            $table->string('line');
             $table->string('nama');
+            $table->string('line');
             $table->timestamp('planningMassPro')->nullable();
             $table->timestamps();
         });

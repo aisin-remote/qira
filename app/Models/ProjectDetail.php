@@ -13,7 +13,7 @@ class ProjectDetail extends Model
     protected $table = 'tt_project_detail';
     protected $fillable = [
         'id_project',
-        'nama',
+        'itemCheck',
         'start',
         'deadline',
         'status'

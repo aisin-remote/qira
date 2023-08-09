@@ -61,7 +61,7 @@
                                 @foreach($project->details as $detail)
                                 <tr class="odd:bg-white even:bg-gray-50 border-b text-center">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        {{$detail->nama}}
+                                        {{$detail->itemCheck}}
                                     </th>
                                     <td class="px-6 py-4">
                                         {{date('d M Y',strtotime($detail->start))}}
@@ -73,7 +73,7 @@
                                         <input type="checkbox" onclick="updateStatus('{{$detail->id}}',this,this)" class="form-checkbox text-green-400 bg-gray-100 p-1 rounded-md" {{$detail->status == 1 ? 'checked' : ''}}>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" onclick="uploadDocument({{$detail->id}},this)" class="font-medium text-blue-600 hover:underline">Upload</a>                                        @if($detail->document)
+                                        <a href="#" onclick="uploadDocument('{{$detail->id}}'.this)" class="font-medium text-blue-600 hover:underline">Upload</a>                                        @if($detail->document)
                                         <span class="text-gray-400">|</span>
                                         <a href="{{asset('storage/project/'.$detail->id.'/'.$detail->document)}}" class="font-medium text-blue-600 hover:underline">Download</a>
                                         @endif

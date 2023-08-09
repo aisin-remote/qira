@@ -37,9 +37,9 @@ class ProjectController extends Controller
         $request->validate([
             'line' => 'required',
             'nama' => 'required',
-            'deadline' => 'required|date',
+            'planningMassPro' => 'required|date',
             'items' => 'required|array',
-            'items.*.nama' => 'required',
+            'items.*.itemCheck' => 'required',
             'items.*.start' => 'required|date',
             'items.*.deadline' => 'required|date',
         ]);
@@ -49,7 +49,7 @@ class ProjectController extends Controller
             $project = Project::create([
                 'line' => $request->line,
                 'nama' => $request->nama,
-                'deadline' => date('Y-m-d 23:59:00', strtotime($request->deadline))
+                'planningMassPro' => date('Y-m-d 23:59:00', strtotime($request->planningMassPro))
             ]);
             //request to array
             $items = $request->items;

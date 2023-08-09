@@ -34,7 +34,7 @@
                                         PLANNING MASSPRO
                                     </div>
                                     <div>
-                                        <input type="date" name="deadline" value="{{date('Y-m-d')}}" class=" w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Planning Masspro">
+                                        <input type="date" name="planningMassPro" value="{{date('Y-m-d')}}" class=" w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Planning Masspro">
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                 <tbody>
                                     <tr class="odd:bg-white even:bg-gray-50 border-b text-center item">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                            <input type="text" name="items[0][nama]" required class=" w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
+                                            <input type="text" name="items[0][itemCheck]" required class=" w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
                                         </th>
                                         <td class="px-6 py-4">
                                             <input type="date" name="items[0][start]" required value="{{date('Y-m-d')}}" class=" w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md">
@@ -77,89 +77,88 @@
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <div class="text-end my-3">
+                            <!-- <div class="text-end my-3">
                                 <button type="button" class="bg-blue-300 hover:bg-blue-500 text-white font-bold py-1 px-2 mx-2 rounded-md" id="addRow">Tambah Item</button>
-                            </div>
+                            </div> -->
                             <hr>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
     </div>
-    @section('script')
+    <!-- @section('script')
     <script>
         const addRow = document.getElementById('addRow');
-
         const tableItems = document.getElementById('tableItems');
         let rowCount = 1;
 
-
         addRow.addEventListener('click', function() {
             const row = document.createElement('tr');
-    row.classList.add('odd:bg-white', 'even:bg-gray-50', 'border-b', 'text-center', 'item');
+            row.classList.add('odd:bg-white', 'even:bg-gray-50', 'border-b', 'text-center', 'item');
 
-    const nameCell = document.createElement('th');
-    nameCell.scope = 'row';
-    nameCell.classList.add('px-6', 'py-4', 'font-medium', 'text-gray-900', 'whitespace-nowrap');
+            const nameCell = document.createElement('td');
+            nameCell.classList.add('px-6', 'py-4', 'font-medium', 'text-gray-900', 'whitespace-nowrap');
 
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.name = `items[${rowCount}][nama]`;
-    nameInput.required = true;
-    nameInput.classList.add('w-11/12', 'md:w-9/12', 'lg:w-8/12', 'border-2', 'border-gray-300', 'px-2', 'py-1', 'rounded-md');
-    nameInput.placeholder = 'Item Check';
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.name = `items[${rowCount}][itemCheck]`;
+            nameInput.required = true;
+            nameInput.classList.add('w-11/12', 'md:w-9/12', 'lg:w-8/12', 'border-2', 'border-gray-300', 'px-2', 'py-1', 'rounded-md');
+            nameInput.placeholder = 'Item Check';
 
-    nameCell.appendChild(nameInput);
-    row.appendChild(nameCell);
+            nameCell.appendChild(nameInput);
+            row.appendChild(nameCell);
 
-    const startCell = document.createElement('td');
-    startCell.classList.add('px-6', 'py-4');
+            const startCell = document.createElement('td');
+            startCell.classList.add('px-6', 'py-4');
 
-    const startInput = document.createElement('input');
-    startInput.type = 'date';
-    startInput.name = `items[${rowCount}][start]`;
-    startInput.value = "{{date('Y-m-d')}}";
-    startInput.required = true;
-    startInput.classList.add('w-11/12', 'md:w-9/12', 'lg:w-8/12', 'border-2', 'border-gray-300', 'px-2', 'py-1', 'rounded-md');
+            const startInput = document.createElement('input');
+            startInput.type = 'date';
+            startInput.name = `items[${rowCount}][start]`;
+            startInput.value = "{{ date('Y-m-d') }}";
+            startInput.required = true;
+            startInput.classList.add('w-11/12', 'md:w-9/12', 'lg:w-8/12', 'border-2', 'border-gray-300', 'px-2', 'py-1', 'rounded-md');
 
-    startCell.appendChild(startInput);
-    row.appendChild(startCell);
+            startCell.appendChild(startInput);
+            row.appendChild(startCell);
 
-    const deadlineCell = document.createElement('td');
-    deadlineCell.classList.add('px-6', 'py-4');
+            const finishedCell = document.createElement('td');
+            finishedCell.classList.add('px-6', 'py-4');
 
-    const deadlineInput = document.createElement('input');
-    deadlineInput.type = 'date';
-    deadlineInput.name = `items[${rowCount}][deadline]`;
-    deadlineInput.required = true;
-    deadlineInput.classList.add('w-11/12', 'md:w-9/12', 'lg:w-8/12', 'border-2', 'border-gray-300', 'px-2', 'py-1', 'rounded-md');
+            const finishedInput = document.createElement('input');
+            finishedInput.type = 'date';
+            finishedInput.name = `items[${rowCount}][finished]`;
+            finishedInput.required = true;
+            finishedInput.classList.add('w-11/12', 'md:w-9/12', 'lg:w-8/12', 'border-2', 'border-gray-300', 'px-2', 'py-1', 'rounded-md');
 
-    deadlineCell.appendChild(deadlineInput);
-    row.appendChild(deadlineCell);
+            finishedCell.appendChild(finishedInput);
+            row.appendChild(finishedCell);
 
-    const deleteCell = document.createElement('td');
-    deleteCell.classList.add('px-6', 'py-4');
+            const deleteCell = document.createElement('td');
+            deleteCell.classList.add('px-6', 'py-4');
 
-    const deleteLink = document.createElement('a');
-    deleteLink.href = '#';
-    deleteLink.classList.add('font-medium', 'text-blue-600', 'hover:underline');
-    deleteLink.innerText = 'Hapus';
-    deleteLink.onclick = function() { deleteItem(row); };
+            const deleteLink = document.createElement('a');
+            deleteLink.href = '#';
+            deleteLink.classList.add('font-medium', 'text-blue-600', 'hover:underline');
+            deleteLink.innerText = 'Hapus';
+            deleteLink.onclick = function() {
+                deleteItem(row);
+            };
 
-    deleteCell.appendChild(deleteLink);
-    row.appendChild(deleteCell);
+            deleteCell.appendChild(deleteLink);
+            row.appendChild(deleteCell);
 
-    tableItems.appendChild(row);
+            tableItems.appendChild(row);
 
-    rowCount++;
+            rowCount++;
         });
 
-        function deleteItem(e) {
+        function deleteItem(row) {
             rowCount--;
-            e.closest('.item').remove();
+            row.remove();
         }
     </script>
-    @endsection
+    @endsection -->
 </x-app-layout>

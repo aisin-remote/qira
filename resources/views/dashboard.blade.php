@@ -12,7 +12,7 @@
                     <div class="">
                         <div class="lining">
                             <div class="die">
-                                <div class="font-bold">
+                                <!-- <div class="font-bold">
                                     LINE DIECASTING
                                 </div>
                                 <div>
@@ -23,7 +23,7 @@
                                 </div>
                                 <div>
                                     Progress Check PCR/New Project
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="probleming">
