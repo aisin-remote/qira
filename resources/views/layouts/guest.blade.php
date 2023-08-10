@@ -1,39 +1,62 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <!-- Styles -->
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body>
+    <div
+        x-data="mainState"
+        class="font-sans antialiased"
+        :class="{dark: isDarkMode}"
+        x-cloak
+    >
+        <div class="flex flex-col min-h-screen text-gray-900 bg-gray-100 dark:bg-dark-eval-0 dark:text-gray-200">
+            {{ $slot }}
+
+            <x-footer />
         </div>
-        @if(Session::has('message'))
-        <script>
-            alert("{{ Session::get('message') }}");
-        </script>
-        @endif
-        @if($errors->any())
-        <script>
-            alert("{{ $errors->first() }}");
-        </script>
-        @endif
-    </body>
+
+        <div class="fixed top-10 right-10">
+            <x-button
+                type="button"
+                icon-only
+                variant="secondary"
+                sr-text="Toggle dark mode"
+                x-on:click="toggleTheme"
+            >
+                <x-heroicon-o-moon
+                    x-show="!isDarkMode"
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                />
+
+                <x-heroicon-o-sun
+                    x-show="isDarkMode"
+                    aria-hidden="true"
+                    class="w-6 h-6"
+                />
+            </x-button>
+        </div>
+    </div>
+</body>
 </html>

@@ -1,59 +1,152 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    <x-auth-card>
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-        <!-- npk  -->
-        <div class="mt-4">
-            <x-input-label for="npk" :value="__('NPK')" />
-            <x-text-input id="npk" class="block mt-1 w-full" type="number" name="npk" :value="old('npk')" required />
-            <x-input-error :messages="$errors->get('npk')" class="mt-2" />
-        </div>
+            <div class="grid gap-6">
+                <!-- Name -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="name"
+                        :value="__('Name')"
+                    />
 
-        <!-- Role -->
-        <div class="mt-4">
-            <x-input-label for="posisi" :value="__('Posisi')" />
-            <x-text-input id="posisi" class="block mt-1 w-full" type="text" name="posisi" :value="old('posisi')" required />
-            <x-input-error :messages="$errors->get('posisi')" class="mt-2" />
-        </div>
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                        <x-form.input
+                            withicon
+                            id="name"
+                            class="block w-full"
+                            type="text"
+                            name="name"
+                            :value="old('name')"
+                            required
+                            autofocus
+                            placeholder="{{ __('Name') }}"
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
+                <!-- NPK -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="npk"
+                        :value="__('NPK')"
+                    />
+
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
+
+                        <x-form.input
+                            withicon
+                            id="npk"
+                            class="block w-full"
+                            type="text"
+                            name="npk"
+                            :value="old('npk')"
+                            required
+                            placeholder="{{ __('NPK') }}"
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
+
+                <!-- Position -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="posisi"
+                        :value="__('Posisi')"
+                    />
+
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
+
+                        <x-form.input
+                            withicon
+                            id="posisi"
+                            class="block w-full"
+                            type="text"
+                            name="posisi"
+                            :value="old('posisi')"
+                            required
+                            placeholder="{{ __('Posisi') }}"
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
+
+                <!-- Password -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="password"
+                        :value="__('Password')"
+                    />
+
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
+
+                        <x-form.input
+                            withicon
+                            id="password"
+                            class="block w-full"
                             type="password"
                             name="password"
-                            required autocomplete="new-password" />
+                            required
+                            autocomplete="new-password"
+                            placeholder="{{ __('Password') }}"
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                <!-- Confirm Password -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="password_confirmation"
+                        :value="__('Confirm Password')"
+                    />
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                        <x-form.input
+                            withicon
+                            id="password_confirmation"
+                            class="block w-full"
                             type="password"
-                            name="password_confirmation" required />
+                            name="password_confirmation"
+                            required
+                            placeholder="{{ __('Confirm Password') }}"
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                <div>
+                    <x-button class="justify-center w-full gap-2">
+                        <x-heroicon-o-user-add class="w-6 h-6" aria-hidden="true" />
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+                        <span>{{ __('Register') }}</span>
+                    </x-button>
+                </div>
 
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ __('Already registered?') }}
+                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline">
+                        {{ __('Login') }}
+                    </a>
+                </p>
+            </div>
+        </form>
+    </x-auth-card>
 </x-guest-layout>

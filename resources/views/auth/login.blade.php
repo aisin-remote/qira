@@ -1,43 +1,83 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-auth-card>
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <!-- NPK -->
-        <div>
-            <x-input-label for="npk" :value="__('NPK')" />
-            <x-text-input id="npk" class="block mt-1 w-full" type="number" name="npk" :value="old('npk')" required autofocus />
-            <x-input-error :messages="$errors->get('npk')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <div class="grid gap-6">
+                <!-- Email Address -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="npk"
+                        :value="__('NPK')"
+                    />
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                        <x-form.input
+                            withicon
+                            id="npk"
+                            class="block w-full"
+                            type="text"
+                            name="npk"
+                            :value="old('npk')"
+                            placeholder="{{ __('NPK') }}"
+                            required
+                            autofocus
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <!-- @if (Route::has('password.request'))
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                {{ __('Forgot your password?') }}
-            </a>
-            @endif -->
+                <!-- Password -->
+                <div class="space-y-2">
+                    <x-form.label
+                        for="password"
+                        :value="__('Password')"
+                    />
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+                    <x-form.input-with-icon-wrapper>
+                        <x-slot name="icon">
+                            <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
+                        </x-slot>
 
-            <a href="{{ route('register') }}" class="ml-3">
-                <x-secondary-button>
-                    {{ __('Register') }}
-                </x-secondary-button>
-            </a>
+                        <x-form.input
+                            withicon
+                            id="password"
+                            class="block w-full"
+                            type="password"
+                            name="password"
+                            required
+                            autocomplete="current-password"
+                            placeholder="{{ __('Password') }}"
+                        />
+                    </x-form.input-with-icon-wrapper>
+                </div>
 
-        </div>
-    </form>
+                <div>
+                    <x-button class="justify-center w-full gap-2">
+                        <x-heroicon-o-login class="w-6 h-6" aria-hidden="true" />
+
+                        <span>{{ __('Log in') }}</span>
+                    </x-button>
+                </div>
+
+                @if (Route::has('register'))
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {{ __('Don’t have an account?') }}
+                        <a href="{{ route('register') }}" class="text-blue-500 hover:underline">
+                            {{ __('Register') }}
+                        </a>
+                    </p>
+                @endif
+            </div>
+        </form>
+    </x-auth-card>
 </x-guest-layout>
