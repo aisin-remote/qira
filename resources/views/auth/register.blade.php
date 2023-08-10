@@ -16,6 +16,13 @@
             <x-input-error :messages="$errors->get('npk')" class="mt-2" />
         </div>
 
+        <!-- Role -->
+        <div class="mt-4">
+            <x-input-label for="posisi" :value="__('Posisi')" />
+            <x-text-input id="posisi" class="block mt-1 w-full" type="text" name="posisi" :value="old('posisi')" required />
+            <x-input-error :messages="$errors->get('posisi')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
