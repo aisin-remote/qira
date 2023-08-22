@@ -22,6 +22,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/product', function () {
         return view('product');
     })->name('product');
+
+    Route::get('/project', function () {
+        return view('project');
+    })->name('project');
     
     Route::get('/dashboard', function () {
         return view('dashboard');
