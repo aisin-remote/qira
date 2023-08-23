@@ -5,12 +5,67 @@ namespace App\Http\Controllers;
 use App\Models\ItemCheckProject;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        // Your logic to fetch and display the list of resources
+        $projects = Project::with('itemCheckProjects')
+            ->where('planning_masspro', '>=', Carbon::now()->subMonths(3))
+            ->get();
+
+        $statusCounts = $this->getStatusCounts($projects);
+        $projectStatuses = $this->getProjectStatuses($projects);
+
+        return view('proj.projectReport', compact('projects', 'statusCounts', 'projectStatuses'));
+    }
+
+
+    public function getProjectStatuses($projects)
+    {
+        $projectStatuses = [];
+
+        foreach ($projects as $project) {
+            $finishedCount = 0;
+            $totalCount = count($project->itemCheckProjects);
+
+            foreach ($project->itemCheckProjects as $item) {
+                if ($item->status === 'finished') {
+                    $finishedCount++;
+                }
+            }
+
+            $percentageFinished = ($totalCount > 0) ? round(($finishedCount / $totalCount) * 100) : 0;
+            $percentageOnProgress = 100 - $percentageFinished;
+
+            $projectStatuses[$project->id] = [
+                'percentage_finished' => $percentageFinished,
+                'percentage_onprogress' => $percentageOnProgress,
+            ];
+        }
+
+        return $projectStatuses;
+    }
+
+    public function getStatusCounts($projects)
+    {
+        $statusCounts = [
+            'finished' => 0,
+            'onprogress' => 0,
+        ];
+
+        foreach ($projects as $project) {
+            foreach ($project->itemCheckProjects as $item) {
+                if ($item->status === 'finished') {
+                    $statusCounts['finished']++;
+                } else {
+                    $statusCounts['onprogress']++;
+                }
+            }
+        }
+
+        return $statusCounts;
     }
 
     public function store(Request $request)
@@ -46,7 +101,7 @@ class ProjectController extends Controller
                     if ($request->hasFile("items.{$index}.dokumen")) {
                         $document = $request->file("items.{$index}.dokumen");
                         if ($document->isValid()) {
-                            $documentPath = $document->store('documents');
+                            $documentPath = $document->store('public');
                             $itemCheckProject->document = $documentPath;
                         } else {
                             return back()->withErrors(["items.{$index}.dokumen" => 'Dokumen tidak valid'])->withInput();

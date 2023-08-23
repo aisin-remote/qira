@@ -10,4 +10,9 @@ class Project extends Model
     use HasFactory;
 
     protected $table = 'tt_projects';
+
+    public function itemCheckProjects()
+    {
+        return $this->hasMany(ItemCheckProject::class, 'project_id');
+    }
 }

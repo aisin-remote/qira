@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         return view('proj.projectCheck');
     })->name('project.check');
 
+    Route::get('/project-report', [ProjectController::class, 'index'])->name('project.report');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');

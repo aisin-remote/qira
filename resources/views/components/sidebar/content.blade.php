@@ -10,6 +10,9 @@
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
+
+        <x-sidebar.link title="Project" href="{{ route('project.report') }}" :isActive="request()->routeIs('project.report')">
+        </x-sidebar.link>
     </x-sidebar.dropdown>
 
     <x-sidebar.dropdown title="Check Sheet">

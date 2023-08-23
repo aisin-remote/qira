@@ -10,4 +10,9 @@ class ItemCheckProject extends Model
     use HasFactory;
 
     protected $table = 'tt_item_check_projects';
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
+    }
 }
