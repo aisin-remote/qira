@@ -20,11 +20,11 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::get('/product', function () {
-        return view('product');
+        return view('prod.productCheck');
     })->name('product');
 
     Route::get('/project', function () {
-        return view('project');
+        return view('proj.projectCheck');
     })->name('project');
     
     Route::get('/dashboard', function () {
