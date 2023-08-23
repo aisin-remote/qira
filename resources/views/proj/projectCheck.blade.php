@@ -5,9 +5,25 @@
         </h2>
     </x-slot>
 
+    @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <div class="overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
-            <form action="" method="POST">
+            <form action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex w-full mb-3">
                     <div class="w-full">
@@ -54,25 +70,17 @@
                                     Finished
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Document
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody id="itemTableBody">
-                            <tr class="odd:bg-white even:bg-gray-50 border-b text-center item">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    <input type="text" name="items[0][nama]" required class=" w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
-                                </th>
-                                <td class="px-6 py-4">
-                                    <input type="date" name="items[0][start]" required value="{{date('Y-m-d')}}" class=" w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                                </td>
-                                <td class="px-6 py-4 ">
-                                    <input type="date" name="items[0][deadline]" required class=" w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                                </td>
-                                <td class="px-6 py-4">
-                                    <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md" onclick="deleteItem(this)">Hapus</button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
 
@@ -89,23 +97,34 @@
         // Fungsi untuk menambah baris ke dalam tabel
         function addRow() {
             const tableBody = document.getElementById("itemTableBody");
+            const itemCount = tableBody.children.length; // Number of existing items
 
             const newRow = document.createElement("tr");
             newRow.className = "odd:bg-white even:bg-gray-50 border-b text-center item";
             newRow.innerHTML = `
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                <input type="text" name="items[][nama]" required class="w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
-            </th>
-            <td class="px-6 py-4">
-                <input type="date" name="items[][start]" required value="${getCurrentDate()}" class="w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-            </td>
-            <td class="px-6 py-4 ">
-                <input type="date" name="items[][deadline]" required class="w-11/12 md:w-9/12 lg:w-8/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-            </td>
-            <td class="px-6 py-4">
-                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md" onclick="deleteItem(this)">Hapus</button>
-            </td>
-        `;
+        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+            <input type="text" name="items[${itemCount}][nama]" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
+        </td>
+        <td class="px-6 py-4">
+            <input type="date" name="items[${itemCount}][start]" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+        </td>
+        <td class="px-6 py-4">
+            <input type="date" name="items[${itemCount}][deadline]" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+        </td>
+        <td class="px-6 py-4">
+            <select name="items[${itemCount}][status]" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+                <option value="" selected disabled>Select</option>
+                <option value="finished">Finished</option>
+                <option value="onprogress">On Progress</option>
+            </select>
+        </td>
+        <td class="px-6 py-4">
+            <input type="file" name="items[${itemCount}][dokumen]" class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+        </td>
+        <td class="px-6 py-4">
+            <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md" onclick="deleteItem(this)">Hapus</button>
+        </td>
+    `;
 
             tableBody.appendChild(newRow);
         }

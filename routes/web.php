@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/project-check', function () {
         return view('proj.projectCheck');
     })->name('project.check');
-    
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['verified'])->name('dashboard');
+
+    Route::resource('projects', ProjectController::class);
 });
 
 
