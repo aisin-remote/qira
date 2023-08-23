@@ -19,13 +19,13 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/product', function () {
+    Route::get('/product-check', function () {
         return view('prod.productCheck');
-    })->name('product');
+    })->name('product.check');
 
-    Route::get('/project', function () {
+    Route::get('/project-check', function () {
         return view('proj.projectCheck');
-    })->name('project');
+    })->name('project.check');
     
     Route::get('/dashboard', function () {
         return view('dashboard');

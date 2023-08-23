@@ -6,16 +6,22 @@
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.link title="Product" href="{{ route('product') }}" :isActive="request()->routeIs('product')">
+    <x-sidebar.dropdown title="Report">
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
-    </x-sidebar.link>
+    </x-sidebar.dropdown>
 
-    <x-sidebar.link title="Project" href="{{ route('project') }}" :isActive="request()->routeIs('project')">
+    <x-sidebar.dropdown title="Check Sheet">
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>
-    </x-sidebar.link>
+
+        <x-sidebar.link title="Product" href="{{ route('product.check') }}" :isActive="request()->routeIs('product.check')">
+        </x-sidebar.link>
+
+        <x-sidebar.link title="Project" href="{{ route('project.check') }}" :isActive="request()->routeIs('project.check')">
+        </x-sidebar.link>
+    </x-sidebar.dropdown>
 
 </x-perfect-scrollbar>
