@@ -101,7 +101,7 @@ class ProjectController extends Controller
                     if ($request->hasFile("items.{$index}.dokumen")) {
                         $document = $request->file("items.{$index}.dokumen");
                         if ($document->isValid()) {
-                            $documentPath = $document->store('public');
+                            $documentPath = $document->storeAs('public/documents', $document->getClientOriginalName());
                             $itemCheckProject->document = $documentPath;
                         } else {
                             return back()->withErrors(["items.{$index}.dokumen" => 'Dokumen tidak valid'])->withInput();

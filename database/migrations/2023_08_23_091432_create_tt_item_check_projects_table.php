@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tt_item_check_projects', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('project_id');
+            $table->string('id')->primary();
+            $table->string('project_id');
             $table->foreign('project_id')->references('id')->on('tt_projects')->onDelete('cascade');
             $table->string('item_check');
             $table->date('start');

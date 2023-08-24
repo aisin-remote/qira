@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tt_projects', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('line');
             $table->string('pcr');
             $table->date('planning_masspro');
