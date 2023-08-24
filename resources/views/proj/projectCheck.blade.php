@@ -52,9 +52,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-3/12 flex justify-end items-end">
-                        <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 rounded-md cursor-pointer hover:bg-green-500">
-                    </div>
                 </div>
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 " id="tableItems">
@@ -88,6 +85,9 @@
                         <button type="button" class="bg-blue-300 hover:bg-blue-500 text-white font-bold py-1 px-2 mx-2 rounded-md" id="addRow">Tambah Item</button>
                     </div>
                     <hr>
+                </div>
+                <div class="mt-3 flex justify-end items-end">
+                    <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 rounded-md cursor-pointer hover:bg-green-500">
                 </div>
             </form>
         </div>
