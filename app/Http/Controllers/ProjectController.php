@@ -116,4 +116,86 @@ class ProjectController extends Controller
 
         return redirect()->route('project.check')->with('success', 'Project berhasil disimpan');
     }
+
+    public function edit($id)
+    {
+        $project = Project::findOrFail($id);
+        return view('proj.editProject', compact('project'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $project = Project::findOrFail($id);
+
+        // Update project details if needed
+        $project->line = $request->input('line');
+        $project->pcr = $request->input('nama');
+        $project->planning_masspro = $request->input('deadline');
+        $project->save();
+
+        // Check if 'items' are present in the request
+        if ($request->has('items')) {
+            foreach ($request->input('items') as $index => $itemData) {
+                if ($index < count($project->itemCheckProjects)) {
+                    // Update existing item
+                    $item = $project->itemCheckProjects[$index];
+                    // Update item check details
+                    $item->item_check = $itemData['nama'];
+                    $item->start = $itemData['start'];
+                    $item->finished = $itemData['deadline'];
+                    $item->status = $itemData['status'];
+
+                    // Handle document update if needed
+                    if ($itemData['status'] === 'finished') {
+                        if ($request->hasFile("items.{$index}.dokumen")) {
+                            $document = $request->file("items.{$index}.dokumen");
+
+                            // Check if the uploaded document is valid
+                            if ($document->isValid()) {
+                                $documentPath = $document->storeAs('public/documents', $document->getClientOriginalName());
+                                $item->document = $documentPath;
+                            } else {
+                                return back()->withErrors(["items.{$index}.dokumen" => 'Invalid document'])->withInput();
+                            }
+                        }
+                    }
+
+                    $item->save();
+                } else {
+                    // Create a new item
+                    $newItem = new ItemCheckProject();
+                    $newItem->project_id = $project->id;
+                    $newItem->item_check = $itemData['nama'];
+                    $newItem->start = $itemData['start'];
+                    $newItem->finished = $itemData['deadline'];
+                    $newItem->status = $itemData['status'];
+
+                    // Handle document update if needed
+                    if ($itemData['status'] === 'finished' && $request->hasFile("items.{$index}.dokumen")) {
+                        $document = $request->file("items.{$index}.dokumen");
+
+                        // Check if the uploaded document is valid
+                        if ($document->isValid()) {
+                            $documentPath = $document->storeAs('public/documents', $document->getClientOriginalName());
+                            $newItem->document = $documentPath;
+                        } else {
+                            return back()->withErrors(["items.{$index}.dokumen" => 'Invalid document'])->withInput();
+                        }
+                    }
+
+                    $newItem->save();
+                }
+            }
+        }
+
+        // Redirect the user back to the project report page with a success message
+        return redirect()->route('project.report')->with('success', 'Project updated successfully.');
+    }
+
+    public function deleteItem(Project $project, $itemId)
+    {
+        $project->itemCheckProjects()->where('id', $itemId)->delete();
+
+        return redirect()->back()->with('success', 'Item deleted successfully');
+    }
 }

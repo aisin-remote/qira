@@ -79,9 +79,7 @@
                             </td>
                             @if ($index === 0)
                             <td rowspan="{{ count($project->itemCheckProjects) }}" class="px-4 py-2 border text-center">
-                                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                    Edit
-                                </button>
+                                <a href="{{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                             </td>
                             @endif
                         </tr>

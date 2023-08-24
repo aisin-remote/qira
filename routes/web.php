@@ -30,9 +30,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/project-report', [ProjectController::class, 'index'])->name('project.report');
 
+    Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.updateData');
+    
+    Route::delete('/projects/{project}/item/{item}', [ProjectController::class, 'destroy'])->name('item.delete');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->middleware(['verified'])->name('dashboard');
+    })->middleware(['verified']);
 
     Route::resource('projects', ProjectController::class);
 });
