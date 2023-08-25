@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.updateData');
 
     Route::get('projects/deleteItemDetail', [ProjectController::class, 'deleteItemDetail'])->name('projects.deleteItemDetail');
+    Route::get('projects/deleteItem', [ProjectController::class, 'deleteItem'])->name('projects.deleteItem');
 
     Route::get('/dashboard', function () {
         return view('dashboard');

@@ -81,6 +81,7 @@
                             @if ($index === 0)
                             <td rowspan="{{ count($project->itemCheckProjects) }}" class="px-4 py-2 border text-center">
                                 <a href="{{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                <a href="{{ route('projects.deleteItem', ['id' => $project->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
                             </td>
                             @endif
                         </tr>
@@ -96,16 +97,10 @@
                             <td class="px-4 py-2 border">-</td>
                             <td class="px-4 py-2 border">-</td>
                             <td class="px-4 py-2 border text-center">-</td>
-                            <td class="px-4 py-2 border text-center">
-                                <button disabled class="bg-gray-300 cursor-not-allowed text-white font-bold py-2 px-4 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block align-text-bottom" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                    Download
-                                </button>
-                            </td>
+                            <td class="px-4 py-2 border text-center">-</td>
                             <td rowspan="1" class="px-4 py-2 border text-center">
                                 <a href="{{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                <a href="{{ route('projects.deleteItem', ['id' => $project->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
                             </td>
                         </tr>
                         @endif

@@ -200,7 +200,19 @@ class ProjectController extends Controller
 
             return redirect()->back()->with('success', 'Item deleted successfully');
         } catch (\Exception $e) {
-            return redirect()->route('projects.updateData')->with('error', 'Gagal menghapus item.');
+            return redirect()->back()->with('error', 'Gagal menghapus item.');
+        }
+    }
+
+    public function deleteItem(Request $id)
+    {
+        try {
+            $project = Project::findOrFail($id->id);
+            $project->delete();
+
+            return redirect()->back()->with('success', 'Item deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus item.');
         }
     }
 }
