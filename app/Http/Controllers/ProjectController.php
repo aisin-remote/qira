@@ -101,7 +101,12 @@ class ProjectController extends Controller
                     if ($request->hasFile("items.{$index}.dokumen")) {
                         $document = $request->file("items.{$index}.dokumen");
                         if ($document->isValid()) {
-                            $documentPath = $document->storeAs('public/documents', $document->getClientOriginalName());
+                            // Ambil nama asli file dokumen
+                            $originalFileName = $document->getClientOriginalName();
+
+                            // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
+                            $documentPath = $document->storeAs('public/documents/', $itemData['nama'] . '_' . $originalFileName);
+
                             $itemCheckProject->document = $documentPath;
                         } else {
                             return back()->withErrors(["items.{$index}.dokumen" => 'Dokumen tidak valid'])->withInput();
@@ -152,7 +157,12 @@ class ProjectController extends Controller
 
                             // Check if the uploaded document is valid
                             if ($document->isValid()) {
-                                $documentPath = $document->storeAs('public/documents', $document->getClientOriginalName());
+                                // Ambil nama asli file dokumen
+                                $originalFileName = $document->getClientOriginalName();
+
+                                // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
+                                $documentPath = $document->storeAs('public/documents/', $itemData['nama'] . '_' . $originalFileName);
+
                                 $item->document = $documentPath;
                             } else {
                                 return back()->withErrors(["items.{$index}.dokumen" => 'Invalid document'])->withInput();
@@ -176,7 +186,12 @@ class ProjectController extends Controller
 
                         // Check if the uploaded document is valid
                         if ($document->isValid()) {
-                            $documentPath = $document->storeAs('public/documents', $document->getClientOriginalName());
+                            // Ambil nama asli file dokumen
+                            $originalFileName = $document->getClientOriginalName();
+
+                            // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
+                            $documentPath = $document->storeAs('public/documents/', $itemData['nama'] . '_' . $originalFileName);
+
                             $newItem->document = $documentPath;
                         } else {
                             return back()->withErrors(["items.{$index}.dokumen" => 'Invalid document'])->withInput();
