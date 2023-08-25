@@ -192,10 +192,15 @@ class ProjectController extends Controller
         return redirect()->route('project.report')->with('success', 'Project updated successfully.');
     }
 
-    public function deleteItem(Project $project, $itemId)
+    public function deleteItemDetail(Request $item_id)
     {
-        $project->itemCheckProjects()->where('id', $itemId)->delete();
+        try {
+            $project = ItemCheckProject::findOrFail($item_id->id);
+            $project->delete();
 
-        return redirect()->back()->with('success', 'Item deleted successfully');
+            return redirect()->back()->with('success', 'Item deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->route('projects.updateData')->with('error', 'Gagal menghapus item.');
+        }
     }
 }

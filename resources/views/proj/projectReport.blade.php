@@ -41,6 +41,7 @@
                     </thead>
                     <tbody>
                         @foreach ($projects as $project)
+                        @if (count($project->itemCheckProjects) > 0)
                         @foreach ($project->itemCheckProjects as $index => $item)
                         <tr>
                             @if ($index === 0)
@@ -84,6 +85,30 @@
                             @endif
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td class="px-4 py-2 border align-top">
+                                <div><strong>Item PCR:</strong> {{ $project->pcr }}</div>
+                                <div><strong>Line:</strong> {{ $project->line }}</div>
+                                <div><strong>Planning Masspro:</strong> {{ $project->planning_masspro }}</div>
+                            </td>
+                            <td class="px-4 py-2 border">-</td>
+                            <td class="px-4 py-2 border">-</td>
+                            <td class="px-4 py-2 border">-</td>
+                            <td class="px-4 py-2 border text-center">-</td>
+                            <td class="px-4 py-2 border text-center">
+                                <button disabled class="bg-gray-300 cursor-not-allowed text-white font-bold py-2 px-4 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block align-text-bottom" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                    Download
+                                </button>
+                            </td>
+                            <td rowspan="1" class="px-4 py-2 border text-center">
+                                <a href="{{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                            </td>
+                        </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

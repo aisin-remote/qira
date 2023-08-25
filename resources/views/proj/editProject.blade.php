@@ -97,15 +97,9 @@
                                         <a href="{{ Storage::url($item->document) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
                                     </div>
                                     @endif
-
                                 </td>
-
                                 <td class="px-6 py-4">
-                                    <form action="{{ route('item.delete', ['project' => $project->id, 'item' => $item->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md">Hapus</button>
-                                    </form>
+                                    <a href="{{ route('projects.deleteItemDetail', ['id' => $item->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md">Hapus</a>
                                 </td>
                             </tr>
                             @endforeach
