@@ -112,7 +112,7 @@
             <input type="date" name="items[${itemCount}][deadline]" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
         </td>
         <td class="px-6 py-4">
-            <select name="items[${itemCount}][status]" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+            <select name="items[${itemCount}][status]" required class="w-full border border-gray-300 px-2 py-1 rounded-md">
                 <option value="" selected disabled>Select</option>
                 <option value="finished">Finished</option>
                 <option value="onprogress">On Progress</option>
