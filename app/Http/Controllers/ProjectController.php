@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ItemCheckProject;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -211,6 +212,11 @@ class ProjectController extends Controller
     {
         try {
             $project = ItemCheckProject::findOrFail($item_id->id);
+
+            if ($project->document) {
+                Storage::delete($project->document);
+            }
+
             $project->delete();
 
             return redirect()->back()->with('success', 'Item deleted successfully');
@@ -223,6 +229,13 @@ class ProjectController extends Controller
     {
         try {
             $project = Project::findOrFail($id->id);
+
+            foreach ($project->itemCheckProjects as $itemCheckProject) {
+                if ($itemCheckProject->document) {
+                    Storage::delete($itemCheckProject->document);
+                }
+            }
+
             $project->delete();
 
             return redirect()->back()->with('success', 'Item deleted successfully');
