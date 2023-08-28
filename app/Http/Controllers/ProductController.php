@@ -60,4 +60,43 @@ class ProductController extends Controller
 
         return redirect()->route('product.check')->with('success', 'Product berhasil disimpan');
     }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('prod.editProduct', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->model = $request->input('model');
+        $product->line = $request->input('line');
+        $product->start_date = $request->input('start_date');
+        $product->planning_finished = $request->input('planning_finished');
+        $product->target_check = $request->input('target_check');
+        $product->finish_check = $request->input('finish_check');
+
+        // Check if a new document is uploaded
+        if ($request->hasFile('document')) {
+            $document = $request->file('document');
+            $originalFileName = $document->getClientOriginalName();
+            $documentPath = $document->storeAs('public/documents/', $product->model . '_' . $originalFileName);
+            $product->document = $documentPath;
+        }
+
+        // Determine status based on finish_check and target_check
+        if ($product->finish_check < $product->target_check) {
+            $product->status = 'On Progress';
+        } elseif ($product->finish_check == $product->target_check) {
+            $product->status = 'Finished';
+        } else {
+            $product->status = 'Input Salah';
+        }
+
+        $product->save();
+
+        return redirect()->route('product.report')->with('success', 'Product updated successfully.');
+    }
 }

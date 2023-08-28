@@ -63,7 +63,7 @@
                             </td>
                             <td class="px-4 py-2 border text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <a href="" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                    <a href="{{ route('products.edit', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                                     <a href="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
                                 </div>
                             </td>

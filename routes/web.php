@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
     })->name('product.check');
     Route::get('/product-report', [ProductController::class, 'index'])->name('product.report');
     Route::resource('products', ProductController::class);
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.updateData');
 
     // Project
     Route::get('/project-check', function () {
