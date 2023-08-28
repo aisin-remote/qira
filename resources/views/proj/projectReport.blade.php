@@ -25,6 +25,8 @@
             </div>
             @endforeach
 
+            <hr>
+
             <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
 
                 <table class="w-full text-xs md:text-sm text-left text-gray-500 border border-gray-300">

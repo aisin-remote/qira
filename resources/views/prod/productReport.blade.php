@@ -8,6 +8,10 @@
     <div class="col-span-1 md:col-span-1 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
 
+            <canvas id="barChart" width="400" height="200"></canvas>
+
+            <hr>
+
             <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
 
                 <table class="w-full text-xs md:text-sm text-left text-gray-500 border border-gray-300">
@@ -72,5 +76,62 @@
 
         </div>
     </div>
+
+    <script>
+        var products = @json($products);
+
+        var labels = products.map(function(product) {
+            return product.model;
+        });
+
+        var finishCheckData = products.map(function(product) {
+            return product.finish_check;
+        });
+
+        var targetCheckData = products.map(function(product) {
+            return product.target_check;
+        });
+
+        var onProgressData = products.map(function(product) {
+            return product.target_check - product.finish_check;
+        });
+
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Finish Check',
+                        data: finishCheckData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Target Check',
+                        data: targetCheckData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'On Progress Check',
+                        data: onProgressData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 </x-app-layout>
