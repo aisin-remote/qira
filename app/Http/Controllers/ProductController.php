@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        $products = Product::where('planning_finished', '>=', Carbon::now()->subMonths(2))
+            ->where('planning_finished', '<=', Carbon::now()->addMonths(2))
+            ->get();
+
+        return view('prod.productReport', compact('products'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -17,7 +27,7 @@ class ProductController extends Controller
             'planning_finished' => 'required',
             'target_check' => 'required',
             'finish_check' => 'required',
-            'document' => 'required',
+            'document' => 'nullable',
         ]);
 
         $product = new Product();
@@ -27,8 +37,8 @@ class ProductController extends Controller
         $product->planning_finished  = $request->input('planning_finished');
         $product->target_check  = $request->input('target_check');
         $product->finish_check  = $request->input('finish_check');
-        $document = $request->file('document');
-        if ($document->isValid()) {
+        if ($request->hasFile('document')) {
+            $document = $request->file('document');
             // Ambil nama asli file dokumen
             $originalFileName = $document->getClientOriginalName();
 
@@ -36,14 +46,13 @@ class ProductController extends Controller
             $documentPath = $document->storeAs('public/documents/', $product->model . '_' . $originalFileName);
 
             $product->document = $documentPath;
-        } else {
-            return back()->withErrors(["document" => 'Dokumen tidak valid'])->withInput();
         }
-        if ($product->finish_check < $product->target_check){
+
+        if ($product->finish_check < $product->target_check) {
             $product->status = 'On Progress';
         } elseif ($product->finish_check == $product->target_check) {
             $product->status = 'Finished';
-        }  else {
+        } else {
             $product->status = 'Input Salah';
         }
 

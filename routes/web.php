@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/product-check', function () {
         return view('prod.productCheck');
     })->name('product.check');
+    Route::get('/product-report', [ProductController::class, 'index'])->name('product.report');
     Route::resource('products', ProductController::class);
 
     // Project
