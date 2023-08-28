@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -98,5 +99,22 @@ class ProductController extends Controller
         $product->save();
 
         return redirect()->route('product.report')->with('success', 'Product updated successfully.');
+    }
+
+    public function delete($id)
+    {
+        try {
+            $product = Product::findOrFail($id);
+
+            if ($product->document) {
+                Storage::delete($product->document);
+            }
+
+            $product->delete();
+
+            return redirect()->back()->with('success', 'Item deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus item.');
+        }
     }
 }

@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.updateData');
+    Route::get('products/delete/{product}', [ProductController::class, 'delete'])->name('products.delete');
 
     // Project
     Route::get('/project-check', function () {
