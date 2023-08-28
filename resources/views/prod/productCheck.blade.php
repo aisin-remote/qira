@@ -5,53 +5,95 @@
         </h2>
     </x-slot>
 
+    @if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-        <!-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900"> -->
-        <form action="">
+        <form action="" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="mb-4">
-                <label for="model" class="block text-sm font-medium text-gray-700">Model:</label>
-                <input type="text" id="model" name="model" required class="mt-1 p-2 border rounded w-full">
-            </div>
-
-            <div class="mb-4">
-                <label for="line" class="block text-sm font-medium text-gray-700">Line:</label>
-                <input type="text" id="line" name="line" required class="mt-1 p-2 border rounded w-full">
-            </div>
-
-            <div class="mb-4">
-                <label for="dokumen" class="block text-sm font-medium text-gray-700">Dokumen:</label>
-                <input type="file" id="dokumen" name="dokumen" accept=".pdf, .doc, .docx" class="mt-1 p-2 border rounded w-full">
-            </div>
-
-            <div class="mb-4">
-                <label for="itemcheck" class="block text-sm font-medium text-gray-700">Item Check:</label>
-                <input type="text" id="itemcheck" name="itemcheck" required class="mt-1 p-2 border rounded w-full">
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Progres:</label>
-                <div class="flex space-x-4">
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="progres" value="pending" required>
-                        <span class="ml-2">Pending</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="progres" value="selesai" required>
-                        <span class="ml-2">Selesai</span>
-                    </label>
+            <div class="flex w-full mb-3">
+                <div class="w-full">
+                    <!-- Model -->
+                    <div class="">
+                        <div class="font-bold">
+                            Model
+                        </div>
+                        <div>
+                            <input type="text" name="model" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Model">
+                        </div>
+                    </div>
+                    <!-- LINE -->
+                    <div class="">
+                        <div class="font-bold">
+                            Line
+                        </div>
+                        <div>
+                            <input type="text" name="line" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Line">
+                        </div>
+                    </div>
+                    <!-- Start Date -->
+                    <div class="">
+                        <div class="font-bold">
+                            Start Date
+                        </div>
+                        <div>
+                            <input type="date" name="start_date" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                        </div>
+                    </div>
+                    <!-- Planning Finished -->
+                    <div class="">
+                        <div class="font-bold">
+                            Planning Finished
+                        </div>
+                        <div>
+                            <input type="date" name="planning_finished" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                        </div>
+                    </div>
+                    <!-- Target Check -->
+                    <div class="">
+                        <div class="font-bold">
+                            Target Check
+                        </div>
+                        <div>
+                            <input type="number" name="target_check" placeholder="Target Check" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                        </div>
+                    </div>
+                    <!-- Finish Check -->
+                    <div class="">
+                        <div class="font-bold">
+                            Finish Check
+                        </div>
+                        <div>
+                            <input type="number" name="finish_check" placeholder="Finish Check" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                        </div>
+                    </div>
+                    <!-- Document -->
+                    <div class="">
+                        <div class="font-bold">
+                            Document
+                        </div>
+                        <div>
+                            <input type="file" name="document" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                Submit
-            </button>
+            <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 rounded-md cursor-pointer hover:bg-green-500">
         </form>
     </div>
-    @section('script-top')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    @endsection
 </x-app-layout>
