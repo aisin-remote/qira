@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CustomerProblem;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerProblemController extends Controller
 {
@@ -91,5 +92,22 @@ class CustomerProblemController extends Controller
         $customerProblem->save();
 
         return redirect()->route('problem.form')->with('success', 'Customer problem has been updated.');
+    }
+
+    public function delete($id)
+    {
+        try {
+            $customerProblem = CustomerProblem::findOrFail($id);
+
+            if ($customerProblem->photo) {
+                Storage::delete($customerProblem->photo);
+            }
+
+            $customerProblem->delete();
+
+            return redirect()->back()->with('success', 'Item deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus item.');
+        }
     }
 }

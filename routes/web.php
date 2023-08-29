@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer-problems/{customerProblem}', [CustomerProblemController::class, 'show'])->name('customer-problems.show');
     Route::get('/customer-problems/{id}/edit', [CustomerProblemController::class, 'edit'])->name('customer-problems.edit');
     Route::put('/customer-problems/{id}', [CustomerProblemController::class, 'update'])->name('customer-problems.update');
+    Route::get('costumer-problems/delete/{id}', [CustomerProblemController::class, 'delete'])->name('customer-problems.delete');
 });
 
 

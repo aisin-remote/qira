@@ -126,7 +126,7 @@
                             <td class="px-4 py-2 border">{{ $customerProblem->process_problem }}</td>
                             <td class="px-4 py-2 border">
                                 <a href="{{ route('customer-problems.show', $customerProblem) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs">Lihat</a>
-                                <a href="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs">Hapus</a>
+                                <a href="{{ route('customer-problems.delete', $customerProblem) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs">Hapus</a>
                             </td>
                         </tr>
                         @endforeach
