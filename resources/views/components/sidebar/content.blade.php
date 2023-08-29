@@ -29,7 +29,7 @@
         </x-sidebar.link>
     </x-sidebar.dropdown>
 
-    <x-sidebar.link title="Costumer Information Problem">
+    <x-sidebar.link title="Costumer Information Problem" href="{{ route('problem.form') }}" :isActive="request()->routeIs('problem.form')">
         <x-slot name="icon">
             <x-css-danger class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </x-slot>

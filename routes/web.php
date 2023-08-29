@@ -45,6 +45,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('projects/deleteItemDetail', [ProjectController::class, 'deleteItemDetail'])->name('projects.deleteItemDetail');
     Route::get('projects/deleteItem', [ProjectController::class, 'deleteItem'])->name('projects.deleteItem');
     Route::resource('projects', ProjectController::class);
+
+    // Problem
+    Route::get('/problem-form', function () {
+        return view('problem.problemForm');
+    })->name('problem.form');
 });
 
 
