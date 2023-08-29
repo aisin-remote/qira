@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerProblemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/problem-form', function () {
         return view('problem.problemForm');
     })->name('problem.form');
+    Route::post('/customer-problems', [CustomerProblemController::class, 'store'])->name('customer-problems.store');
 });
 
 
