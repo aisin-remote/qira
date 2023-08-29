@@ -48,10 +48,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class);
 
     // Problem
-    Route::get('/problem-form', function () {
-        return view('problem.problemForm');
-    })->name('problem.form');
+    Route::get('/problem-form', [CustomerProblemController::class, 'index'])->name('problem.form');
     Route::post('/customer-problems', [CustomerProblemController::class, 'store'])->name('customer-problems.store');
+    Route::get('/customer-problems/{customerProblem}', [CustomerProblemController::class, 'show'])->name('customer-problems.show');
+    Route::get('/customer-problems/{id}/edit', [CustomerProblemController::class, 'edit'])->name('customer-problems.edit');
+    Route::put('/customer-problems/{id}', [CustomerProblemController::class, 'update'])->name('customer-problems.update');
 });
 
 

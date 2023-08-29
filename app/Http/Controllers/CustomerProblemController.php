@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CustomerProblem;
+use Carbon\Carbon;
 
 class CustomerProblemController extends Controller
 {
@@ -43,5 +44,52 @@ class CustomerProblemController extends Controller
         $customerProblem->save();
 
         return redirect()->back()->with('success', 'Customer problem has been saved.');
+    }
+
+    public function index()
+    {
+        $oneYearAgo = Carbon::now()->subYear();
+
+        $customerProblems = CustomerProblem::where('date_of_problem', '>=', $oneYearAgo)
+            ->orderBy('date_of_problem', 'desc')
+            ->get();
+
+        return view('problem.problemForm', compact('customerProblems'));
+    }
+
+    public function show(CustomerProblem $customerProblem)
+    {
+        return view('problem.show', compact('customerProblem'));
+    }
+
+    public function edit($id)
+    {
+        $customerProblem = CustomerProblem::findOrFail($id);
+        return view('problem.editProblem', compact('customerProblem'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $customerProblem = CustomerProblem::findOrFail($id);
+        $customerProblem->problem = $request['problem'];
+        $customerProblem->date_of_problem = $request['date_of_problem'];
+        $customerProblem->customer = $request['customer'];
+        $customerProblem->model_product = $request['model_product'];
+        $customerProblem->quantity_product = $request['quantity_product'];
+        $customerProblem->process_problem = $request['process_problem'];
+        $customerProblem->date_of_process = $request['date_of_process'];
+        $customerProblem->status_problem = $request['status_problem'];
+        $customerProblem->status_kaizen = $request['status_kaizen'];
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo');
+            $originalFileName = $photoPath->getClientOriginalName();
+            $photo = $photoPath->storeAs('public/photos/', $customerProblem->problem . '_' . $originalFileName);
+            $customerProblem->photo = $photo;
+        }
+
+        $customerProblem->save();
+
+        return redirect()->route('problem.form')->with('success', 'Customer problem has been updated.');
     }
 }

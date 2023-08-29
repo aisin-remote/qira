@@ -116,6 +116,21 @@
                             <th class="px-4 py-2 border text-center">Action</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        @foreach($customerProblems as $customerProblem)
+                        <tr>
+                            <td class="px-4 py-2 border">{{ $customerProblem->problem }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblem->date_of_problem }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblem->customer }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblem->model_product }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblem->process_problem }}</td>
+                            <td class="px-4 py-2 border">
+                                <a href="{{ route('customer-problems.show', $customerProblem) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs">Lihat</a>
+                                <a href="" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs">Hapus</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
