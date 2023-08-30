@@ -34,6 +34,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="w-full sm:w-full md:w-full p-4">
                         <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
+                        <canvas id="customerQuantityChart"></canvas>
                     </div>
                     <div class="w-full sm:w-full md:w-full p-4">
                         <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
@@ -93,4 +94,29 @@
     </div>
 
     @endif
+
+    <script>
+        var customerChartData = @json($customerChartData);
+
+        var ctx = document.getElementById('customerQuantityChart').getContext('2d');
+        var customerQuantityChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: customerChartData.labels,
+                datasets: customerChartData.datasets
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
 </x-app-layout>
