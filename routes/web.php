@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerProblemController;
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,22 +21,18 @@ use App\Http\Controllers\CustomerProblemController;
 
 Route::middleware(['auth'])->group(function () {
     // Dahsboard
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['verified']);
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // Product
     Route::get('/product-check', function () {
         return view('prod.productCheck');
     })->name('product.check');
     Route::get('/product-report', [ProductController::class, 'index'])->name('product.report');
-    Route::resource('products', ProductController::class);
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.updateData');
     Route::get('products/delete/{product}', [ProductController::class, 'delete'])->name('products.delete');
+    Route::resource('products', ProductController::class);
 
     // Project
     Route::get('/project-check', function () {
