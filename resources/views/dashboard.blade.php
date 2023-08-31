@@ -29,12 +29,22 @@
                 <h2 class="text-center text-xl font-semibold mb-4">Line Assembling</h2>
             </div>
         </div>
+
         <div class="w-full sm:w-full md:w-full p-4">
             <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="w-full sm:w-full md:w-full p-4">
-                        <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
-                        <canvas id="customerQuantityChart"></canvas>
+                        <div class="w-full sm:w-full md:w-full p-4">
+                            <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="w-full md:w-full">
+                                    <canvas id="customerQuantityChart"></canvas>
+                                </div>
+                                <div class="w-full md:w-full">
+                                    <canvas id="customerQuantityYearChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="w-full sm:w-full md:w-full p-4">
                         <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
@@ -42,13 +52,15 @@
                             @foreach ($customerProblems as $customerProblem)
                             <tbody>
                                 <tr>
-                                    <td rowspan="9" class="w-1/2 py-2 px-4 border">
+                                    <td colspan="2" class="w-1/2 py-2 px-4 border">
                                         @if ($customerProblem->photo)
                                         <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
                                         @else
                                         No photo available
                                         @endif
                                     </td>
+                                </tr>
+                                <tr>
                                     <td class="font-semibold py-1 px-2 border">Problem:</td>
                                     <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
                                 </tr>
@@ -96,6 +108,7 @@
     @endif
 
     <script>
+        // Problem  Monthly
         var customerChartData = @json($customerChartData);
 
         var ctx = document.getElementById('customerQuantityChart').getContext('2d');
@@ -110,6 +123,29 @@
                     }).format(new Date(year, month - 1));
                 }),
                 datasets: customerChartData.datasets
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Problem Annually
+        var customerChartDataYear = @json($customerChartDataYear);
+
+        var ctxYear = document.getElementById('customerQuantityYearChart').getContext('2d');
+        var customerQuantityYearChart = new Chart(ctxYear, {
+            type: 'bar',
+            data: {
+                labels: customerChartDataYear.labels,
+                datasets: customerChartDataYear.datasets
             },
             options: {
                 scales: {
