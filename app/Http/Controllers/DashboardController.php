@@ -10,10 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $customerProblems = CustomerProblem::latest()->take(1)->get();
+        $customerProblems = CustomerProblem::latest('date_of_problem')->take(1)->get();
         $customerChartData = $this->getCustomerQuantityChartData();
-
-        // dd($customerChartData);
 
         return view('dashboard', compact('customerProblems', 'customerChartData'));
     }
