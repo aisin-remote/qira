@@ -102,7 +102,13 @@
         var customerQuantityChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: customerChartData.labels,
+                labels: customerChartData.labels.map(label => {
+                    const [year, month] = label.split('-');
+                    return new Intl.DateTimeFormat('en', {
+                        year: 'numeric',
+                        month: 'long'
+                    }).format(new Date(year, month - 1));
+                }),
                 datasets: customerChartData.datasets
             },
             options: {

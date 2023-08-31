@@ -13,23 +13,38 @@ class DashboardController extends Controller
         $customerProblems = CustomerProblem::latest()->take(1)->get();
         $customerChartData = $this->getCustomerQuantityChartData();
 
+        // dd($customerChartData);
+
         return view('dashboard', compact('customerProblems', 'customerChartData'));
     }
 
     public function getCustomerQuantityChartData()
     {
-        $customerData = DB::table('tm_customer_problems')
-            ->select('customer', 'quantity_product', 'date_of_problem')
-            ->where('date_of_problem', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 12 MONTH)'))
-            ->get();
+        $customerData = DB::select("
+            SELECT
+              `customer`,
+              SUM(`quantity_product`) as `total_quantity_product`,
+              DATE_FORMAT(`date_of_problem`, '%Y-%m') as `month_year`
+            FROM
+              `tm_customer_problems`
+            WHERE
+              `date_of_problem` >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+            GROUP BY
+              `customer`,
+              `month_year`
+            ORDER BY
+              `month_year`, `customer`
+        ");
 
         $labels = [];
-        $uniqueCustomers = $customerData->pluck('customer')->unique();
+        $uniqueCustomers = [];
 
         foreach ($customerData as $item) {
-            $formattedDate = date('Y-m-d', strtotime($item->date_of_problem));
-            if (!in_array($formattedDate, $labels)) {
-                $labels[] = $formattedDate;
+            if (!in_array($item->month_year, $labels)) {
+                $labels[] = $item->month_year;
+            }
+            if (!in_array($item->customer, $uniqueCustomers)) {
+                $uniqueCustomers[] = $item->customer;
             }
         }
 
@@ -39,9 +54,15 @@ class DashboardController extends Controller
             $customerQuantities = [];
 
             foreach ($labels as $label) {
-                $customerQuantity = $customerData->where('customer', $customer)
-                    ->where('date_of_problem', $label)
-                    ->sum('quantity_product');
+                $customerQuantity = 0;
+
+                foreach ($customerData as $item) {
+                    if ($item->customer === $customer && $item->month_year === $label) {
+                        $customerQuantity = $item->total_quantity_product;
+                        break;
+                    }
+                }
+
                 $customerQuantities[] = $customerQuantity;
             }
 
