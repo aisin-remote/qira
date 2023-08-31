@@ -16,17 +16,29 @@
     <div class="flex flex-wrap -mx-4">
         <div class="w-full sm:w-1/2 md:w-1/3 p-4">
             <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <h2 class="text-center text-xl font-semibold mb-4">Line Diecasting</h2>
+                <h2 class="text-center text-xl font-semibold mb-4 underline">Line Diecasting</h2>
+                <div>
+                    <h3 class="text-center text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                    <canvas id="lineDiecastingProjectChart"></canvas>
+                </div>
             </div>
         </div>
         <div class="w-full sm:w-1/2 md:w-1/3 p-4">
             <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <h2 class="text-center text-xl font-semibold mb-4">Line Machining</h2>
+                <h2 class="text-center text-xl font-semibold mb-4 underline">Line Machining</h2>
+                <div>
+                    <h3 class="text-center text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                    <canvas id="lineMachiningProjectChart"></canvas>
+                </div>
             </div>
         </div>
         <div class="w-full sm:w-1/2 md:w-1/3 p-4">
             <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <h2 class="text-center text-xl font-semibold mb-4">Line Assembling</h2>
+                <h2 class="text-center text-xl font-semibold mb-4 underline">Line Assembling</h2>
+                <div>
+                    <h3 class="text-center text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                    <canvas id="lineAssemblingProjectChart"></canvas>
+                </div>
             </div>
         </div>
 
@@ -155,6 +167,90 @@
                     y: {
                         stacked: true,
                         beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Line Diecasting Project
+        var lineDiecastingData = @json($lineDiecastingProjectData);
+
+        var finishedCounts = lineDiecastingData.map(item => item.finished_count);
+        var onProgressCounts = lineDiecastingData.map(item => item.onprogress_count);
+
+        var ctxLineDiecasting = document.getElementById('lineDiecastingProjectChart').getContext('2d');
+        var lineDiecastingChart = new Chart(ctxLineDiecasting, {
+            type: 'doughnut',
+            data: {
+                labels: ['Finished', 'OnProgress'],
+                datasets: [{
+                    label: 'Project',
+                    data: [finishedCounts.reduce((a, b) => a + b, 0), onProgressCounts.reduce((a, b) => a + b, 0)],
+                    backgroundColor: ['#4CAF50', '#FFC107'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Line Machining Project
+        var lineMachiningData = @json($lineMachiningProjectData);
+
+        var finishedCounts = lineMachiningData.map(item => item.finished_count);
+        var onProgressCounts = lineMachiningData.map(item => item.onprogress_count);
+
+        var ctxLineMachining = document.getElementById('lineMachiningProjectChart').getContext('2d');
+        var lineMachiningChart = new Chart(ctxLineMachining, {
+            type: 'doughnut',
+            data: {
+                labels: ['Finished', 'OnProgress'],
+                datasets: [{
+                    label: 'Project',
+                    data: [finishedCounts.reduce((a, b) => a + b, 0), onProgressCounts.reduce((a, b) => a + b, 0)],
+                    backgroundColor: ['#4CAF50', '#FFC107'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Line Assembling Project
+        var lineAssemblingData = @json($lineAssemblingProjectData);
+
+        var finishedCountsAssembling = lineAssemblingData.map(item => item.finished_count);
+        var onProgressCountsAssembling = lineAssemblingData.map(item => item.onprogress_count);
+
+        var ctxLineAssembling = document.getElementById('lineAssemblingProjectChart').getContext('2d');
+        var lineAssemblingChart = new Chart(ctxLineAssembling, {
+            type: 'doughnut',
+            data: {
+                labels: ['Finished', 'OnProgress'],
+                datasets: [{
+                    label: 'Project',
+                    data: [finishedCountsAssembling.reduce((a, b) => a + b, 0), onProgressCountsAssembling.reduce((a, b) => a + b, 0)],
+                    backgroundColor: ['#4CAF50', '#FFC107'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom'
                     }
                 }
             }

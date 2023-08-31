@@ -13,8 +13,12 @@ class DashboardController extends Controller
         $customerProblems = CustomerProblem::latest('date_of_problem')->take(1)->get();
         $customerChartData = $this->getCustomerQuantityChartData();
         $customerChartDataYear = $this->getCustomerQuantityChartDataYear();
+        $lineDiecastingProjectData = $this->getLineDiecastingProjectData();
+        $lineMachiningProjectData = $this->getLineMachiningProjectData();
+        $lineAssemblingProjectData = $this->getLineAssemblingProjectData();
 
-        return view('dashboard', compact('customerProblems', 'customerChartData', 'customerChartDataYear'));
+
+        return view('dashboard', compact('customerProblems', 'customerChartData', 'customerChartDataYear', 'lineDiecastingProjectData', 'lineMachiningProjectData', 'lineAssemblingProjectData'));
     }
 
     public function getCustomerQuantityChartData()
@@ -143,5 +147,74 @@ class DashboardController extends Controller
         ];
 
         return $chartDataYear;
+    }
+
+    public function getLineDiecastingProjectData()
+    {
+        $lineDiecastingProjectData = DB::select("
+            SELECT
+                SUBSTRING(`line`, 1, 2) AS `line_group`,
+                SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+                SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+            FROM
+                `tt_item_check_projects`
+            JOIN
+                `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
+            WHERE
+                `tt_projects`.`planning_masspro` >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+                AND `line` LIKE 'DC%'
+            GROUP BY
+                `line_group`
+            ORDER BY
+                `line_group`
+        ");
+
+        return $lineDiecastingProjectData;
+    }
+
+    public function getLineMachiningProjectData()
+    {
+        $lineMachiningProjectData = DB::select("
+            SELECT
+                SUBSTRING(`line`, 1, 2) AS `line_group`,
+                SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+                SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+            FROM
+                `tt_item_check_projects`
+            JOIN
+                `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
+            WHERE
+                `tt_projects`.`planning_masspro` >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+                AND `line` LIKE 'MA%'
+            GROUP BY
+                `line_group`
+            ORDER BY
+                `line_group`
+        ");
+
+        return $lineMachiningProjectData;
+    }
+
+    public function getLineAssemblingProjectData()
+    {
+        $lineAssemblingProjectData = DB::select("
+        SELECT
+            SUBSTRING(`line`, 1, 2) AS `line_group`,
+            SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+            SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+        FROM
+            `tt_item_check_projects`
+        JOIN
+            `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
+        WHERE
+            `tt_projects`.`planning_masspro` >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+            AND `line` LIKE 'AS%'
+        GROUP BY
+            `line_group`
+        ORDER BY
+            `line_group`
+    ");
+
+        return $lineAssemblingProjectData;
     }
 }
