@@ -422,7 +422,6 @@ class DashboardController extends Controller
         AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
         AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         GROUP BY model_group;
-
     ");
 
         return $lineASWPOPData;

@@ -13,146 +13,139 @@
         <p>Welcome to the Admin Dashboard!</p>
     </div>
     @else
-    <div class="flex flex-wrap -mx-4">
-        <div class="w-full sm:w-1/2 md:w-1/3 p-4">
-            <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <h2 class="text-center text-xl font-semibold mb-4 underline">Line Diecasting</h2>
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
-                    <canvas id="lineDiecastingProjectChart"></canvas>
-
-                    <div>
-                        <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
-                        <canvas id="lineDCTCCChart"></canvas>
-                    </div>
-
-                    <div>
-                        <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
-                        <canvas id="lineDCOilpanChart"></canvas>
-                    </div>
-
-                    <div>
-                        <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check CSH</h3>
-                        <canvas id="lineDCCSHProjectChart"></canvas>
-                    </div>
-                </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 text-center">
+        <!-- Line Diecasting Section -->
+        <div class="bg-white rounded-md shadow-md p-4">
+            <h2 class="text-xl font-semibold mb-4">Line Diecasting</h2>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                <canvas id="lineDiecastingProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
             </div>
-        </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 p-4">
-            <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <h2 class="text-center text-xl font-semibold mb-4 underline">Line Machining</h2>
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
-                    <canvas id="lineMachiningProjectChart"></canvas>
-                </div>
-
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
-                    <canvas id="lineMATCCChart"></canvas>
-                </div>
-
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
-                    <canvas id="lineMAOilpanChart"></canvas>
-                </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
+                <canvas id="lineDCTCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
             </div>
-        </div>
-        <div class="w-full sm:w-1/2 md:w-1/3 p-4">
-            <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <h2 class="text-center text-xl font-semibold mb-4 underline">Line Assembling</h2>
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
-                    <canvas id="lineAssemblingProjectChart"></canvas>
-                </div>
-
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check WP/OP</h3>
-                    <canvas id="lineASWPOPChart"></canvas>
-                </div>
-
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
-                    <canvas id="lineASTCCChart"></canvas>
-                </div>
-
-                <div>
-                    <h3 class="text-center text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
-                    <canvas id="lineASOilpanChart"></canvas>
-                </div>
-
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
+                <canvas id="lineDCOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
             </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check CSH</h3>
+                <canvas id="lineDCCSHProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <!-- Add more charts and content for Line Diecasting as needed -->
         </div>
 
-        <div class="w-full sm:w-full md:w-full p-4">
-            <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                <div class="grid grid-cols-2 gap-4">
+        <!-- Line Machining Section -->
+        <div class="bg-white rounded-md shadow-md p-4">
+            <h2 class="text-xl font-semibold mb-4">Line Machining</h2>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                <canvas id="lineMachiningProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
+                <canvas id="lineMATCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
+                <canvas id="lineMAOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <!-- Add more charts and content for Line Machining as needed -->
+        </div>
+
+        <!-- Line Assembling Section -->
+        <div class="bg-white rounded-md shadow-md p-4">
+            <h2 class="text-xl font-semibold mb-4">Line Assembling</h2>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                <canvas id="lineAssemblingProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check WP/OP</h3>
+                <canvas id="lineASWPOPChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
+                <canvas id="lineASTCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <div>
+                <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
+                <canvas id="lineASOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+            </div>
+            <!-- Add more charts and content for Line Assembling as needed -->
+        </div>
+    </div>
+
+    <div class="w-full sm:w-full md:w-full p-4">
+        <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="w-full sm:w-full md:w-full p-4">
                     <div class="w-full sm:w-full md:w-full p-4">
-                        <div class="w-full sm:w-full md:w-full p-4">
-                            <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
-                            <div class="flex flex-wrap gap-4">
-                                <div class="w-full md:w-full">
-                                    <canvas id="customerQuantityChart"></canvas>
-                                </div>
-                                <div class="w-full md:w-full">
-                                    <canvas id="customerQuantityYearChart"></canvas>
-                                </div>
+                        <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="w-full md:w-full">
+                                <canvas id="customerQuantityChart"></canvas>
+                            </div>
+                            <div class="w-full md:w-full">
+                                <canvas id="customerQuantityYearChart"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="w-full sm:w-full md:w-full p-4">
-                        <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
-                        <table class="w-full border-collapse text-xs">
-                            @foreach ($customerProblems as $customerProblem)
-                            <tbody>
-                                <tr>
-                                    <td colspan="2" class="w-1/2 py-2 px-4 border">
-                                        @if ($customerProblem->photo)
-                                        <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
-                                        @else
-                                        No photo available
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Problem:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Date of Problem:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->date_of_problem }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Customer:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->customer }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Model Product:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->model_product }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Quantity Product:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->quantity_product }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Process Problem:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->process_problem }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Date of Process:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->date_of_process }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Status Problem:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->status_problem }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold py-1 px-2 border">Status Kaizen:</td>
-                                    <td class="py-1 px-2 border">{{ $customerProblem->status_kaizen }}</td>
-                                </tr>
-                            </tbody>
-                            @endforeach
-                        </table>
-                    </div>
+                </div>
+                <div class="w-full sm:w-full md:w-full p-4">
+                    <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
+                    <table class="w-full border-collapse text-xs">
+                        @foreach ($customerProblems as $customerProblem)
+                        <tbody>
+                            <tr>
+                                <td colspan="2" class="w-1/2 py-2 px-4 border">
+                                    @if ($customerProblem->photo)
+                                    <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
+                                    @else
+                                    No photo available
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Problem:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Date of Problem:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->date_of_problem }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Customer:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->customer }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Model Product:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->model_product }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Quantity Product:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->quantity_product }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Process Problem:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->process_problem }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Date of Process:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->date_of_process }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Status Problem:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->status_problem }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-1 px-2 border">Status Kaizen:</td>
+                                <td class="py-1 px-2 border">{{ $customerProblem->status_kaizen }}</td>
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
