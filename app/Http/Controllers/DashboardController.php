@@ -241,6 +241,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'DC%' AND model LIKE 'TCC%'
+                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
         GROUP BY
             model_group;
@@ -265,6 +267,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'DC%' AND model LIKE 'Oilpan%'
+                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
         GROUP BY
             model_group;
@@ -289,6 +293,8 @@ class DashboardController extends Controller
             tt_products
         WHERE
             line LIKE 'DC%' AND model LIKE 'CSH%'
+            AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+            AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
     ) AS subquery
     GROUP BY
         model_group;
@@ -313,6 +319,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'MA%' AND model LIKE 'TCC%'
+                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
         GROUP BY
             model_group;
@@ -337,6 +345,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'MA%' AND model LIKE 'Oilpan%'
+                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
         GROUP BY
             model_group;
@@ -361,6 +371,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'AS%' AND model LIKE 'TCC%'
+                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
         GROUP BY
             model_group;
@@ -385,6 +397,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'AS%' AND model LIKE 'Oilpan%'
+                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
         GROUP BY
             model_group;
@@ -405,6 +419,8 @@ class DashboardController extends Controller
             SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
         FROM tt_products
         WHERE line LIKE 'AS%' AND (model LIKE 'WP%' OR model LIKE 'OP%')
+        AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
+        AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         GROUP BY model_group;
 
     ");
