@@ -22,10 +22,10 @@
     @endif
 
     <div class="flex flex-col lg:flex-row">
-        <div class="w-1/3 p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+        <div class="w-full lg:w-1/3 p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
             <form action="{{ route('customer-problems.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="flex flex-col space-y-4">
+                <div class="space-y-4">
                     <div class="font-bold">
                         Problem
                     </div>
@@ -39,7 +39,7 @@
                     <div>
                         <input type="date" name="date_of_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                     </div>
-
+                    
                     <div class="font-bold">
                         Customer
                     </div>
@@ -134,4 +134,5 @@
                 </table>
             </div>
         </div>
+    </div>
 </x-app-layout>
