@@ -13,7 +13,7 @@
         <p>Welcome to the Admin Dashboard!</p>
     </div>
     @else
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 text-center">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-3 text-center">
         <!-- Line Diecasting Section -->
         <div class="bg-white rounded-md shadow-md p-4">
             <h2 class="text-xl font-semibold mb-4">Line Diecasting</h2>
