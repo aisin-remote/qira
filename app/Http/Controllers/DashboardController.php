@@ -16,9 +16,16 @@ class DashboardController extends Controller
         $lineDiecastingProjectData = $this->getLineDiecastingProjectData();
         $lineMachiningProjectData = $this->getLineMachiningProjectData();
         $lineAssemblingProjectData = $this->getLineAssemblingProjectData();
+        $linedctcc = $this->getLineDCTCC();
+        $lineDCOilpanData = $this->getLineDCOilpan();
+        $linedccsh = $this->getLineDCCSH();
+        $lineMATCCData = $this->getLineMATCC();
+        $lineMAOilpanData = $this->getLineMAOilpan();
+        $lineASTCCData = $this->getLineASTCC();
+        $lineASOilpanData = $this->getLineASOilpan();
+        $lineASWPOPData = $this->getLineASWPOP();
 
-
-        return view('dashboard', compact('customerProblems', 'customerChartData', 'customerChartDataYear', 'lineDiecastingProjectData', 'lineMachiningProjectData', 'lineAssemblingProjectData'));
+        return view('dashboard', compact('customerProblems', 'customerChartData', 'customerChartDataYear', 'lineDiecastingProjectData', 'lineMachiningProjectData', 'lineAssemblingProjectData', 'linedctcc', 'lineDCOilpanData', 'linedccsh', 'lineMATCCData', 'lineMAOilpanData', 'lineASTCCData', 'lineASOilpanData', 'lineASWPOPData'));
     }
 
     public function getCustomerQuantityChartData()
@@ -216,5 +223,192 @@ class DashboardController extends Controller
     ");
 
         return $lineAssemblingProjectData;
+    }
+
+    public function getLineDCTCC()
+    {
+        $linedctcc = DB::select("
+        SELECT
+            model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'DC%' AND model LIKE 'TCC%'
+        ) AS subquery
+        GROUP BY
+            model_group;
+    ");
+
+        return $linedctcc;
+    }
+
+    public function getLineDCOilpan()
+    {
+        $lineDCOilpanData = DB::select("
+        SELECT
+            model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'DC%' AND model LIKE 'Oilpan%'
+        ) AS subquery
+        GROUP BY
+            model_group;
+    ");
+
+        return $lineDCOilpanData;
+    }
+
+    public function getLineDCCSH()
+    {
+        $linedccsh = DB::select("
+    SELECT
+        model_group,
+        SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+        SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+    FROM (
+        SELECT
+            SUBSTRING(line, 1, 2) AS line_prefix,
+            SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+            status
+        FROM
+            tt_products
+        WHERE
+            line LIKE 'DC%' AND model LIKE 'CSH%'
+    ) AS subquery
+    GROUP BY
+        model_group;
+    ");
+
+        return $linedccsh;
+    }
+
+    public function getLineMATCC()
+    {
+        $lineMATCCData = DB::select("
+        SELECT
+            model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'MA%' AND model LIKE 'TCC%'
+        ) AS subquery
+        GROUP BY
+            model_group;
+    ");
+
+        return $lineMATCCData;
+    }
+
+    public function getLineMAOilpan()
+    {
+        $lineMAOilpanData = DB::select("
+        SELECT
+            model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'MA%' AND model LIKE 'Oilpan%'
+        ) AS subquery
+        GROUP BY
+            model_group;
+    ");
+
+        return $lineMAOilpanData;
+    }
+
+    public function getLineASTCC()
+    {
+        $lineASTCCData = DB::select("
+        SELECT
+            model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'AS%' AND model LIKE 'TCC%'
+        ) AS subquery
+        GROUP BY
+            model_group;
+    ");
+
+        return $lineASTCCData;
+    }
+
+    public function getLineASOilpan()
+    {
+        $lineASOilpanData = DB::select("
+        SELECT
+            model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'AS%' AND model LIKE 'Oilpan%'
+        ) AS subquery
+        GROUP BY
+            model_group;
+    ");
+
+        return $lineASOilpanData;
+    }
+
+    public function getLineASWPOP()
+    {
+        $lineASWPOPData = DB::select("
+        SELECT
+            CASE
+                WHEN model LIKE 'WP%' OR model LIKE 'OP%' THEN 'WP/OP'
+                ELSE SUBSTRING_INDEX(model, ' ', 1)
+            END AS model_group,
+            SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
+            SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
+        FROM tt_products
+        WHERE line LIKE 'AS%' AND (model LIKE 'WP%' OR model LIKE 'OP%')
+        GROUP BY model_group;
+
+    ");
+
+        return $lineASWPOPData;
     }
 }
