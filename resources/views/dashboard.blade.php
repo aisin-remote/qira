@@ -92,7 +92,7 @@
         </div>
 
         <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="modal-content w-full sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 p-4">
+            <div class="modal-content w-full sm:w-full md:w-2/3 lg:w-2/3 xl:w-1/2 p-4">
                 <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1 relative">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="w-full sm:w-full md:w-full p-4">
