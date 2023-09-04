@@ -1,6 +1,6 @@
-# QAU Application Installation Guide
+# QOPRA Application Installation Guide
 
-This guide will walk you through the steps to install the QAU (Quality Assessment Utility) application.
+This guide will walk you through the steps to install the QOPRA (Quality Control Product & Project) application.
 
 ## Prerequisites
 

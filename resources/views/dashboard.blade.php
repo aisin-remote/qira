@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <h2 class="text-xl font-semibold leading-tight">
-                {{ auth()->user()->posisi === 'ADMIN' ? __('Admin Dashboard') : __('QAU Dashboard') }}
+                {{ auth()->user()->posisi === 'ADMIN' ? __('Admin Dashboard') : __('QOPRA Dashboard') }}
             </h2>
         </div>
     </x-slot>
