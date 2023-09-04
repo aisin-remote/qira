@@ -13,148 +13,192 @@
         <p>Welcome to the Admin Dashboard!</p>
     </div>
     @else
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-3 text-center">
-        <!-- Line Diecasting Section -->
-        <div class="bg-white rounded-md shadow-md p-4">
-            <h2 class="text-xl font-semibold mb-4">Line Diecasting</h2>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
-                <canvas id="lineDiecastingProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+    <div class="relative">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-3 text-center">
+            <!-- Line Diecasting Section -->
+            <div class="bg-white rounded-md shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Line Diecasting</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                        <canvas id="lineDiecastingProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
+                        <canvas id="lineDCTCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
+                        <canvas id="lineDCOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check CSH</h3>
+                        <canvas id="lineDCCSHProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                </div>
+                <!-- Add more charts and content for Line Diecasting as needed -->
             </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
-                <canvas id="lineDCTCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+
+            <!-- Line Assembling Section -->
+            <div class="bg-white rounded-md shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Line Assembling</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                        <canvas id="lineAssemblingProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check WP/OP</h3>
+                        <canvas id="lineASWPOPChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
+                        <canvas id="lineASTCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
+                        <canvas id="lineASOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                </div>
+                <!-- Add more charts and content for Line Assembling as needed -->
             </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
-                <canvas id="lineDCOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+
+            <!-- Line Machining Section -->
+            <div class="bg-white rounded-md shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Line Machining</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
+                        <canvas id="lineMachiningProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
+                        <canvas id="lineMATCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
+                        <canvas id="lineMAOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
+                    </div>
+                </div>
+                <!-- Add more charts and content for Line Machining as needed -->
             </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check CSH</h3>
-                <canvas id="lineDCCSHProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <!-- Add more charts and content for Line Diecasting as needed -->
         </div>
 
-        <!-- Line Machining Section -->
-        <div class="bg-white rounded-md shadow-md p-4">
-            <h2 class="text-xl font-semibold mb-4">Line Machining</h2>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
-                <canvas id="lineMachiningProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
-                <canvas id="lineMATCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
-                <canvas id="lineMAOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <!-- Add more charts and content for Line Machining as needed -->
+        <div class="fixed bottom-5 right-5">
+            <button id="openModalButton" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2">
+                <x-css-danger class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+                <span>Latest Issue</span>
+            </button>
         </div>
 
-        <!-- Line Assembling Section -->
-        <div class="bg-white rounded-md shadow-md p-4">
-            <h2 class="text-xl font-semibold mb-4">Line Assembling</h2>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Check PCR/New Project</h3>
-                <canvas id="lineAssemblingProjectChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check WP/OP</h3>
-                <canvas id="lineASWPOPChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check TCC</h3>
-                <canvas id="lineASTCCChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <div>
-                <h3 class="text-l font-semibold mb-4">Progress Monthly Check Oilpan</h3>
-                <canvas id="lineASOilpanChart" class="w-full h-32 md:h-48 lg:h-64"></canvas>
-            </div>
-            <!-- Add more charts and content for Line Assembling as needed -->
-        </div>
-    </div>
-
-    <div class="w-full sm:w-full md:w-full p-4">
-        <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-            <div class="grid grid-cols-2 gap-4">
+        <div id="myModal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
+            <div class="modal-content w-full sm:w-full md:w-full p-4">
                 <div class="w-full sm:w-full md:w-full p-4">
-                    <div class="w-full sm:w-full md:w-full p-4">
-                        <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="w-full md:w-full">
-                                <canvas id="customerQuantityChart"></canvas>
+                    <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="w-full sm:w-full md:w-full p-4">
+                                <div class="w-full sm:w-full md:w-full p-4">
+                                    <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800"> 
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                    <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
+                                    <div class="flex flex-wrap gap-4">
+                                        <div class="w-full md:w-full">
+                                            <canvas id="customerQuantityChart"></canvas>
+                                        </div>
+                                        <div class="w-full md:w-full">
+                                            <canvas id="customerQuantityYearChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="w-full md:w-full">
-                                <canvas id="customerQuantityYearChart"></canvas>
+                            <div class="w-full sm:w-full md:w-full p-4">
+                                <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
+                                <table class="w-full border-collapse text-xs">
+                                    @foreach ($customerProblems as $customerProblem)
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" class="w-1/2 py-2 px-4 border">
+                                                @if ($customerProblem->photo)
+                                                <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
+                                                @else
+                                                No photo available
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Problem:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Date of Problem:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->date_of_problem }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Customer:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->customer }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Model Product:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->model_product }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Quantity Product:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->quantity_product }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Process Problem:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->process_problem }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Date of Process:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->date_of_process }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Status Problem:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->status_problem }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold py-1 px-2 border">Status Kaizen:</td>
+                                            <td class="py-1 px-2 border">{{ $customerProblem->status_kaizen }}</td>
+                                        </tr>
+                                    </tbody>
+                                    @endforeach
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full sm:w-full md:w-full p-4">
-                    <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
-                    <table class="w-full border-collapse text-xs">
-                        @foreach ($customerProblems as $customerProblem)
-                        <tbody>
-                            <tr>
-                                <td colspan="2" class="w-1/2 py-2 px-4 border">
-                                    @if ($customerProblem->photo)
-                                    <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
-                                    @else
-                                    No photo available
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Problem:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Date of Problem:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->date_of_problem }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Customer:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->customer }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Model Product:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->model_product }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Quantity Product:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->quantity_product }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Process Problem:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->process_problem }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Date of Process:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->date_of_process }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Status Problem:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->status_problem }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold py-1 px-2 border">Status Kaizen:</td>
-                                <td class="py-1 px-2 border">{{ $customerProblem->status_kaizen }}</td>
-                            </tr>
-                        </tbody>
-                        @endforeach
-                    </table>
-                </div>
             </div>
         </div>
+
     </div>
 
     @endif
 
     <script>
-        // Problem  Monthly
+        // Ambil elemen tombol dan modal
+        var openModalButton = document.getElementById("openModalButton");
+        var closeModalButton = document.getElementById("closeModalButton");
+        var modal = document.getElementById("myModal");
+
+        openModalButton.addEventListener("click", function() {
+            modal.classList.remove("hidden");
+        });
+
+        closeModalButton.addEventListener("click", function() {
+            modal.classList.add("hidden");
+        });
+
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.classList.add("hidden");
+            }
+        });
+
+        // Problem Monthly
         var customerChartData = @json($customerChartData);
 
         var ctx = document.getElementById('customerQuantityChart').getContext('2d');
