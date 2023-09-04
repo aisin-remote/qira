@@ -91,89 +91,84 @@
             </button>
         </div>
 
-        <div id="myModal" class="modal hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
-            <div class="modal-content w-full sm:w-full md:w-full p-4">
-                <div class="w-full sm:w-full md:w-full p-4">
-                    <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="w-full sm:w-full md:w-full p-4">
-                                <div class="w-full sm:w-full md:w-full p-4">
-                                    <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                    <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
-                                    <div class="flex flex-wrap gap-4">
-                                        <div class="w-full md:w-full">
-                                            <canvas id="customerQuantityChart"></canvas>
-                                        </div>
-                                        <div class="w-full md:w-full">
-                                            <canvas id="customerQuantityYearChart"></canvas>
-                                        </div>
-                                    </div>
+        <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="modal-content w-full sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 p-4">
+                <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1 relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="w-full sm:w-full md:w-full p-4">
+                            <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <h2 class="text-center text-xl font-semibold mb-4">Customer Information Problem</h2>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="w-full md:w-full">
+                                    <canvas id="customerQuantityChart"></canvas>
+                                </div>
+                                <div class="w-full md:w-full">
+                                    <canvas id="customerQuantityYearChart"></canvas>
                                 </div>
                             </div>
-                            <div class="w-full sm:w-full md:w-full p-4">
-                                <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
-                                <table class="w-full border-collapse text-xs">
-                                    @foreach ($customerProblems as $customerProblem)
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="2" class="w-1/2 py-2 px-4 border">
-                                                @if ($customerProblem->photo)
-                                                <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
-                                                @else
-                                                No photo available
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Problem:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Date of Problem:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->date_of_problem }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Customer:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->customer }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Model Product:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->model_product }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Quantity Product:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->quantity_product }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Process Problem:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->process_problem }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Date of Process:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->date_of_process }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Status Problem:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->status_problem }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold py-1 px-2 border">Status Kaizen:</td>
-                                            <td class="py-1 px-2 border">{{ $customerProblem->status_kaizen }}</td>
-                                        </tr>
-                                    </tbody>
-                                    @endforeach
-                                </table>
-                            </div>
+                        </div>
+                        <div class="w-full sm:w-full md:w-full p-4">
+                            <h2 class="text-center text-xl font-semibold mb-4">Description of Last Problem</h2>
+                            <table class="w-full border-collapse text-xs">
+                                @foreach ($customerProblems as $customerProblem)
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" class="w-1/2 py-2 px-4 border">
+                                            @if ($customerProblem->photo)
+                                            <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto rounded">
+                                            @else
+                                            No photo available
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Problem:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->problem }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Date of Problem:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->date_of_problem }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Customer:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->customer }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Model Product:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->model_product }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Quantity Product:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->quantity_product }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Process Problem:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->process_problem }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Date of Process:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->date_of_process }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Status Problem:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->status_problem }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-1 px-2 border">Status Kaizen:</td>
+                                        <td class="py-1 px-2 border">{{ $customerProblem->status_kaizen }}</td>
+                                    </tr>
+                                </tbody>
+                                @endforeach
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     @endif
