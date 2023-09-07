@@ -96,6 +96,8 @@ class ProductController extends Controller
             $product->status = 'Input Salah';
         }
 
+        $product->approval = $request->input('approval');
+
         $product->save();
 
         return redirect()->route('product.report')->with('success', 'Product updated successfully.');
