@@ -21,7 +21,8 @@ class CustomerProblemController extends Controller
             'date_of_process' => 'required|date',
             'status_problem' => 'required',
             'status_kaizen' => 'required',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // adjust the file validation as needed
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'report' => 'nullable',
         ]);
 
         $customerProblem = new CustomerProblem();
@@ -40,6 +41,17 @@ class CustomerProblemController extends Controller
             $originalFileName = $photoPath->getClientOriginalName();
             $photo = $photoPath->storeAs('public/photos/', $customerProblem->problem . '_' . $originalFileName);
             $customerProblem->photo = $photo;
+        }
+
+        if ($request->hasFile('report')) {
+            $document = $request->file('report');
+            // Ambil nama asli file dokumen
+            $originalFileName = $document->getClientOriginalName();
+
+            // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
+            $documentPath = $document->storeAs('public/documents/', $customerProblem->problem . '_' . $originalFileName);
+
+            $customerProblem->report = $documentPath;
         }
 
         $customerProblem->save();
@@ -87,6 +99,17 @@ class CustomerProblemController extends Controller
             $originalFileName = $photoPath->getClientOriginalName();
             $photo = $photoPath->storeAs('public/photos/', $customerProblem->problem . '_' . $originalFileName);
             $customerProblem->photo = $photo;
+        }
+
+        if ($request->hasFile('report')) {
+            $document = $request->file('report');
+            // Ambil nama asli file dokumen
+            $originalFileName = $document->getClientOriginalName();
+
+            // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
+            $documentPath = $document->storeAs('public/documents/', $customerProblem->problem . '_' . $originalFileName);
+
+            $customerProblem->report = $documentPath;
         }
 
         $customerProblem->save();

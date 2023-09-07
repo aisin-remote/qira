@@ -25,7 +25,7 @@
         <table class="w-full border-collapse">
             <tbody>
                 <tr>
-                    <td rowspan="9" class="w-1/4 py-2 px-4 border">@if ($customerProblem->photo)
+                    <td rowspan="10" class="w-1/4 py-2 px-4 border">@if ($customerProblem->photo)
                         <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto">
                         @else
                         No photo available
@@ -65,6 +65,12 @@
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Status Kaizen:</td>
                     <td class="py-2 px-4 border">{{ $customerProblem->status_kaizen }}</td>
+                </tr>
+                <tr>
+                    <td class="font-semibold py-2 px-4 border">File Report:</td>
+                    <td class="py-2 px-4 border">
+                        <a href="{{ Storage::url($customerProblem->report) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

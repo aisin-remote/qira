@@ -95,6 +95,13 @@
                     <div>
                         <input type="file" name="photo" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                     </div>
+
+                    <div class="font-bold">
+                        File Report
+                    </div>
+                    <div>
+                        <input type="file" name="report" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                    </div>
                 </div>
                 <div>
                     <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-green-500">

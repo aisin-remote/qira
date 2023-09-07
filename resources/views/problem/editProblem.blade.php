@@ -85,6 +85,18 @@
                 </div>
 
                 <div class="font-bold">
+                    File Report
+                </div>
+                <div>
+                    <input type="file" name="report" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                </div>
+                @if ($customerProblem->report)
+                <div class="mt-2">
+                    <a href="{{ Storage::url($customerProblem->report) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                </div>
+                @endif
+
+                <div class="font-bold">
                     Photo
                 </div>
                 <div class="flex items-center">

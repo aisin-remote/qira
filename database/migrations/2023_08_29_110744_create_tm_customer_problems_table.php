@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('status_problem');
             $table->string('status_kaizen');
             $table->string('photo')->nullable();
+            $table->string('report')->nullable();
             $table->timestamps();
         });
     }
