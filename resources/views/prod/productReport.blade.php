@@ -22,6 +22,7 @@
                             <th class="px-4 py-2 border text-center">Planning Finished</th>
                             <th class="px-4 py-2 border text-center">Progress</th>
                             <th class="px-4 py-2 border text-center">Status</th>
+                            <th class="px-4 py-2 border text-center">Approval</th>
                             <th class="px-4 py-2 border text-center">Document</th>
                             <th class="px-4 py-2 border text-center">Action</th>
                         </tr>
@@ -40,8 +41,14 @@
                                 Input Salah
                                 @endif
                             </td>
-
                             <td class="px-4 py-2 border text-center">{{ $product->status }}</td>
+                            <td class="px-4 py-2 border text-center">
+                                @if ($product->approval === null || $product->approval === '')
+                                Waiting ...
+                                @else
+                                {{ $product->approval }}
+                                @endif
+                            </td>
                             <td class="px-4 py-2 border text-center">
                                 @if ($product->document)
                                 <a href="{{ Storage::url($product->document) }}" class="text-blue-500 underline" download>
@@ -63,8 +70,19 @@
                             </td>
                             <td class="px-4 py-2 border text-center">
                                 <div class="flex justify-center space-x-2">
-                                    <a href="{{ route('products.edit', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                    @if ($product->approval === null || $product->approval === '' && (auth()->user()->posisi === 'Manajer'))
+                                    <a href="#" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Approval</a>
+                                    <a href=" #" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
+                                    @elseif (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
+                                    <a href="{{ route('products.edit', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Approval</a>
                                     <a href="{{ route('products.delete', $product->id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
+                                    @elseif ($product->approval === null || $product->approval === '' && (auth()->user()->posisi === 'LDR' || auth()->user()->posisi === 'JP'))
+                                    <a href=" {{ route('products.edit', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                    <a href="{{ route('products.delete', $product->id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
+                                    @else
+                                    <a href="#" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Edit</a>
+                                    <a href=" #" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
