@@ -7,12 +7,6 @@
         </div>
     </x-slot>
 
-    @if (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
-    <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-        {{-- Konten khusus admin --}}
-        <p>Welcome to the Admin Dashboard!</p>
-    </div>
-    @else
     <div class="relative">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-3 text-center">
             <!-- Line Diecasting Section -->
@@ -170,8 +164,6 @@
             </div>
         </div>
     </div>
-
-    @endif
 
     <script>
         // Ambil elemen tombol dan modal

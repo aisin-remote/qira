@@ -6,6 +6,7 @@
         </x-slot>
     </x-sidebar.link>
 
+    @if (auth()->user()->posisi === 'LDR' || auth()->user()->posisi === 'JP')
     <x-sidebar.dropdown title="Check Sheet">
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
@@ -17,6 +18,7 @@
         <x-sidebar.link title="Project" href="{{ route('project.check') }}" :isActive="request()->routeIs('project.check')">
         </x-sidebar.link>
     </x-sidebar.dropdown>
+    @endif
 
     <x-sidebar.dropdown title="Report">
         <x-slot name="icon">

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('finish_check');
             $table->string('document')->nullable();
             $table->string('status');
+            $table->string('approval')->nullable();
             $table->timestamps();
         });
     }

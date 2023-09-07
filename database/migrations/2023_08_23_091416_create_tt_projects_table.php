@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('line');
             $table->string('pcr');
             $table->date('planning_masspro');
+            $table->string('approval')->nullable();
             $table->timestamps();
         });
     }
