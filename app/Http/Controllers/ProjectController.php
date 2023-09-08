@@ -137,6 +137,7 @@ class ProjectController extends Controller
         $project->line = $request->input('line');
         $project->pcr = $request->input('nama');
         $project->planning_masspro = $request->input('deadline');
+        $project->approval = $request->input('approval');
         $project->save();
 
         // Check if 'items' are present in the request

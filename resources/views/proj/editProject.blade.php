@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Project') }}
+            {{ auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer' ? __('Approval') : __('Edit Project') }}
         </h2>
     </x-slot>
 
@@ -20,6 +20,108 @@
             <form action="{{ route('projects.updateData', $project->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                @if (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
+                <div class="flex w-full mb-3">
+                    <div class="w-full">
+                        <div class="">
+                            <div class="font-bold">
+                                LINE
+                            </div>
+                            <div>
+                                <input type="text" name="line" value="{{ $project->line }}" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" readonly placeholder="Line">
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="font-bold">
+                                Item PCR
+                            </div>
+                            <div>
+                                <input type="text" name="nama" value="{{ $project->pcr }}" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" readonly placeholder="Item PCR">
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="font-bold">
+                                PLANNING MASSPRO
+                            </div>
+                            <div>
+                                <input type="date" name="deadline" value="{{ $project->planning_masspro }}" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" readonly placeholder="Planning Masspro">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500 " id="tableItems">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
+                            <tr class="text-center">
+                                <th scope="col" class="px-6 py-3">
+                                    Item Check
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Start
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Finished
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Document
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemTableBody">
+                            @foreach($project->itemCheckProjects as $index => $item)
+                            <tr class="odd:bg-white even:bg-gray-50 border-b text-center item">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    <input type="text" name="items[{{ $index }}][nama]" value="{{ $item->item_check }}" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md" readonly placeholder="Item Check">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input type="date" name="items[{{ $index }}][start]" value="{{ $item->start }}" required readonly class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input type="date" name="items[{{ $index }}][deadline]" value="{{ $item->finished }}" required readonly class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input type="text" name="items[{{ $index }}][status]" value="{{ $item->status }}" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md" readonly placeholder="Status">
+                                </td>
+                                <td class="px-6 py-4">
+                                    @if ($item->document)
+                                    <div class="mt-2">
+                                        <a href="{{ Storage::url($item->document) }}" readonly class="text-blue-500 underline" target="_blank">Lihat File</a>
+                                    </div>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <hr>
+                </div>
+                <br>
+                <hr>
+                <div class="">
+                    <div class="font-bold">
+                        Approval
+                    </div>
+                    <div>
+                        @if (auth()->user()->posisi === 'SPV')
+                        <select name="approval" required class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                            <option value="" selected disabled>Select</option>
+                            <option value="Approved by SPV">Approved</option>
+                            <option value="Decline">Decline</option>
+                        </select>
+                        @elseif (auth()->user()->posisi === 'Manajer')
+                        <select name="approval" required class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                            <option value="" selected disabled>Select</option>
+                            <option value="Approved by Manager">Approved</option>
+                            <option value="Decline">Decline</option>
+                        </select>
+                        @endif
+                    </div>
+                </div>
+
+                @else
                 <div class="flex w-full mb-3">
                     <div class="w-full">
                         <div class="">
@@ -111,6 +213,7 @@
                     </div>
                     <hr>
                 </div>
+                @endif
 
                 <div class="mt-3 flex justify-end items-end">
                     <input type="submit" value="Update" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 rounded-md cursor-pointer hover:bg-green-500">
