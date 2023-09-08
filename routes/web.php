@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerProblemController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PicaController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -52,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer-problems/{id}/edit', [CustomerProblemController::class, 'edit'])->name('customer-problems.edit');
     Route::put('/customer-problems/{id}', [CustomerProblemController::class, 'update'])->name('customer-problems.update');
     Route::get('costumer-problems/delete/{id}', [CustomerProblemController::class, 'delete'])->name('customer-problems.delete');
+
+    // PICA
+    Route::get('/pica-form', [PicaController::class, 'index'])->name('pica.form');
+    Route::resource('pica', PicaController::class);
 });
 
 

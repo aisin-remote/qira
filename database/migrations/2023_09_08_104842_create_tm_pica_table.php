@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('PIC');
             $table->text('penyebab');
             $table->text('countermeasure');
-            $table->text('data_verifikasi');
+            $table->string('data_verifikasi')->nullable();
             $table->timestamps();
         });
     }
