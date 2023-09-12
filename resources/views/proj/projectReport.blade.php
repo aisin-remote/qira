@@ -29,15 +29,15 @@
 
             <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
 
-                <table class="w-full text-xs md:text-sm text-left text-gray-500 border border-gray-300 table-sort">
+                <table class="w-full text-xs md:text-sm text-left text-gray-500 border border-gray-300">
                     <thead class="bg-gray-200">
                         <tr>
-                            <th class="px-4 py-2 border text-center">Project <i class="fa fa-sort"></i></th>
-                            <th class="px-4 py-2 border text-center">Approval <i class="fa fa-sort"></i></th>
-                            <th class="px-4 py-2 border">Item Check <i class="fa fa-sort"></i></th>
-                            <th class="px-4 py-2 border">Start <i class="fa fa-sort"></i></th>
-                            <th class="px-4 py-2 border">Finished <i class="fa fa-sort"></i></th>
-                            <th class="px-4 py-2 border text-center">Status <i class="fa fa-sort"></i></th>
+                            <th class="px-4 py-2 border text-center">Project</th>
+                            <th class="px-4 py-2 border text-center">Approval</th>
+                            <th class="px-4 py-2 border">Item Check</th>
+                            <th class="px-4 py-2 border">Start</th>
+                            <th class="px-4 py-2 border">Finished</th>
+                            <th class="px-4 py-2 border text-center">Status</th>
                             <th class="px-4 py-2 border text-center">Document</th>
                             <th class="px-4 py-2 border text-center">Action</th>
                         </tr>
