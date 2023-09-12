@@ -185,6 +185,7 @@
                                 <a href="{{ Storage::url($product->document) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
                             </div>
                             @endif
+                            <input type="file" name="document" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
                         </div>
                     </div>
                 </div>
