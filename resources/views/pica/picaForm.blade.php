@@ -22,8 +22,9 @@
     @endif
 
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
+        <input type="text" id="myInput" onkeyup="myFunction()" class="w-1/2 md:w-1/4 lg:w-1/4 border-2 border-gray-300 mb-3 px-3 py-2 rounded-md" placeholder="Filter">
         <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
-            <table class="w-full text-xs md:text-xs text-left text-gray-500 border border-gray-300 table-sort">
+            <table id="myTable" class="w-full text-xs md:text-xs text-left text-gray-500 border border-gray-300 table-sort">
                 <thead class="bg-gray-200">
                     <tr>
                         <th class="px-4 py-2">Tanggal</th>
@@ -224,6 +225,59 @@
     </div>
 
     <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                // Skip the first row (thead)
+                if (i === 0) {
+                    continue;
+                }
+
+                let display = "none"; // Default to hiding the row
+                let hasHighlight = false; // Flag to check if any cell was highlighted
+
+                // Loop through all cells (columns) in the row
+                for (let j = 0; j < tr[i].cells.length; j++) {
+                    td = tr[i].cells[j]; // Get the current cell
+
+                    // Skip the "Data Verifikasi" column (adjust the index as needed)
+                    if (j === 15) { // Assuming "Data Verifikasi" is the 16th column (0-based index)
+                        continue;
+                    }
+
+                    txtValue = td.textContent || td.innerText; // Get cell's text
+
+                    // Check if the cell's text contains the filter text
+                    if (txtValue.toUpperCase().includes(filter)) {
+                        display = ""; // Show the row
+                        hasHighlight = true; // Set flag to true
+                        // Highlight matching text in the cell
+                        txtValue = txtValue.replace(
+                            new RegExp(filter, 'gi'),
+                            (match) => `<span class="bg-yellow-200">${match}</span>`
+                        );
+                        td.innerHTML = txtValue; // Update the cell content
+                    }
+                }
+
+                // Set the display property of the row
+                tr[i].style.display = display;
+
+                // Remove highlighting if no cell was highlighted
+                if (!hasHighlight) {
+                    tr[i].querySelectorAll('span.bg-yellow-200').forEach((span) => {
+                        span.outerHTML = span.innerHTML;
+                    });
+                }
+            }
+        }
+
         // Ambil elemen tombol dan modal
         var openModalButton = document.getElementById("openModalButton");
         var closeModalButton = document.getElementById("closeModalButton");
