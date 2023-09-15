@@ -14,23 +14,23 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tm_pica', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->string('id', 191)->primary();
             $table->date('tanggal');
-            $table->string('shift');
+            $table->string('shift', 191);
             $table->time('jam');
-            $table->string('tempat');
-            $table->string('part_number');
-            $table->string('nama_produk');
+            $table->string('tempat', 191);
+            $table->string('part_number', 191);
+            $table->string('nama_produk', 191);
             $table->text('konten_problem');
-            $table->string('sumber_informasi');
-            $table->string('status');
-            $table->string('sudah_sortir');
+            $table->string('sumber_informasi', 191);
+            $table->string('status', 191);
+            $table->string('sudah_sortir', 191);
             $table->integer('quantity_sortir');
-            $table->string('kondisi_sortir_area');
-            $table->string('PIC');
+            $table->string('kondisi_sortir_area', 191);
+            $table->string('PIC', 191);
             $table->text('penyebab');
             $table->text('countermeasure');
-            $table->string('data_verifikasi')->nullable();
+            $table->string('data_verifikasi', 191)->nullable();
             $table->timestamps();
         });
     }

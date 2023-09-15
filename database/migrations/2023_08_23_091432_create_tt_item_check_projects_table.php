@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tt_item_check_projects', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('project_id');
+            $table->string('id', 191)->primary();
+            $table->string('project_id', 191);
             $table->foreign('project_id')->references('id')->on('tt_projects')->onDelete('cascade');
-            $table->string('item_check');
+            $table->string('item_check', 191);
             $table->date('start');
             $table->date('finished');
-            $table->string('status');
-            $table->string('document')->nullable();
+            $table->string('status', 191);
+            $table->string('document', 191)->nullable();
             $table->timestamps();
         });
     }

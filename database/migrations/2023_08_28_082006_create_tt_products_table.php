@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tt_products', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('model');
-            $table->string('line');
+            $table->string('id', 191)->primary();
+            $table->string('model', 191);
+            $table->string('line', 191);
             $table->date('start_date');
             $table->date('planning_finished');
             $table->integer('target_check');
             $table->integer('finish_check');
-            $table->string('document')->nullable();
-            $table->string('status');
-            $table->string('approval')->nullable();
+            $table->string('document', 191)->nullable();
+            $table->string('status', 191);
+            $table->string('approval', 191)->nullable();
             $table->timestamps();
         });
     }

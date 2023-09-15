@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tt_projects', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('line');
-            $table->string('pcr');
+            $table->string('id', 191)->primary();
+            $table->string('line', 191);
+            $table->string('pcr', 191);
             $table->date('planning_masspro');
-            $table->string('approval')->nullable();
+            $table->string('approval', 191)->nullable();
             $table->timestamps();
         });
     }

@@ -14,18 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tm_customer_problems', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('problem');
+            $table->string('id', 191)->primary();
+            $table->string('problem', 191);
             $table->date('date_of_problem');
-            $table->string('customer');
-            $table->string('model_product');
+            $table->string('customer', 191);
+            $table->string('model_product', 191);
             $table->integer('quantity_product');
-            $table->string('process_problem');
+            $table->string('process_problem', 191);
             $table->date('date_of_process');
-            $table->string('status_problem');
-            $table->string('status_kaizen');
-            $table->string('photo')->nullable();
-            $table->string('report')->nullable();
+            $table->string('status_problem', 191);
+            $table->string('status_kaizen', 191);
+            $table->string('photo', 191)->nullable();
+            $table->string('report', 191)->nullable();
             $table->timestamps();
         });
     }
