@@ -42,6 +42,7 @@ Before you begin, make sure you have the following software installed:
 
     ```sh
     php artisan migrate
+    php artisan db:seed --class=UsersTableSeeder
     ```
 
 6. Run the web application:
