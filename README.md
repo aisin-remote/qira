@@ -1,6 +1,6 @@
 # QIRA Application Installation Guide
 
-This guide will walk you through the steps to install the QOPRA (Quality Inspection and Project Application) application.
+This guide will walk you through the steps to install the QIRA (Quality Inspection and Project Application) application.
 
 ## Prerequisites
 
