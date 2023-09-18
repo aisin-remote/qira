@@ -9,126 +9,73 @@
             <div class="grid gap-6">
                 <!-- Name -->
                 <div class="space-y-2">
-                    <x-form.label
-                        for="name"
-                        :value="__('Name')"
-                    />
+                    <x-form.label for="name" :value="__('Name')" />
 
                     <x-form.input-with-icon-wrapper>
                         <x-slot name="icon">
                             <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
 
-                        <x-form.input
-                            withicon
-                            id="name"
-                            class="block w-full"
-                            type="text"
-                            name="name"
-                            :value="old('name')"
-                            required
-                            autofocus
-                            placeholder="{{ __('Name') }}"
-                        />
+                        <x-form.input withicon id="name" class="block w-full" type="text" name="name" :value="old('name')" required autofocus placeholder="{{ __('Name') }}" />
                     </x-form.input-with-icon-wrapper>
                 </div>
 
                 <!-- NPK -->
                 <div class="space-y-2">
-                    <x-form.label
-                        for="npk"
-                        :value="__('NPK')"
-                    />
+                    <x-form.label for="npk" :value="__('NPK')" />
 
                     <x-form.input-with-icon-wrapper>
                         <x-slot name="icon">
                             <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
 
-                        <x-form.input
-                            withicon
-                            id="npk"
-                            class="block w-full"
-                            type="text"
-                            name="npk"
-                            :value="old('npk')"
-                            required
-                            placeholder="{{ __('NPK') }}"
-                        />
+                        <x-form.input withicon id="npk" class="block w-full" type="text" name="npk" :value="old('npk')" required placeholder="{{ __('NPK') }}" />
                     </x-form.input-with-icon-wrapper>
                 </div>
 
                 <!-- Position -->
                 <div class="space-y-2">
-                    <x-form.label
-                        for="posisi"
-                        :value="__('Posisi')"
-                    />
+                    <x-form.label for="posisi" :value="__('Posisi')" />
 
                     <x-form.input-with-icon-wrapper>
                         <x-slot name="icon">
                             <x-heroicon-o-user aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
 
-                        <x-form.input
-                            withicon
-                            id="posisi"
-                            class="block w-full"
-                            type="text"
-                            name="posisi"
-                            :value="old('posisi')"
-                            required
-                            placeholder="{{ __('Manajer/SPV/LDR/JP/Sub JP') }}"
-                        />
+                        <x-form.select withicon id="posisi" class="block w-full" name="posisi" :value="old('posisi')" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Manajer">Manajer</option>
+                            <option value="SPV">SPV</option>
+                            <option value="LDR">LDR</option>
+                            <option value="JP">JP</option>
+                            <option value="Sub JP">Sub JP</option>
+                        </x-form.select>
                     </x-form.input-with-icon-wrapper>
                 </div>
 
                 <!-- Password -->
                 <div class="space-y-2">
-                    <x-form.label
-                        for="password"
-                        :value="__('Password')"
-                    />
+                    <x-form.label for="password" :value="__('Password')" />
 
                     <x-form.input-with-icon-wrapper>
                         <x-slot name="icon">
                             <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
 
-                        <x-form.input
-                            withicon
-                            id="password"
-                            class="block w-full"
-                            type="password"
-                            name="password"
-                            required
-                            autocomplete="new-password"
-                            placeholder="{{ __('Password') }}"
-                        />
+                        <x-form.input withicon id="password" class="block w-full" type="password" name="password" required autocomplete="new-password" placeholder="{{ __('Password') }}" />
                     </x-form.input-with-icon-wrapper>
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="space-y-2">
-                    <x-form.label
-                        for="password_confirmation"
-                        :value="__('Confirm Password')"
-                    />
+                    <x-form.label for="password_confirmation" :value="__('Confirm Password')" />
 
                     <x-form.input-with-icon-wrapper>
                         <x-slot name="icon">
                             <x-heroicon-o-lock-closed aria-hidden="true" class="w-5 h-5" />
                         </x-slot>
 
-                        <x-form.input
-                            withicon
-                            id="password_confirmation"
-                            class="block w-full"
-                            type="password"
-                            name="password_confirmation"
-                            required
-                            placeholder="{{ __('Confirm Password') }}"
-                        />
+                        <x-form.input withicon id="password_confirmation" class="block w-full" type="password" name="password_confirmation" required placeholder="{{ __('Confirm Password') }}" />
                     </x-form.input-with-icon-wrapper>
                 </div>
 
