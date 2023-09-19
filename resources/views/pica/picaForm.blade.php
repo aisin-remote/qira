@@ -43,6 +43,7 @@
                         <th class="px-4 py-2">Penyebab</th>
                         <th class="px-4 py-2">Countermeasure</th>
                         <th class="px-4 py-2">Data Verifikasi</th>
+                        <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,13 +69,18 @@
                             <a href="{{ Storage::url($data->data_verifikasi) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
                             @endif
                         </td>
+                        <td class="px-4 py-2 text-center">
+                            <a href="/edit" class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
+                            <a href="/delete" class="text-red-500 hover:text-red-700 font-bold">Hapus</a>
+                        </td>
+
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
         <br>
-        <button id="openModalButton" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2">
+        <button id="openModalButton" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2">
             <x-css-danger class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             <span>Tambahkan Data</span>
         </button>
@@ -132,6 +138,20 @@
                                 <div>
                                     <input type="text" name="nama_produk" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
+
+                                <div class="font-bold">
+                                    Konten Problem
+                                </div>
+                                <div>
+                                    <textarea name="konten_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
+                                </div>
+
+                                <div class="font-bold">
+                                    Sumber Informasi
+                                </div>
+                                <div>
+                                    <input type="text" name="sumber_informasi" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -140,20 +160,6 @@
                 <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-tr-md rounded-br-md dark:bg-dark-eval-1">
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <div class="font-bold">
-                                Konten Problem
-                            </div>
-                            <div>
-                                <textarea name="konten_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
-                            </div>
-
-                            <div class="font-bold">
-                                Sumber Informasi
-                            </div>
-                            <div>
-                                <input type="text" name="sumber_informasi" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
-                            </div>
-
                             <div class="font-bold">
                                 Status
                             </div>
