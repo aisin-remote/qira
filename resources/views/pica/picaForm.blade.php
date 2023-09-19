@@ -70,7 +70,7 @@
                             @endif
                         </td>
                         <td class="px-4 py-2 text-center">
-                            <a href="/edit" class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
+                            <a href="{{ route('pica.editData', $data->id) }}" class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
                             <a href="/delete" class="text-red-500 hover:text-red-700 font-bold">Hapus</a>
                         </td>
 

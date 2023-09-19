@@ -71,4 +71,49 @@ class PicaController extends Controller
 
         return redirect()->route('pica.index')->with('success', 'Data Pica berhasil disimpan.');
     }
+
+    public function edit($id)
+    {
+        // Mengambil data PICA berdasarkan ID
+        $pica = Pica::findOrFail($id);
+
+        return view('pica.editPica', compact('pica'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $pica = Pica::findOrFail($id);
+        // Isi kolom-kolom dalam model Pica sesuai dengan data yang ingin disimpan
+        $pica->tanggal = $request->input('tanggal');
+        $pica->shift = $request->input('shift');
+        $pica->jam = $request->input('jam');
+        $pica->tempat = $request->input('tempat');
+        $pica->part_number = $request->input('part_number');
+        $pica->nama_produk = $request->input('nama_produk');
+        $pica->konten_problem = $request->input('konten_problem');
+        $pica->sumber_informasi = $request->input('sumber_informasi');
+        $pica->status = $request->input('status');
+        $pica->sudah_sortir = $request->input('sudah_sortir');
+        $pica->quantity_sortir = $request->input('quantity_sortir');
+        $pica->kondisi_sortir_area = $request->input('kondisi_sortir_area');
+        $pica->PIC = $request->input('PIC');
+        $pica->penyebab = $request->input('penyebab');
+        $pica->countermeasure = $request->input('countermeasure');
+
+        if ($request->hasFile('data_verifikasi')) {
+            $document = $request->file('data_verifikasi');
+            // Ambil nama asli file dokumen
+            $originalFileName = $document->getClientOriginalName();
+
+            // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
+            $documentPath = $document->storeAs('public/documents/', $pica->nama_produk . '_' . $originalFileName);
+
+            $pica->data_verifikasi = $documentPath;
+        }
+
+        // Simpan data ke dalam database
+        $pica->save();
+
+        return redirect()->route('pica.index')->with('success', 'Data Pica berhasil diubah.');
+    }
 }

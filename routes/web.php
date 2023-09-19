@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
 
     // PICA
     Route::get('/pica-form', [PicaController::class, 'index'])->name('pica.form');
+    Route::get('/pica/{id}/edit', [PicaController::class, 'edit'])->name('pica.editData');
+    Route::put('/pica/{id}', [PicaController::class, 'update'])->name('pica.updateData');
     Route::resource('pica', PicaController::class);
 });
 
