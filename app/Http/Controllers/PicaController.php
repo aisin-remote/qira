@@ -116,4 +116,22 @@ class PicaController extends Controller
 
         return redirect()->route('pica.index')->with('success', 'Data Pica berhasil diubah.');
     }
+
+    public function delete($id)
+    {
+        try {
+            $pica = Pica::findOrFail($id);
+
+            if ($pica->data_verifikasi) {
+                // Delete associated data_verifikasi file from storage
+                Storage::delete($pica->data_verifikasi);
+            }
+
+            $pica->delete();
+
+            return redirect()->back()->with('success', 'Item deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus item.');
+        }
+    }
 }
