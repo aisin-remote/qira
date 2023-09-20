@@ -10,9 +10,17 @@ class PicaController extends Controller
 {
     public function index()
     {
-        $picaData = Pica::orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->get();
+        $customerProblemData = Pica::where('tipe', 'CUSTOMER/SUPPLIER PROBLEM')
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam', 'desc')
+            ->get();
 
-        return view("pica.picaForm", compact('picaData'));
+        $internalProblemData = Pica::where('tipe', 'INTERNAL PROBLEM')
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam', 'desc')
+            ->get();
+
+        return view("pica.picaForm", compact('customerProblemData', 'internalProblemData'));
     }
 
     public function store(Request $request)
@@ -28,12 +36,13 @@ class PicaController extends Controller
             'sumber_informasi' => 'required|string',
             'status' => 'required|string',
             'sudah_sortir' => 'required|string',
-            'quantity_sortir' => 'required|integer',
+            'quantity_sortir' => 'required|string',
             'kondisi_sortir_area' => 'required|string',
             'PIC' => 'required|string',
             'penyebab' => 'required|string',
             'countermeasure' => 'required|string',
             'data_verifikasi' => 'required',
+            'tipe' => 'required|string'
         ]);
 
         $pica = new Pica();
@@ -54,6 +63,7 @@ class PicaController extends Controller
         $pica->PIC = $request->input('PIC');
         $pica->penyebab = $request->input('penyebab');
         $pica->countermeasure = $request->input('countermeasure');
+        $pica->tipe = $request->input('tipe');
 
         if ($request->hasFile('data_verifikasi')) {
             $document = $request->file('data_verifikasi');
