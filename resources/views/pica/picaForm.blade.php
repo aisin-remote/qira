@@ -81,7 +81,7 @@
         </div>
         <br>
         <button id="openModalButton" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2">
-            <x-css-danger class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+            <x-css-add class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             <span>Tambahkan Data</span>
         </button>
     </div>
