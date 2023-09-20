@@ -257,6 +257,10 @@
                         continue;
                     }
 
+                    if (j === 16) {
+                        continue;
+                    }
+
                     txtValue = td.textContent || td.innerText; // Get cell's text
 
                     // Check if the cell's text contains the filter text
