@@ -8,7 +8,9 @@
     <div class="col-span-1 md:col-span-1 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
 
+            @if (count($products) > 0)
             <canvas id="barChart" width="400" height="200"></canvas>
+            @endif
 
             <hr>
 
@@ -29,6 +31,7 @@
                     </thead>
 
                     <tbody>
+                        @if (count($products) > 0)
                         @foreach ($products as $product)
                         <tr>
                             <td class="px-4 py-2 border text-center">{{ $product->model }}</td>
@@ -87,6 +90,12 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                            <tr>
+                                <td colspan=" 8" class="px-4 py-2 border text-center">No data available.
+                            </td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
 

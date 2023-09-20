@@ -43,6 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (count($projects) > 0)
                         @foreach ($projects as $project)
                         @if (count($project->itemCheckProjects) > 0)
                         @foreach ($project->itemCheckProjects as $index => $item)
@@ -139,6 +140,12 @@
                         </tr>
                         @endif
                         @endforeach
+                        @else
+                        <tr>
+                            <td colspan=" 8" class="px-4 py-2 border text-center">No data available.
+                            </td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
