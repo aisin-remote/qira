@@ -159,11 +159,18 @@ class PicaController extends Controller
         try {
             $pica = Pica::findOrFail($id);
 
-            if ($pica->data_verifikasi) {
-                // Delete associated data_verifikasi file from storage
-                Storage::delete($pica->data_verifikasi);
+            // Menghapus file terkait dari penyimpanan
+            foreach ($pica->documentPica as $document) {
+                $filePath = 'public/documents/' . $document->data_verifikasi;
+
+                if (Storage::exists($filePath)) {
+                    Storage::delete($filePath);
+                }
+
+                $document->delete();
             }
 
+            // Hapus entitas Pica setelah file-file terkait dihapus
             $pica->delete();
 
             return redirect()->back()->with('success', 'Item deleted successfully');

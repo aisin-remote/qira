@@ -67,8 +67,10 @@
                         <td class="px-4 py-2">{{ $data->penyebab }}</td>
                         <td class="px-4 py-2">{{ $data->countermeasure }}</td>
                         <td class="px-4 py-2">
-                            @if ($data->data_verifikasi)
-                            <a href="{{ Storage::url($data->data_verifikasi) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                            @if ($data->documentPica->count() > 0)
+                            @foreach($data->documentPica as $document)
+                            <a href="{{ Storage::url('public/documents/' . $document->data_verifikasi) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                            @endforeach
                             @endif
                         </td>
                         <td class="px-4 py-2 text-center">
@@ -129,8 +131,10 @@
                         <td class="px-4 py-2">{{ $data->penyebab }}</td>
                         <td class="px-4 py-2">{{ $data->countermeasure }}</td>
                         <td class="px-4 py-2">
-                            @if ($data->data_verifikasi)
-                            <a href="{{ Storage::url($data->data_verifikasi) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                            @if ($data->documentPica->count() > 0)
+                            @foreach($data->documentPica as $document)
+                            <a href="{{ Storage::url('public/documents/' . $document->data_verifikasi) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                            @endforeach
                             @endif
                         </td>
                         <td class="px-4 py-2 text-center">
@@ -208,10 +212,10 @@
                                 </div>
                                 <div>
                                     <select name="tipe" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
-                                    <option value="" selected disabled>Select</option>
-                                    <option value="INTERNAL PROBLEM">INTERNAL PROBLEM</option>
-                                    <option value="CUSTOMER/SUPPLIER PROBLEM">CUSTOMER/SUPPLIER PROBLEM</option>
-                                </select>
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="INTERNAL PROBLEM">INTERNAL PROBLEM</option>
+                                        <option value="CUSTOMER/SUPPLIER PROBLEM">CUSTOMER/SUPPLIER PROBLEM</option>
+                                    </select>
                                 </div>
 
                                 <div class="font-bold">
