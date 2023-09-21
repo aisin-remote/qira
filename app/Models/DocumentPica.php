@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use League\CommonMark\Node\Block\Document;
 
-class Pica extends Model
+class DocumentPica extends Model
 {
     use HasFactory;
     use HasUuids;
 
-    protected $table = 'tm_pica';
+    protected $table = 'tt_pica_document';
 
-    public function documentPica()
+    public function pica()
     {
-        return $this->hasMany(DocumentPica::class, 'id_pica');
+        return $this->belongsTo(Pica::class, 'id_pica');
     }
 }

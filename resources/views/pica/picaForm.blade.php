@@ -292,7 +292,7 @@
                                 Data Verifikasi
                             </div>
                             <div>
-                                <input type="file" multiple name="data_verifikasi" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <input type="file" multiple name="data_verifikasi[]" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                             </div>
                         </div>
                     </div>

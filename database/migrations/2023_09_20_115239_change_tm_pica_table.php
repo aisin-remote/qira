@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('tm_pica', function (Blueprint $table) {
             $table->string('quantity_sortir', 191)->change();
             $table->string('tipe', 191);
+            $table->dropColumn('data_verifikasi');
         });
     }
 
@@ -27,7 +28,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('tm_pica', function (Blueprint $table) {
-            $table->integer('quantity_sortir')->change();
+
         });
     }
 };
