@@ -49,6 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if (count($customerProblemData) > 0)
                     @foreach($customerProblemData as $data)
                     <tr>
                         <td class="px-4 py-2">{{ $data->tanggal }}</td>
@@ -80,6 +81,12 @@
 
                     </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="17" class="px-4 py-2 border text-center">No data available.
+                        </td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -113,6 +120,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if (count($internalProblemData) > 0)
                     @foreach($internalProblemData as $data)
                     <tr>
                         <td class="px-4 py-2">{{ $data->tanggal }}</td>
@@ -144,6 +152,12 @@
 
                     </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="17" class="px-4 py-2 border text-center">No data available.
+                        </td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
