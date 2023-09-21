@@ -197,7 +197,12 @@
                                     Shift
                                 </div>
                                 <div>
-                                    <input type="text" required name="shift" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <select name="shift" required class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                    </select>
                                 </div>
 
                                 <div class="font-bold">
