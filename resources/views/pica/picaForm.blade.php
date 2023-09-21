@@ -24,7 +24,11 @@
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1 relative">
         <h2>Costumer/Supplier Problem</h2>
         <br>
-        <input type="text" id="myInputCost" onkeyup="myFunctionCost()" class="w-1/2 md:w-1/4 lg:w-1/4 border-2 border-gray-300 mb-3 px-3 py-2 rounded-md" placeholder="Filter">
+
+        <input type="date" id="filterDateCost" class="w-1/4 md:w-1/6 lg:w-1/6 border-2 border-gray-300 px-3 py-2 rounded-md" onchange="filterByDateCost()" placeholder="Filter Tanggal">
+
+        <input type="text" id="myInputCost" onkeyup="myFunctionCost()" class="w-1/2 md:w-1/4 lg:w-1/4 border-2 border-gray-300 mb-3 px-3 py-2 rounded-md" placeholder="Search">
+
         <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
             <table id="myTableCost" class="w-full text-xs md:text-xs text-left text-gray-500 border border-gray-300 table-sort">
                 <thead class="bg-gray-200">
@@ -95,7 +99,10 @@
         <br>
         <h2>Internal Problem</h2>
         <br>
-        <input type="text" id="myInputInt" onkeyup="myFunctionInt()" class="w-1/2 md:w-1/4 lg:w-1/4 border-2 border-gray-300 mb-3 px-3 py-2 rounded-md" placeholder="Filter">
+
+        <input type="date" id="filterDateInt" class="w-1/4 md:w-1/6 lg:w-1/6 border-2 border-gray-300 mb-3 px-3 py-2 rounded-md" onchange="filterByDateInt()" placeholder="Filter Tanggal">
+
+        <input type="text" id="myInputInt" onkeyup="myFunctionInt()" class="w-1/2 md:w-1/4 lg:w-1/4 border-2 border-gray-300 mb-3 px-3 py-2 rounded-md" placeholder="Search">
         <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
             <table id="myTableInt" class="w-full text-xs md:text-xs text-left text-gray-500 border border-gray-300 table-sort">
                 <thead class="bg-gray-200">
@@ -183,49 +190,49 @@
                                     Tanggal
                                 </div>
                                 <div>
-                                    <input type="date" name="tanggal" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="date" required name="tanggal" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
 
                                 <div class="font-bold">
                                     Shift
                                 </div>
                                 <div>
-                                    <input type="text" name="shift" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="text" required name="shift" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
 
                                 <div class="font-bold">
                                     Jam
                                 </div>
                                 <div>
-                                    <input type="time" name="jam" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="time" required name="jam" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
 
                                 <div class="font-bold">
                                     Tempat (Line Number)
                                 </div>
                                 <div>
-                                    <input type="text" name="tempat" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="text" required name="tempat" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
 
                                 <div class="font-bold">
                                     Part Number
                                 </div>
                                 <div>
-                                    <input type="text" name="part_number" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="text" required name="part_number" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
 
                                 <div class="font-bold">
                                     Nama Produk
                                 </div>
                                 <div>
-                                    <input type="text" name="nama_produk" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="text" required name="nama_produk" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
 
                                 <div class="font-bold">
                                     Tipe
                                 </div>
                                 <div>
-                                    <select name="tipe" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <select name="tipe" required class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                         <option value="" selected disabled>Select</option>
                                         <option value="INTERNAL PROBLEM">INTERNAL PROBLEM</option>
                                         <option value="CUSTOMER/SUPPLIER PROBLEM">CUSTOMER/SUPPLIER PROBLEM</option>
@@ -236,14 +243,14 @@
                                     Konten Problem
                                 </div>
                                 <div>
-                                    <textarea name="konten_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
+                                    <textarea name="konten_problem" required class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
                                 </div>
 
                                 <div class="font-bold">
                                     Sumber Informasi
                                 </div>
                                 <div>
-                                    <input type="text" name="sumber_informasi" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input type="text" required name="sumber_informasi" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 </div>
                             </div>
                         </div>
@@ -257,14 +264,14 @@
                                 Status
                             </div>
                             <div>
-                                <input type="text" name="status" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <input type="text" required name="status" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                             </div>
 
                             <div class="font-bold">
                                 Sudah Sortir / Belum
                             </div>
                             <div>
-                                <select name="sudah_sortir" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <select name="sudah_sortir" required class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                     <option value="" selected disabled>Select</option>
                                     <option value="sudah">Sudah</option>
                                     <option value="belum">Belum</option>
@@ -275,35 +282,35 @@
                                 Quantity Sortir
                             </div>
                             <div>
-                                <input type="text" name="quantity_sortir" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <input type="text" required name="quantity_sortir" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                             </div>
 
                             <div class="font-bold">
                                 Kondisi Sortir Area
                             </div>
                             <div>
-                                <input type="text" name="kondisi_sortir_area" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <input type="text" required name="kondisi_sortir_area" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                             </div>
 
                             <div class="font-bold">
                                 PIC
                             </div>
                             <div>
-                                <input type="text" name="PIC" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <input type="text" required name="PIC" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                             </div>
 
                             <div class="font-bold">
                                 Penyebab
                             </div>
                             <div>
-                                <textarea name="penyebab" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
+                                <textarea name="penyebab" required class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
                             </div>
 
                             <div class="font-bold">
                                 Countermeasure
                             </div>
                             <div>
-                                <textarea name="countermeasure" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
+                                <textarea name="countermeasure" required class="w-full border-2 border-gray-300 px-3 py-2 rounded-md"></textarea>
                             </div>
 
                             <div class="font-bold">
@@ -443,6 +450,12 @@
         var closeModalButton = document.getElementById("closeModalButton");
         var modal = document.getElementById("myModal");
 
+        // @if($errors -> any())
+        // document.addEventListener("DOMContentLoaded", function() {
+        // modal.classList.remove("hidden");
+        // });
+        // @endif
+
         openModalButton.addEventListener("click", function() {
             modal.classList.remove("hidden");
         });
@@ -456,5 +469,39 @@
                 modal.classList.add("hidden");
             }
         });
+
+        function filterByDateInt() {
+            var inputDate = document.getElementById("filterDateInt").value; // Dapatkan nilai input tanggal
+            var table = document.getElementById("myTableInt"); // Ganti "myTableInt" dengan ID tabel yang sesuai
+
+            for (var i = 1; i < table.rows.length; i++) {
+                var row = table.rows[i];
+                var cellDate = row.cells[0].textContent; // Ganti indeks dengan kolom yang sesuai
+
+                // Jika tanggal di dalam sel sesuai dengan input tanggal, tampilkan baris; jika tidak, sembunyikan.
+                if (cellDate === inputDate) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function filterByDateCost() {
+            var inputDate = document.getElementById("filterDateCost").value; // Dapatkan nilai input tanggal
+            var table = document.getElementById("myTableCost"); // Ganti "myTableCost" dengan ID tabel yang sesuai
+
+            for (var i = 1; i < table.rows.length; i++) {
+                var row = table.rows[i];
+                var cellDate = row.cells[0].textContent; // Ganti indeks dengan kolom yang sesuai
+
+                // Jika tanggal di dalam sel sesuai dengan input tanggal, tampilkan baris; jika tidak, sembunyikan.
+                if (cellDate === inputDate) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
     </script>
 </x-app-layout>
