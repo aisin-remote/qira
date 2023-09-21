@@ -25,75 +25,63 @@
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="flex w-full mb-3">
-                <div class="w-full">
-                    <!-- Model -->
-                    <div class="">
-                        <div class="font-bold">
-                            Model
-                        </div>
-                        <div>
-                            <input type="text" name="model" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Model">
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
+
+                <div class="mb-3">
+                    <div class="font-bold">Model</div>
+                    <div>
+                        <input type="text" name="model" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Model">
                     </div>
-                    <!-- LINE -->
-                    <div class="">
-                        <div class="font-bold">
-                            Line
-                        </div>
-                        <div>
-                            <input type="text" name="line" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Line">
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="font-bold">Line</div>
+                    <div>
+                        <input type="text" name="line" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Line">
                     </div>
-                    <!-- Start Date -->
-                    <div class="">
-                        <div class="font-bold">
-                            Start Date
-                        </div>
-                        <div>
-                            <input type="date" name="start_date" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="font-bold">Start Date</div>
+                    <div>
+                        <input type="date" name="start_date" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md">
                     </div>
-                    <!-- Planning Finished -->
-                    <div class="">
-                        <div class="font-bold">
-                            Planning Finished
-                        </div>
-                        <div>
-                            <input type="date" name="planning_finished" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="font-bold">Planning Finished</div>
+                    <div>
+                        <input type="date" name="planning_finished" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md">
                     </div>
-                    <!-- Target Check -->
-                    <div class="">
-                        <div class="font-bold">
-                            Target Check
-                        </div>
-                        <div>
-                            <input type="number" name="target_check" placeholder="Target Check" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="font-bold">Target Check</div>
+                    <div>
+                        <input type="number" name="target_check" placeholder="Target Check" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md">
                     </div>
-                    <!-- Finish Check -->
-                    <div class="">
-                        <div class="font-bold">
-                            Finish Check
-                        </div>
-                        <div>
-                            <input type="number" name="finish_check" placeholder="Finish Check" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="font-bold">Finish Check</div>
+                    <div>
+                        <input type="number" name="finish_check" placeholder="Finish Check" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md">
                     </div>
-                    <!-- Document -->
-                    <div class="">
-                        <div class="font-bold">
-                            Document
-                        </div>
-                        <div>
-                            <input type="file" name="document" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                        </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="font-bold">Document</div>
+                    <div>
+                        <input type="file" name="document" class="w-full border-2 border-gray-300 px-2 py-1 rounded-md">
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <div class="text-right">
+                        <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 rounded-md cursor-pointer hover:bg-green-500">
                     </div>
                 </div>
             </div>
-
-            <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 rounded-md cursor-pointer hover:bg-green-500">
         </form>
     </div>
 </x-app-layout>
