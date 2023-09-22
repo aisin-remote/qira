@@ -78,7 +78,7 @@ class PicaController extends Controller
 
             foreach ($uploadedFiles as $file) {
                 // Generate nama unik untuk file
-                $fileName = uniqid();
+                $fileName = uniqid() . $file->getClientOriginalExtension();
 
                 // Simpan file ke direktori yang Anda inginkan (misalnya, storage/app/public)
                 $file->storeAs('public/documents/', $fileName);
@@ -138,7 +138,7 @@ class PicaController extends Controller
             // Periksa jumlah file yang diunggah
             foreach ($uploadedFiles as $file) {
                 // Generate nama unik untuk file
-                $fileName = uniqid();
+                $fileName = uniqid() . $file->getClientOriginalExtension();
 
                 // Simpan $file ke direktori yang Anda inginkan (misalnya, storage/app/public)
                 $file->storeAs('public/documents/', $fileName);
