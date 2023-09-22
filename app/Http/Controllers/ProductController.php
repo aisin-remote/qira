@@ -41,7 +41,7 @@ class ProductController extends Controller
         if ($request->hasFile('document')) {
             $document = $request->file('document');
             // Ambil nama asli file dokumen
-            $originalFileName = $document->getClientOriginalName();
+            $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
 
             // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
             $documentPath = $document->storeAs('public/documents/', $product->model . '_' . $originalFileName);
@@ -82,7 +82,7 @@ class ProductController extends Controller
         // Check if a new document is uploaded
         if ($request->hasFile('document')) {
             $document = $request->file('document');
-            $originalFileName = $document->getClientOriginalName();
+            $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
             $documentPath = $document->storeAs('public/documents/', $product->model . '_' . $originalFileName);
             $product->document = $documentPath;
         }

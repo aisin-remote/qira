@@ -38,7 +38,7 @@ class CustomerProblemController extends Controller
 
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo');
-            $originalFileName = $photoPath->getClientOriginalName();
+            $originalFileName = uniqid() . '.' . $photoPath->getClientOriginalExtension();
             $photo = $photoPath->storeAs('public/photos/', $customerProblem->problem . '_' . $originalFileName);
             $customerProblem->photo = $photo;
         }
@@ -46,7 +46,7 @@ class CustomerProblemController extends Controller
         if ($request->hasFile('report')) {
             $document = $request->file('report');
             // Ambil nama asli file dokumen
-            $originalFileName = $document->getClientOriginalName();
+            $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
 
             // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
             $documentPath = $document->storeAs('public/documents/', $customerProblem->problem . '_' . $originalFileName);
@@ -96,7 +96,7 @@ class CustomerProblemController extends Controller
 
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo');
-            $originalFileName = $photoPath->getClientOriginalName();
+            $originalFileName = uniqid() . '.' . $photoPath->getClientOriginalExtension();
             $photo = $photoPath->storeAs('public/photos/', $customerProblem->problem . '_' . $originalFileName);
             $customerProblem->photo = $photo;
         }
@@ -104,7 +104,7 @@ class CustomerProblemController extends Controller
         if ($request->hasFile('report')) {
             $document = $request->file('report');
             // Ambil nama asli file dokumen
-            $originalFileName = $document->getClientOriginalName();
+            $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
 
             // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
             $documentPath = $document->storeAs('public/documents/', $customerProblem->problem . '_' . $originalFileName);

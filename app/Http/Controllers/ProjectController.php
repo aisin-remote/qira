@@ -103,7 +103,7 @@ class ProjectController extends Controller
                         $document = $request->file("items.{$index}.dokumen");
                         if ($document->isValid()) {
                             // Ambil nama asli file dokumen
-                            $originalFileName = $document->getClientOriginalName();
+                            $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
 
                             // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
                             $documentPath = $document->storeAs('public/documents/', $project->pcr . '_' .$itemData['nama'] . '_' . $originalFileName);
@@ -160,7 +160,7 @@ class ProjectController extends Controller
                             // Check if the uploaded document is valid
                             if ($document->isValid()) {
                                 // Ambil nama asli file dokumen
-                                $originalFileName = $document->getClientOriginalName();
+                                $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
 
                                 // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
                                 $documentPath = $document->storeAs('public/documents/', $project->pcr . '_' .$itemData['nama'] . '_' . $originalFileName);
@@ -189,8 +189,7 @@ class ProjectController extends Controller
                         // Check if the uploaded document is valid
                         if ($document->isValid()) {
                             // Ambil nama asli file dokumen
-                            $originalFileName = $document->getClientOriginalName();
-
+                            $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
                             // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
                             $documentPath = $document->storeAs('public/documents/', $project->pcr . '_' .$itemData['nama'] . '_' . $originalFileName);
 
