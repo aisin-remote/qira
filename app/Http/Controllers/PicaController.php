@@ -141,8 +141,7 @@ class PicaController extends Controller
                 $fileName = uniqid() . '_' . $file->getClientOriginalName();
 
                 // Simpan $file ke direktori yang Anda inginkan (misalnya, storage/app/public)
-                // $file->storeAs('public/documents/', $fileName);
-                Storage::disk('public')->put($fileName,  $uploadedFiles);
+                $file->storeAs('public/documents/', $fileName);
 
                 // Simpan path $file ke dalam model atau database
                 $document = new DocumentPica();
