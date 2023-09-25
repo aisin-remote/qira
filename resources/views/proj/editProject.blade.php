@@ -129,7 +129,28 @@
                                 LINE
                             </div>
                             <div>
-                                <input type="text" name="line" value="{{ $project->line }}" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Line">
+                                <select name="line" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                                    <option value="DC01" {{ $project->line === 'DC01' ? 'selected' : '' }}>DC01</option>
+                                    <option value="DC02" {{ $project->line === 'DC02' ? 'selected' : '' }}>DC02</option>
+                                    <option value="DC03" {{ $project->line === 'DC03' ? 'selected' : '' }}>DC03</option>
+                                    <option value="DC04" {{ $project->line === 'DC04' ? 'selected' : '' }}>DC04</option>
+                                    <option value="DC05" {{ $project->line === 'DC05' ? 'selected' : '' }}>DC05</option>
+                                    <option value="DC06" {{ $project->line === 'DC06' ? 'selected' : '' }}>DC06</option>
+                                    <option value="DC07" {{ $project->line === 'DC07' ? 'selected' : '' }}>DC07</option>
+                                    <option value="DC08" {{ $project->line === 'DC08' ? 'selected' : '' }}>DC08</option>
+                                    <option value="MA01" {{ $project->line === 'MA01' ? 'selected' : '' }}>MA01</option>
+                                    <option value="MA02" {{ $project->line === 'MA02' ? 'selected' : '' }}>MA02</option>
+                                    <option value="MA03" {{ $project->line === 'MA03' ? 'selected' : '' }}>MA03</option>
+                                    <option value="MA04" {{ $project->line === 'MA04' ? 'selected' : '' }}>MA04</option>
+                                    <option value="MA05" {{ $project->line === 'MA05' ? 'selected' : '' }}>MA05</option>
+                                    <option value="MA06" {{ $project->line === 'MA06' ? 'selected' : '' }}>MA06</option>
+                                    <option value="MA07" {{ $project->line === 'MA07' ? 'selected' : '' }}>MA07</option>
+                                    <option value="MA08" {{ $project->line === 'MA08' ? 'selected' : '' }}>MA08</option>
+                                    <option value="AS01" {{ $project->line === 'AS01' ? 'selected' : '' }}>AS01</option>
+                                    <option value="AS02" {{ $project->line === 'AS02' ? 'selected' : '' }}>AS02</option>
+                                    <option value="AS03" {{ $project->line === 'AS03' ? 'selected' : '' }}>AS03</option>
+                                    <option value="AS04" {{ $project->line === 'AS04' ? 'selected' : '' }}>AS04</option>
+                                </select>
                             </div>
                         </div>
                         <div class="">

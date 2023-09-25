@@ -149,9 +149,9 @@ class PicaController extends Controller
                 $document->data_verifikasi = $fileName;
                 $document->save();
             }
-
-            return redirect()->route('pica.index')->with('success', 'Data Pica berhasil diubah.');
         }
+        
+        return redirect()->route('pica.index')->with('success', 'Data Pica berhasil diubah.');
     }
 
     public function delete($id)

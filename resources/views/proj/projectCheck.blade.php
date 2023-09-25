@@ -32,7 +32,29 @@
                                 LINE
                             </div>
                             <div>
-                                <input type="text" name="line" class=" w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Line">
+                                <select name="line" class=" w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                                    <option value="" selected disabled>Select</option>
+                                    <option value="DC01">DC01</option>
+                                    <option value="DC02">DC02</option>
+                                    <option value="DC03">DC03</option>
+                                    <option value="DC04">DC04</option>
+                                    <option value="DC05">DC05</option>
+                                    <option value="DC06">DC06</option>
+                                    <option value="DC07">DC07</option>
+                                    <option value="DC08">DC08</option>
+                                    <option value="MA01">MA01</option>
+                                    <option value="MA02">MA02</option>
+                                    <option value="MA03">MA03</option>
+                                    <option value="MA04">MA04</option>
+                                    <option value="MA05">MA05</option>
+                                    <option value="MA06">MA06</option>
+                                    <option value="MA07">MA07</option>
+                                    <option value="MA08">MA08</option>
+                                    <option value="AS01">AS01</option>
+                                    <option value="AS02">AS02</option>
+                                    <option value="AS03">AS03</option>
+                                    <option value="AS04">AS04</option>
+                                </select>
                             </div>
                         </div>
                         <div class="">

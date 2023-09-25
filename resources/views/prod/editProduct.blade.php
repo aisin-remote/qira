@@ -135,7 +135,28 @@
                             Line
                         </div>
                         <div>
-                            <input type="text" name="line" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md" placeholder="Line" value="{{ $product->line }}">
+                            <select name="line" class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
+                                <option value="DC01" {{ $product->line === 'DC01' ? 'selected' : '' }}>DC01</option>
+                                <option value="DC02" {{ $product->line === 'DC02' ? 'selected' : '' }}>DC02</option>
+                                <option value="DC03" {{ $product->line === 'DC03' ? 'selected' : '' }}>DC03</option>
+                                <option value="DC04" {{ $product->line === 'DC04' ? 'selected' : '' }}>DC04</option>
+                                <option value="DC05" {{ $product->line === 'DC05' ? 'selected' : '' }}>DC05</option>
+                                <option value="DC06" {{ $product->line === 'DC06' ? 'selected' : '' }}>DC06</option>
+                                <option value="DC07" {{ $product->line === 'DC07' ? 'selected' : '' }}>DC07</option>
+                                <option value="DC08" {{ $product->line === 'DC08' ? 'selected' : '' }}>DC08</option>
+                                <option value="MA01" {{ $product->line === 'MA01' ? 'selected' : '' }}>MA01</option>
+                                <option value="MA02" {{ $product->line === 'MA02' ? 'selected' : '' }}>MA02</option>
+                                <option value="MA03" {{ $product->line === 'MA03' ? 'selected' : '' }}>MA03</option>
+                                <option value="MA04" {{ $product->line === 'MA04' ? 'selected' : '' }}>MA04</option>
+                                <option value="MA05" {{ $product->line === 'MA05' ? 'selected' : '' }}>MA05</option>
+                                <option value="MA06" {{ $product->line === 'MA06' ? 'selected' : '' }}>MA06</option>
+                                <option value="MA07" {{ $product->line === 'MA07' ? 'selected' : '' }}>MA07</option>
+                                <option value="MA08" {{ $product->line === 'MA08' ? 'selected' : '' }}>MA08</option>
+                                <option value="AS01" {{ $product->line === 'AS01' ? 'selected' : '' }}>AS01</option>
+                                <option value="AS02" {{ $product->line === 'AS02' ? 'selected' : '' }}>AS02</option>
+                                <option value="AS03" {{ $product->line === 'AS03' ? 'selected' : '' }}>AS03</option>
+                                <option value="AS04" {{ $product->line === 'AS04' ? 'selected' : '' }}>AS04</option>
+                            </select>
                         </div>
                     </div>
                     <!-- Start Date -->

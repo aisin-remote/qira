@@ -216,21 +216,173 @@
                                     Tempat (Line Number)
                                 </div>
                                 <div>
-                                    <input type="text" required name="tempat" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <select name="tempat" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="DC01">DC01</option>
+                                        <option value="DC02">DC02</option>
+                                        <option value="DC03">DC03</option>
+                                        <option value="DC04">DC04</option>
+                                        <option value="DC05">DC05</option>
+                                        <option value="DC06">DC06</option>
+                                        <option value="DC07">DC07</option>
+                                        <option value="DC08">DC08</option>
+                                        <option value="MA01">MA01</option>
+                                        <option value="MA02">MA02</option>
+                                        <option value="MA03">MA03</option>
+                                        <option value="MA04">MA04</option>
+                                        <option value="MA05">MA05</option>
+                                        <option value="MA06">MA06</option>
+                                        <option value="MA07">MA07</option>
+                                        <option value="MA08">MA08</option>
+                                        <option value="AS01">AS01</option>
+                                        <option value="AS02">AS02</option>
+                                        <option value="AS03">AS03</option>
+                                        <option value="AS04">AS04</option>
+                                    </select>
                                 </div>
 
                                 <div class="font-bold">
                                     Part Number
                                 </div>
                                 <div>
-                                    <input type="text" required name="part_number" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <select required name="part_number" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                        <option value="" selected disabled>Select</option>
+                                        <!-- CUSTOMER -->
+                                        <optgroup label="CUSTOMER">
+                                            <option value="1060A249">1060A249</option>
+                                            <option value="11113-0Y040">11113-0Y040</option>
+                                            <option value="11113-BZ020">11113-BZ020</option>
+                                            <option value="11310-0Y040">11310-0Y040</option>
+                                            <option value="11310-BZ070">11310-BZ070</option>
+                                            <option value="11310-BZ120">11310-BZ120</option>
+                                            <option value="11310-BZ130">11310-BZ130</option>
+                                            <option value="11310-BZ150">11310-BZ150</option>
+                                            <option value="11310-BZ200">11310-BZ200</option>
+                                            <option value="11310-BZ240">11310-BZ240</option>
+                                            <option value="12101-0Y040">12101-0Y040</option>
+                                            <option value="12101-0Y080">12101-0Y080</option>
+                                            <option value="12101-BZ110">12101-BZ110</option>
+                                            <option value="12101-BZ140">12101-BZ140</option>
+                                        </optgroup>
+                                        <!-- ASSEMBLING -->
+                                        <optgroup label="ASSEMBLING">
+                                            <option value="212110-34010">212110-34010</option>
+                                            <option value="212110-34040">212110-34040</option>
+                                            <option value="212110-34140">212110-34140</option>
+                                            <option value="212110-34270">212110-34270</option>
+                                            <option value="212110-34300">212110-34300</option>
+                                            <option value="212110-34340">212110-34340</option>
+                                            <option value="212130-21250">212130-21250</option>
+                                            <option value="212130-21260">212130-21260</option>
+                                            <option value="243202-10630">243202-10630</option>
+                                            <option value="243202-10680">243202-10680</option>
+                                            <option value="243202-10710">243202-10710</option>
+                                            <option value="243202-10750">243202-10750</option>
+                                        </optgroup>
+                                        <!-- MACHINING -->
+                                        <optgroup label="MACHINING">
+                                            <option value="212111-21350">212111-21350</option>
+                                            <option value="212111-21360">212111-21360</option>
+                                            <option value="212111-31900">212111-31900</option>
+                                            <option value="212111-31930">212111-31930</option>
+                                            <option value="212111-34020">212111-34020</option>
+                                            <option value="212111-34110">212111-34110</option>
+                                            <option value="212111-34130">212111-34130</option>
+                                            <option value="212111-34170">212111-34170</option>
+                                            <option value="243212-10980">243212-10980</option>
+                                            <option value="243212-11020">243212-11020</option>
+                                            <option value="243212-11030">243212-11030</option>
+                                            <option value="243212-11040">243212-11040</option>
+                                        </optgroup>
+                                        <!-- CASTING -->
+                                        <optgroup label="CASTING">
+                                            <option value="212111-31900-04">212111-31900-04</option>
+                                            <option value="212111-31930-04">212111-31930-04</option>
+                                            <option value="212111-34020-04">212111-34020-04</option>
+                                            <option value="212111-34110-04">212111-34110-04</option>
+                                            <option value="212111-34130-04">212111-34130-04</option>
+                                            <option value="212111-21350-04">212111-21350-04</option>
+                                            <option value="212111-34170-04">212111-34170-04</option>
+                                            <option value="243212-10900-04">243212-10900-04</option>
+                                            <option value="243212-11010-04">243212-11010-04</option>
+                                            <option value="243212-11040-04">243212-11040-04</option>
+                                            <option value="243212-11030-04">243212-11030-04</option>
+                                            <option value="243131-10260-04">243131-10260-04</option>
+                                            <option value="243131-10490-04">243131-10490-04</option>
+                                        </optgroup>
+                                    </select>
                                 </div>
 
                                 <div class="font-bold">
                                     Nama Produk
                                 </div>
                                 <div>
-                                    <input type="text" required name="nama_produk" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <select required name="nama_produk" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                        <option value="" selected disabled>Select</option>
+                                        <!-- CUSTOMER -->
+                                        <optgroup label="CUSTOMER">
+                                            <option value="TCC 4A91">TCC 4A91</option>
+                                            <option value="CSH D98E">CSH D98E</option>
+                                            <option value="CSH D05E">CSH D05E</option>
+                                            <option value="TCC 889F">TCC 889F</option>
+                                            <option value="TCC D18E">TCC D18E</option>
+                                            <option value="TCC D05E">TCC D05E</option>
+                                            <option value="TCC D98E">TCC D98E</option>
+                                            <option value="TCC D72F">TCC D72F</option>
+                                            <option value="TCC D41E">TCC D41E</option>
+                                            <option value="TCC D13E">TCC D13E</option>
+                                            <option value="OPN 889F">OPN 889F</option>
+                                            <option value="OPN 922F">OPN 922F</option>
+                                            <option value="OPN D72F">OPN D72F</option>
+                                            <option value="OPN D41E">OPN D41E</option>
+                                        </optgroup>
+                                        <!-- ASSEMBLING -->
+                                        <optgroup label="ASSEMBLING">
+                                            <option value="TCC D98E AS">TCC D98E AS</option>
+                                            <option value="TCC 889F AS">TCC 889F AS</option>
+                                            <option value="TCC D72F AS">TCC D72F AS</option>
+                                            <option value="TCC D18E AS">TCC D18E AS</option>
+                                            <option value="TCC D05E AS">TCC D05E AS</option>
+                                            <option value="TCC D41E AS">TCC D41E AS</option>
+                                            <option value="TCC 4A91 AS">TCC 4A91 AS</option>
+                                            <option value="TCC D13E AS">TCC D13E AS</option>
+                                            <option value="OPN 889F AS">OPN 889F AS</option>
+                                            <option value="OPN 922F AS">OPN 922F AS</option>
+                                            <option value="OPN D72F AS">OPN D72F AS</option>
+                                            <option value="OPN D41E AS">OPN D41E AS</option>
+                                        </optgroup>
+                                        <!-- MACHINING -->
+                                        <optgroup label="MACHINING">
+                                            <option value="TCC 4A91 MA">TCC 4A91 MA</option>
+                                            <option value="TCC D13E MA">TCC D13E MA</option>
+                                            <option value="TCC D98E MA">TCC D98E MA</option>
+                                            <option value="TCC 889F MA">TCC 889F MA</option>
+                                            <option value="TCC D72F MA">TCC D72F MA</option>
+                                            <option value="TCC D18E MA">TCC D18E MA</option>
+                                            <option value="TCC D05E MA">TCC D05E MA</option>
+                                            <option value="TCC D41E MA">TCC D41E MA</option>
+                                            <option value="OPN 889F MA">OPN 889F MA</option>
+                                            <option value="OPN 922F MA">OPN 922F MA</option>
+                                            <option value="OPN D41E MA">OPN D41E MA</option>
+                                            <option value="OPN D72F MA">OPN D72F MA</option>
+                                        </optgroup>
+                                        <!-- CASTING -->
+                                        <optgroup label="CASTING">
+                                            <option value="TCC D98E DC">TCC D98E DC</option>
+                                            <option value="TCC 889F DC">TCC 889F DC</option>
+                                            <option value="TCC D72F DC">TCC D72F DC</option>
+                                            <option value="TCC D18E DC">TCC D18E DC</option>
+                                            <option value="TCC D05E DC">TCC D05E DC</option>
+                                            <option value="TCC 4A91 DC">TCC 4A91 DC</option>
+                                            <option value="TCC D41E DC">TCC D41E DC</option>
+                                            <option value="OPN 889F DC">OPN 889F DC</option>
+                                            <option value="OPN 922F DC">OPN 922F DC</option>
+                                            <option value="OPN D72F DC">OPN D72F DC</option>
+                                            <option value="OPN D41E DC">OPN D41E DC</option>
+                                            <option value="CSH D98E DC">CSH D98E DC</option>
+                                            <option value="CSH D05E DC">CSH D05E DC</option>
+                                        </optgroup>
+                                    </select>
                                 </div>
 
                                 <div class="font-bold">
