@@ -7,6 +7,7 @@ use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use SebastianBergmann\Type\NullType;
 
 class ProjectController extends Controller
 {
@@ -133,11 +134,12 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
 
+        // dd($request->all());
+
         // Update project details if needed
         $project->line = $request->input('line');
         $project->pcr = $request->input('nama');
         $project->planning_masspro = $request->input('deadline');
-        $project->approval = $request->input('approval');
         $project->save();
 
         // Check if 'items' are present in the request
@@ -172,6 +174,15 @@ class ProjectController extends Controller
                         }
                     }
 
+                    if (isset($itemData['approval']) && !empty($itemData['approval'])) {
+                        $item->approval = $itemData['approval'];
+                    } elseif (!empty($item->approval)) {
+                        // Jika data approval sudah ada dalam database, gunakan nilai yang sudah ada
+                        $item->approval = $item->approval;
+                    } else {
+                        $item->approval = 'Waiting ...';
+                    }
+
                     $item->save();
                 } else {
                     // Create a new item
@@ -197,6 +208,15 @@ class ProjectController extends Controller
                         } else {
                             return back()->withErrors(["items.{$index}.dokumen" => 'Invalid document'])->withInput();
                         }
+                    }
+
+                    if (isset($itemData['approval']) && !empty($itemData['approval'])) {
+                        $newItem->approval = $itemData['approval'];
+                    } elseif (!empty($newItem->approval)) {
+                        // Jika data approval sudah ada dalam database, gunakan nilai yang sudah ada
+                        $newItem->approval = $newItem->approval;
+                    } else {
+                        $newItem->approval = 'Waiting ...';
                     }
 
                     $newItem->save();

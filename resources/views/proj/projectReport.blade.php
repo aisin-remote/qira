@@ -33,12 +33,12 @@
                     <thead class="bg-gray-200">
                         <tr>
                             <th class="px-4 py-2 border text-center">Project</th>
-                            <th class="px-4 py-2 border text-center">Approval</th>
                             <th class="px-4 py-2 border">Item Check</th>
                             <th class="px-4 py-2 border">Start</th>
                             <th class="px-4 py-2 border">Finished</th>
                             <th class="px-4 py-2 border text-center">Status</th>
                             <th class="px-4 py-2 border text-center">Document</th>
+                            <th class="px-4 py-2 border text-center">Approval</th>
                             <th class="px-4 py-2 border text-center">Action</th>
                         </tr>
                     </thead>
@@ -53,15 +53,6 @@
                                 <div><strong>Item PCR:</strong> {{ $project->pcr }}</div>
                                 <div><strong>Line:</strong> {{ $project->line }}</div>
                                 <div><strong>Planning Masspro:</strong> {{ $project->planning_masspro }}</div>
-                            </td>
-                            <td rowspan="{{ count($project->itemCheckProjects) }}" class="px-4 py-2 border align-top">
-                                <div>
-                                    @if ($project->approval === null || $project->approval === '')
-                                    Waiting ...
-                                    @else
-                                    {{ $project->approval }}
-                                    @endif
-                                </div>
                             </td>
                             @endif
                             <td class="px-4 py-2 border">{{ $item->item_check }}</td>
@@ -91,21 +82,24 @@
                                 </button>
                                 @endif
                             </td>
+                            <td class="px-4 py-2 border text-center">
+                                <div>
+                                    @if ($item->approval === null || $item->approval === '')
+                                    Waiting ...
+                                    @else
+                                    {{ $item->approval }}
+                                    @endif
+                                </div>
+                            </td>
                             @if ($index === 0)
                             <td rowspan="{{ count($project->itemCheckProjects) }}" class="px-4 py-2 border text-center">
                                 <div class="flex justify-center space-x-2">
-                                    @if ((auth()->user()->posisi === 'Manajer') && ($project->approval === null || $project->approval === '' || $project->approval === 'Decline'))
-                                    <a href="#" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Approval</a>
-                                    <a href=" #" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
-                                    @elseif (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
+                                    @if (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
                                     <a href=" {{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Approval</a>
                                     <a href="{{ route('projects.deleteItem', ['id' => $project->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
-                                    @elseif ($project->approval === null || $project->approval === '' || $project->approval === 'Decline' && (auth()->user()->posisi === 'LDR' || auth()->user()->posisi === 'JP' || auth()->user()->posisi === 'Sub JP'))
+                                    @else
                                     <a href="{{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                                     <a href="{{ route('projects.deleteItem', ['id' => $project->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
-                                    @else
-                                    <a href="#" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Edit</a>
-                                    <a href=" #" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
                                     @endif
                                 </div>
                             </td>
@@ -115,26 +109,25 @@
                         @else
                         <tr>
                             <td class=" px-4 py-2 border align-top">
-                                        <div><strong>Item PCR:</strong> {{ $project->pcr }}</div>
-                                        <div><strong>Line:</strong> {{ $project->line }}</div>
-                                        <div><strong>Planning Masspro:</strong> {{ $project->planning_masspro }}</div>
-                                        <div><strong>Status Approval:</strong>
-                                            @if ($project->approval === null || $project->approval === '')
-                                            Waiting ...
-                                            @else
-                                            {{ $project->approval }}
-                                            @endif
-                                        </div>
+                                <div><strong>Item PCR:</strong> {{ $project->pcr }}</div>
+                                <div><strong>Line:</strong> {{ $project->line }}</div>
+                                <div><strong>Planning Masspro:</strong> {{ $project->planning_masspro }}</div>
                             </td>
                             <td class="px-4 py-2 border">-</td>
                             <td class="px-4 py-2 border">-</td>
                             <td class="px-4 py-2 border">-</td>
                             <td class="px-4 py-2 border text-center">-</td>
                             <td class="px-4 py-2 border text-center">-</td>
+                            <td class="px-4 py-2 border text-center">-</td>
                             <td rowspan="1" class="px-4 py-2 border text-center">
                                 <div class="flex justify-center space-x-2">
+                                    @if (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
+                                    <a href=" {{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Approval</a>
+                                    <a href="{{ route('projects.deleteItem', ['id' => $project->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
+                                    @else
                                     <a href="{{ route('projects.edit', $project->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
                                     <a href="{{ route('projects.deleteItem', ['id' => $project->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

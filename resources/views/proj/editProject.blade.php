@@ -68,6 +68,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Document
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Approval
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="itemTableBody">
@@ -90,6 +93,27 @@
                                     <div class="mt-2">
                                         <a href="{{ Storage::url($item->document) }}" readonly class="text-blue-500 underline" target="_blank">Lihat File</a>
                                     </div>
+                                    @else
+                                    <div class="mt-2">
+                                        <strong>No Data Available</strong>
+                                    </div>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4">
+                                    @if (auth()->user()->posisi === 'SPV' && $item->approval === 'Approved by Manager')
+                                    <input type="text" class="border-2 border-gray-300 rounded-md" value="Approved by Manager" disabled>
+                                    @elseif (auth()->user()->posisi === 'SPV')
+                                    <select name="items[{{ $index }}][approval]" class="border-2 border-gray-300 rounded-md">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="Approved by SPV" {{ $item->approval === 'Approved by SPV' || $item->approval === 'Approved by Manager' ? 'selected' : '' }}>Approved</option>
+                                        <option value="Decline" {{ $item->approval === 'Decline' ? 'selected' : '' }}>Decline</option>
+                                    </select>
+                                    @elseif (auth()->user()->posisi === 'Manajer')
+                                    <select name="items[{{ $index }}][approval]" class="border-2 border-gray-300 rounded-md">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="Approved by Manager">Approved</option>
+                                        <option value="Decline">Decline</option>
+                                    </select>
                                     @endif
                                 </td>
                             </tr>
@@ -97,28 +121,6 @@
                         </tbody>
                     </table>
                     <hr>
-                </div>
-                <br>
-                <hr>
-                <div class="">
-                    <div class="font-bold">
-                        Approval
-                    </div>
-                    <div>
-                        @if (auth()->user()->posisi === 'SPV')
-                        <select name="approval" required class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                            <option value="" selected disabled>Select</option>
-                            <option value="Approved by SPV">Approved</option>
-                            <option value="Decline">Decline</option>
-                        </select>
-                        @elseif (auth()->user()->posisi === 'Manajer')
-                        <select name="approval" required class="w-11/12 md:w-8/12 lg:w-4/12 border-2 border-gray-300 px-2 py-1 rounded-md">
-                            <option value="" selected disabled>Select</option>
-                            <option value="Approved by Manager">Approved</option>
-                            <option value="Decline">Decline</option>
-                        </select>
-                        @endif
-                    </div>
                 </div>
 
                 @else
@@ -199,13 +201,13 @@
                             @foreach($project->itemCheckProjects as $index => $item)
                             <tr class="odd:bg-white even:bg-gray-50 border-b text-center item">
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <input type="text" name="items[{{ $index }}][nama]" value="{{ $item->item_check }}" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
+                                    <input type="text" name="items[{{ $index }}][nama]" value="{{ $item->item_check }}" {{ $item->approval === 'Approved by SPV' || $item->approval === 'Approved by Manager' ? 'readonly' : '' }} required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md" placeholder="Item Check">
                                 </td>
                                 <td class="px-6 py-4">
-                                    <input type="date" name="items[{{ $index }}][start]" value="{{ $item->start }}" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+                                    <input type="date" name="items[{{ $index }}][start]" value="{{ $item->start }}" {{ $item->approval === 'Approved by SPV' || $item->approval === 'Approved by Manager' ? 'readonly' : '' }} required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
                                 </td>
                                 <td class="px-6 py-4">
-                                    <input type="date" name="items[{{ $index }}][deadline]" value="{{ $item->finished }}" required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+                                    <input type="date" name="items[{{ $index }}][deadline]" value="{{ $item->finished }}" {{ $item->approval === 'Approved by SPV' || $item->approval === 'Approved by Manager' ? 'readonly' : '' }} required class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
                                 </td>
                                 <td class="px-6 py-4">
                                     <select name="items[{{ $index }}][status]" required class="w-full border border-gray-300 px-2 py-1 rounded-md">
@@ -214,7 +216,7 @@
                                     </select>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <input type="file" name="items[{{ $index }}][dokumen]" class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md">
+                                    <input type="file" name="items[{{ $index }}][dokumen]" class="w-11/12 md:w-9/12 lg:w-8/12 border border-gray-300 px-2 py-1 rounded-md" {{ $item->approval === 'Approved by SPV' || $item->approval === 'Approved by Manager' ? 'disabled' : '' }}>
                                     @if ($item->document)
                                     <div class="mt-2">
                                         <a href="{{ Storage::url($item->document) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
@@ -222,7 +224,7 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('projects.deleteItemDetail', ['id' => $item->id]) }}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md">Hapus</a>
+                                    <a href="{{ route('projects.deleteItemDetail', ['id' => $item->id]) }}" {{ $item->approval === 'Approved by SPV' || $item->approval === 'Approved by Manager' ? 'hidden' : '' }} class="bg-red-500 hover:bg-red-700 text-white font-medium py-1 px-2 rounded-md">Hapus</a>
                                 </td>
                             </tr>
                             @endforeach
