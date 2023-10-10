@@ -44,7 +44,7 @@ class ProductController extends Controller
             $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
 
             // Gabungkan dengan nilai $itemData['nama'] untuk membentuk path lengkap
-            $documentPath = $document->storeAs('public/documents/', $product->model . '_' . $originalFileName);
+            $documentPath = $document->storeAs('public/documents/', $originalFileName);
 
             $product->document = $documentPath;
         }
@@ -83,7 +83,7 @@ class ProductController extends Controller
         if ($request->hasFile('document')) {
             $document = $request->file('document');
             $originalFileName = uniqid() . '.' . $document->getClientOriginalExtension();
-            $documentPath = $document->storeAs('public/documents/', $product->model . '_' . $originalFileName);
+            $documentPath = $document->storeAs('public/documents/', $originalFileName);
             $product->document = $documentPath;
         }
 
