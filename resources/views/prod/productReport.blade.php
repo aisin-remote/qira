@@ -12,6 +12,18 @@
             <canvas id="barChart" width="400" height="200"></canvas>
             @endif
 
+            @if (count($asProducts) > 0)
+            <canvas id="asChart" width="400" height="200"></canvas>
+            @endif
+
+            @if (count($maProducts) > 0)
+            <canvas id="maChart" width="400" height="200"></canvas>
+            @endif
+
+            @if (count($dcProducts) > 0)
+            <canvas id="dcChart" width="400" height="200"></canvas>
+            @endif
+
             <hr>
 
             <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
@@ -107,8 +119,8 @@
     </div>
 
     <script>
+        @if(count($products) > 0)
         var products = @json($products);
-
         var labels = products.map(function(product) {
             return product.model;
         });
@@ -161,6 +173,181 @@
                 }
             }
         });
+        @endif
+
+        @if(count($asProducts) > 0)
+        var asProducts = @json($asProducts);
+        console.log(asProducts);
+
+        var asLabels = asProducts.map(function(product) {
+            return product.model;
+        });
+
+        var asFinishCheckData = asProducts.map(function(product) {
+            return product.finish_check;
+        });
+
+        var asTargetCheckData = asProducts.map(function(product) {
+            return product.target_check;
+        });
+
+        var asOnProgressData = asProducts.map(function(product) {
+            return product.target_check - product.finish_check;
+        });
+
+        var asCtx = document.getElementById('asChart').getContext('2d');
+        var asChart = new Chart(asCtx, {
+            type: 'bar',
+            data: {
+                labels: asLabels,
+                datasets: [{
+                        label: 'Finish Check',
+                        data: asFinishCheckData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Target Check',
+                        data: asTargetCheckData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'On Progress Check',
+                        data: asOnProgressData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        @endif
+
+        @if(count($maProducts) > 0)
+        var maProducts = @json($maProducts);
+        console.log(maProducts);
+
+        var maLabels = maProducts.map(function(product) {
+            return product.model;
+        });
+
+        var maFinishCheckData = maProducts.map(function(product) {
+            return product.finish_check;
+        });
+
+        var maTargetCheckData = maProducts.map(function(product) {
+            return product.target_check;
+        });
+
+        var maOnProgressData = maProducts.map(function(product) {
+            return product.target_check - product.finish_check;
+        });
+
+        var maCtx = document.getElementById('maChart').getContext('2d');
+        var maChart = new Chart(maCtx, {
+            type: 'bar',
+            data: {
+                labels: maLabels,
+                datasets: [{
+                        label: 'Finish Check',
+                        data: maFinishCheckData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Target Check',
+                        data: maTargetCheckData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'On Progress Check',
+                        data: maOnProgressData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        @endif
+
+        @if(count($dcProducts) > 0)
+        var dcProducts = @json($dcProducts);
+        console.log(dcProducts);
+
+        var dcLabels = dcProducts.map(function(product) {
+            return product.model;
+        });
+
+        var dcFinishCheckData = dcProducts.map(function(product) {
+            return product.finish_check;
+        });
+
+        var dcTargetCheckData = dcProducts.map(function(product) {
+            return product.target_check;
+        });
+
+        var dcOnProgressData = dcProducts.map(function(product) {
+            return product.target_check - product.finish_check;
+        });
+
+        var dcCtx = document.getElementById('dcChart').getContext('2d');
+        var dcChart = new Chart(dcCtx, {
+            type: 'bar',
+            data: {
+                labels: dcLabels,
+                datasets: [{
+                        label: 'Finish Check',
+                        data: dcFinishCheckData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Target Check',
+                        data: dcTargetCheckData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'On Progress Check',
+                        data: dcOnProgressData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        @endif
     </script>
 
 </x-app-layout>

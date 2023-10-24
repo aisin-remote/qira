@@ -16,7 +16,19 @@ class ProductController extends Controller
             ->where('planning_finished', '<=', Carbon::now()->addMonths(2))
             ->get();
 
-        return view('prod.productReport', compact('products'));
+        $asProducts = $products->filter(function ($product) {
+            return strpos($product->line, 'AS') !== false;
+        })->values();
+        $maProducts = $products->filter(function ($product) {
+            return strpos($product->line, 'MA') !== false;
+        })->values();
+        $dcProducts = $products->filter(function ($product) {
+            return strpos($product->line, 'DC') !== false;
+        })->values();
+
+        // dd($products, $asProducts, $maProducts, $dcProducts);
+
+        return view('prod.productReport', compact('products', 'asProducts', 'maProducts', 'dcProducts'));
     }
 
     public function store(Request $request)
