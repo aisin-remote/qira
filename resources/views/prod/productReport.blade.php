@@ -20,6 +20,7 @@
                     <thead class="bg-gray-200">
                         <tr>
                             <th class="px-4 py-2 border text-center">Model Product <i class="fa fa-sort"></i></th>
+                            <th class="px-4 py-2 border text-center">Line <i class="fa fa-sort"></i></th>
                             <th class="px-4 py-2 border text-center">Start <i class="fa fa-sort"></i></th>
                             <th class="px-4 py-2 border text-center">Planning Finished <i class="fa fa-sort"></i></th>
                             <th class="px-4 py-2 border text-center">Progress <i class="fa fa-sort"></i></th>
@@ -35,6 +36,7 @@
                         @foreach ($products as $product)
                         <tr>
                             <td class="px-4 py-2 border text-center">{{ $product->model }}</td>
+                            <td class="px-4 py-2 border text-center">{{ $product->line }}</td>
                             <td class="px-4 py-2 border text-center">{{ $product->start_date }}</td>
                             <td class="px-4 py-2 border text-center">{{ $product->planning_finished }}</td>
                             <td class="px-4 py-2 border text-center">
