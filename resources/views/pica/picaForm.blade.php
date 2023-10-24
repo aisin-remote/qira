@@ -245,7 +245,8 @@
                                     Part Number
                                 </div>
                                 <div>
-                                    <select required name="part_number" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <input required name="part_number" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" list="partNumbers">
+                                    <datalist id="partNumbers">
                                         <option value="" selected disabled>Select</option>
                                         <!-- CUSTOMER -->
                                         <optgroup label="CUSTOMER">
@@ -310,7 +311,7 @@
                                             <option value="243131-10260-04">243131-10260-04</option>
                                             <option value="243131-10490-04">243131-10490-04</option>
                                         </optgroup>
-                                    </select>
+                                    </datalist>
                                 </div>
 
                                 <div class="font-bold">
