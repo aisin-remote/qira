@@ -8,21 +8,33 @@
     <div class="col-span-1 md:col-span-1 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
 
-            @if (count($products) > 0)
-            <canvas id="barChart" width="400" height="200"></canvas>
-            @endif
+            <div class="flex flex-col">
+                <div class="flex flex-row mb-2">
+                    <div class="tab cursor-pointer mr-2" onclick="showChart('barChart')">All</div>
+                    @if (count($asProducts) > 0)
+                    <div class="tab cursor-pointer mr-2" onclick="showChart('asChart')">AS Chart</div>
+                    @endif
+                    @if (count($maProducts) > 0)
+                    <div class="tab cursor-pointer mr-2" onclick="showChart('maChart')">MA Chart</div>
+                    @endif
+                    @if (count($dcProducts) > 0)
+                    <div class="tab cursor-pointer" onclick="showChart('dcChart')">DC Chart</div>
+                    @endif
+                </div>
+            </div>
 
-            @if (count($asProducts) > 0)
-            <canvas id="asChart" width="400" height="200"></canvas>
-            @endif
-
-            @if (count($maProducts) > 0)
-            <canvas id="maChart" width="400" height="200"></canvas>
-            @endif
-
-            @if (count($dcProducts) > 0)
-            <canvas id="dcChart" width="400" height="200"></canvas>
-            @endif
+            <div class="tab-content">
+                <canvas id="barChart" width="400" height="200"></canvas>
+                @if (count($asProducts) > 0)
+                <canvas id="asChart" width="400" height="200" style="display:none;"></canvas>
+                @endif
+                @if (count($maProducts) > 0)
+                <canvas id="maChart" width="400" height="200" style="display:none;"></canvas>
+                @endif
+                @if (count($dcProducts) > 0)
+                <canvas id="dcChart" width="400" height="200" style="display:none;"></canvas>
+                @endif
+            </div>
 
             <hr>
 
@@ -119,6 +131,30 @@
     </div>
 
     <script>
+        function showChart(chartId) {
+            var charts = document.querySelectorAll('.tab-content canvas');
+            charts.forEach(function(chart) {
+                chart.style.display = 'none';
+            });
+
+            // Menghapus latar belakang dan teks putih dari semua tab
+            var tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function(tab) {
+                tab.classList.remove('bg-green-600', 'text-white', 'rounded', 'px-8'); // Menghapus kelas latar belakang, teks putih, dan sudut bulat
+            });
+
+            // Menambahkan latar belakang hijau, teks putih, dan sudut bulat ke tab yang dipilih
+            var selectedTab = document.querySelector('[onclick="showChart(\'' + chartId + '\')"]');
+            selectedTab.classList.add('bg-green-600', 'text-white', 'rounded', 'px-8'); // Menambahkan kelas latar belakang hijau, teks putih, dan sudut bulat yang lebih besar
+
+            var selectedChart = document.getElementById(chartId);
+            selectedChart.style.display = 'block';
+        }
+
+        // Menampilkan kondisi default pada tab "All"
+        var allTab = document.querySelector('.tab:first-child');
+        allTab.classList.add('bg-green-600', 'text-white', 'rounded', 'px-8'); // Menambahkan kelas latar belakang hijau, teks putih, dan sudut bulat yang lebih besar pada tab "All" secara default
+
         @if(count($products) > 0)
         var products = @json($products);
         var labels = products.map(function(product) {
