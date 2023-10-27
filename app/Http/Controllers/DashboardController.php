@@ -266,7 +266,7 @@ class DashboardController extends Controller
             FROM
                 tt_products
             WHERE
-                line LIKE 'DC%' AND model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%'
+                line LIKE 'DC%' AND model LIKE 'Oilpan%'
                 AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
                 AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
         ) AS subquery
