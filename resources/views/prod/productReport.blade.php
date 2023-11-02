@@ -12,13 +12,13 @@
                 <div class="flex flex-row mb-2">
                     <div class="tab cursor-pointer mr-2" onclick="showChart('barChart')">All</div>
                     @if (count($asProducts) > 0)
-                    <div class="tab cursor-pointer mr-2" onclick="showChart('asChart')">AS Chart</div>
+                    <div class="tab cursor-pointer mr-2" onclick="showChart('asChart')">AS Line</div>
                     @endif
                     @if (count($maProducts) > 0)
-                    <div class="tab cursor-pointer mr-2" onclick="showChart('maChart')">MA Chart</div>
+                    <div class="tab cursor-pointer mr-2" onclick="showChart('maChart')">MA Line</div>
                     @endif
                     @if (count($dcProducts) > 0)
-                    <div class="tab cursor-pointer" onclick="showChart('dcChart')">DC Chart</div>
+                    <div class="tab cursor-pointer" onclick="showChart('dcChart')">DC Line</div>
                     @endif
                 </div>
             </div>
