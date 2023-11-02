@@ -58,7 +58,7 @@
                     <tbody>
                         @if (count($products) > 0)
                         @foreach ($products as $product)
-                        <tr>
+                        <tr data-line="{{ substr($product->line, 0, 2) }}">
                             <td class="px-4 py-2 border text-center">{{ $product->model }}</td>
                             <td class="px-4 py-2 border text-center">{{ $product->line }}</td>
                             <td class="px-4 py-2 border text-center">{{ $product->start_date }}</td>
@@ -149,6 +149,38 @@
 
             var selectedChart = document.getElementById(chartId);
             selectedChart.style.display = 'block';
+
+            // Menampilkan semua baris tabel jika tab "All" dipilih
+            if (chartId === 'barChart') {
+                var tableRows = document.querySelectorAll('tbody tr');
+                tableRows.forEach(function(row) {
+                    row.style.display = 'table-row';
+                });
+            } else {
+                // Menyembunyikan semua baris tabel jika tab selain "All" dipilih
+                var tableRows = document.querySelectorAll('tbody tr');
+                tableRows.forEach(function(row) {
+                    row.style.display = 'none';
+                });
+
+                // Menampilkan baris tabel sesuai dengan line yang dipilih
+                if (chartId === 'asChart') {
+                    var asTableRows = document.querySelectorAll('tbody tr[data-line="AS"]');
+                    asTableRows.forEach(function(row) {
+                        row.style.display = 'table-row';
+                    });
+                } else if (chartId === 'dcChart') {
+                    var dcTableRows = document.querySelectorAll('tbody tr[data-line="DC"]');
+                    dcTableRows.forEach(function(row) {
+                        row.style.display = 'table-row';
+                    });
+                } else if (chartId === 'maChart') {
+                    var maTableRows = document.querySelectorAll('tbody tr[data-line="MA"]');
+                    maTableRows.forEach(function(row) {
+                        row.style.display = 'table-row';
+                    });
+                }
+            }
         }
 
         // Menampilkan kondisi default pada tab "All"
