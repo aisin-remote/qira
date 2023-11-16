@@ -10,12 +10,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('planning_finished', '>=', Carbon::now()->subMonths(2))
-            ->where('planning_finished', '<=', Carbon::now()->addMonths(2))
-            ->get();
+        // Ambil input dari form
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
+        // Buat kueri untuk mengambil produk berdasarkan range bulan
+        $productsQuery = Product::query();
+
+        if ($startDate && $endDate) {
+            $productsQuery->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('planning_finished', [$startDate, $endDate])
+                    ->orWhereBetween('start_date', [$startDate, $endDate]);
+            });
+        }
+
+        $products = $productsQuery->get();
+
+        // Lakukan filter untuk masing-masing line
         $asProducts = $products->filter(function ($product) {
             return strpos($product->line, 'AS') !== false;
         })->values();
@@ -26,8 +39,7 @@ class ProductController extends Controller
             return strpos($product->line, 'DC') !== false;
         })->values();
 
-        // dd($products, $asProducts, $maProducts, $dcProducts);
-
+        // Kirim data ke tampilan
         return view('prod.productReport', compact('products', 'asProducts', 'maProducts', 'dcProducts'));
     }
 
