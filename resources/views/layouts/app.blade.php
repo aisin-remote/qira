@@ -22,7 +22,6 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.staticaly.com/gh/DungGramer/disable-devtool/cbf447f/disable-devtool.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/table-sort-js/table-sort.js"></script>
 </head>
 
