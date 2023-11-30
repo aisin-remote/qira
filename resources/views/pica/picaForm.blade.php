@@ -174,8 +174,8 @@
         </div>
     </div>
 
-    <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="modal-content w-2/3 p-4">
+    <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+        <div class="modal-content w-full lg:w-2/3 p-4 max-h-screen">
             <div class="flex flex-col lg:flex-row text-xs">
                 <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-tl-md rounded-bl-md dark:bg-dark-eval-1">
                     <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800">
