@@ -24,7 +24,7 @@
     <div class="p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1 relative">
         <button id="openModalButton" class="absolute top-10 right-10 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2">
             <x-css-add class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
-            <span class="hidden lg:inline">Tambahkan Data</span>
+            <span class="sm:hidden inline">Tambahkan Data</span>
         </button>
         <h2>Costumer/Supplier Problem</h2>
         <br>
