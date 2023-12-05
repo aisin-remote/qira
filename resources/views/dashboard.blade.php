@@ -7,6 +7,22 @@
         </div>
     </x-slot>
 
+    <form action="{{ route('dashboard.filter') }}" method="GET" class="mb-4 flex items-center space-x-4 align-middle">
+        <div class="flex flex-col">
+            <label for="start_month" class="text-xs text-gray-600">Start Month:</label>
+            <input type="month" name="start_month" id="start_month" value="{{ request('start_month') }}" class="mt-1 p-2 text-xs border rounded-md focus:outline-none focus:border-blue-500">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="end_month" class="text-xs text-gray-600">End Month:</label>
+            <input type="month" name="end_month" id="end_month" value="{{ request('end_month') }}" class="mt-1 p-2 text-xs border rounded-md focus:outline-none focus:border-blue-500">
+        </div>
+
+        <button type="submit" class="mt-5 p-2 text-xs bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+            Filter
+        </button>
+    </form>
+
     <div class="relative">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-3 text-center">
             <!-- Line Diecasting Section -->

@@ -5,25 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomerProblem;
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $startMonth = $request->input('start_month');
+        $endMonth = $request->input('end_month');
+
+        // Set default values if not provided
+        $startMonth = $startMonth ?: Carbon::now()->startOfMonth()->format('Y-m');
+        $endMonth = $endMonth ?: Carbon::now()->endOfMonth()->format('Y-m');
+
         $customerProblems = CustomerProblem::latest('date_of_problem')->take(1)->get();
         $customerChartData = $this->getCustomerQuantityChartData();
         $customerChartDataYear = $this->getCustomerQuantityChartDataYear();
-        $lineDiecastingProjectData = $this->getLineDiecastingProjectData();
-        $lineMachiningProjectData = $this->getLineMachiningProjectData();
-        $lineAssemblingProjectData = $this->getLineAssemblingProjectData();
-        $linedctcc = $this->getLineDCTCC();
-        $lineDCOilpanData = $this->getLineDCOilpan();
-        $linedccsh = $this->getLineDCCSH();
-        $lineMATCCData = $this->getLineMATCC();
-        $lineMAOilpanData = $this->getLineMAOilpan();
-        $lineASTCCData = $this->getLineASTCC();
-        $lineASOilpanData = $this->getLineASOilpan();
-        $lineASWPOPData = $this->getLineASWPOP();
+        $lineDiecastingProjectData = $this->getLineDiecastingProjectData($startMonth, $endMonth);
+        $lineMachiningProjectData = $this->getLineMachiningProjectData($startMonth, $endMonth);
+        $lineAssemblingProjectData = $this->getLineAssemblingProjectData($startMonth, $endMonth);
+        $linedctcc = $this->getLineDCTCC($startMonth, $endMonth);
+        $lineDCOilpanData = $this->getLineDCOilpan($startMonth, $endMonth);
+        $linedccsh = $this->getLineDCCSH($startMonth, $endMonth);
+        $lineMATCCData = $this->getLineMATCC($startMonth, $endMonth);
+        $lineMAOilpanData = $this->getLineMAOilpan($startMonth, $endMonth);
+        $lineASTCCData = $this->getLineASTCC($startMonth, $endMonth);
+        $lineASOilpanData = $this->getLineASOilpan($startMonth, $endMonth);
+        $lineASWPOPData = $this->getLineASWPOP($startMonth, $endMonth);
 
         return view('dashboard', compact('customerProblems', 'customerChartData', 'customerChartDataYear', 'lineDiecastingProjectData', 'lineMachiningProjectData', 'lineAssemblingProjectData', 'linedctcc', 'lineDCOilpanData', 'linedccsh', 'lineMATCCData', 'lineMAOilpanData', 'lineASTCCData', 'lineASOilpanData', 'lineASWPOPData'));
     }
@@ -156,31 +164,37 @@ class DashboardController extends Controller
         return $chartDataYear;
     }
 
-    public function getLineDiecastingProjectData()
+    public function getLineDiecastingProjectData($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineDiecastingProjectData = DB::select("
-            SELECT
-                SUBSTRING(`line`, 1, 2) AS `line_group`,
-                SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
-                SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
-            FROM
-                `tt_item_check_projects`
-            JOIN
-                `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
-            WHERE
-                `tt_projects`.`planning_masspro` >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
-                AND `line` LIKE 'DC%'
-            GROUP BY
-                `line_group`
-            ORDER BY
-                `line_group`
+        SELECT
+            SUBSTRING(`line`, 1, 2) AS `line_group`,
+            SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+            SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+        FROM
+            `tt_item_check_projects`
+        JOIN
+            `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
+        WHERE
+            DATE_FORMAT(`tt_projects`.`planning_masspro`, '%Y%m') BETWEEN $startMonth AND $endMonth
+            AND `line` LIKE 'DC%'
+        GROUP BY
+            `line_group`
+        ORDER BY
+            `line_group`;    
         ");
 
         return $lineDiecastingProjectData;
     }
 
-    public function getLineMachiningProjectData()
+    public function getLineMachiningProjectData($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineMachiningProjectData = DB::select("
             SELECT
                 SUBSTRING(`line`, 1, 2) AS `line_group`,
@@ -191,7 +205,7 @@ class DashboardController extends Controller
             JOIN
                 `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
             WHERE
-                `tt_projects`.`planning_masspro` >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+                DATE_FORMAT(`tt_projects`.`planning_masspro`, '%Y%m') BETWEEN $startMonth AND $endMonth
                 AND `line` LIKE 'MA%'
             GROUP BY
                 `line_group`
@@ -202,8 +216,11 @@ class DashboardController extends Controller
         return $lineMachiningProjectData;
     }
 
-    public function getLineAssemblingProjectData()
+    public function getLineAssemblingProjectData($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineAssemblingProjectData = DB::select("
         SELECT
             SUBSTRING(`line`, 1, 2) AS `line_group`,
@@ -214,19 +231,22 @@ class DashboardController extends Controller
         JOIN
             `tt_projects` ON `tt_item_check_projects`.`project_id` = `tt_projects`.`id`
         WHERE
-            `tt_projects`.`planning_masspro` >= DATE_SUB(NOW(), INTERVAL 3 MONTH)
+            DATE_FORMAT(`tt_projects`.`planning_masspro`, '%Y%m') BETWEEN $startMonth AND $endMonth
             AND `line` LIKE 'AS%'
         GROUP BY
             `line_group`
         ORDER BY
             `line_group`
-    ");
+        ");
 
         return $lineAssemblingProjectData;
     }
 
-    public function getLineDCTCC()
+    public function getLineDCTCC($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $linedctcc = DB::select("
         SELECT
             model_group,
@@ -241,8 +261,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'DC%' AND model LIKE 'TCC%'
-                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
         GROUP BY
             model_group;
@@ -251,8 +271,11 @@ class DashboardController extends Controller
         return $linedctcc;
     }
 
-    public function getLineDCOilpan()
+    public function getLineDCOilpan($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineDCOilpanData = DB::select("
         SELECT
             model_group,
@@ -267,8 +290,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'DC%' AND model LIKE 'Oilpan%'
-                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
         GROUP BY
             model_group;
@@ -277,8 +300,11 @@ class DashboardController extends Controller
         return $lineDCOilpanData;
     }
 
-    public function getLineDCCSH()
+    public function getLineDCCSH($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $linedccsh = DB::select("
     SELECT
         model_group,
@@ -293,8 +319,8 @@ class DashboardController extends Controller
             tt_products
         WHERE
             line LIKE 'DC%' AND model LIKE 'CSH%'
-            AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-            AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+            AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+            OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
     ) AS subquery
     GROUP BY
         model_group;
@@ -303,8 +329,11 @@ class DashboardController extends Controller
         return $linedccsh;
     }
 
-    public function getLineMATCC()
+    public function getLineMATCC($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineMATCCData = DB::select("
         SELECT
             model_group,
@@ -319,8 +348,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'MA%' AND model LIKE 'TCC%'
-                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
         GROUP BY
             model_group;
@@ -329,8 +358,11 @@ class DashboardController extends Controller
         return $lineMATCCData;
     }
 
-    public function getLineMAOilpan()
+    public function getLineMAOilpan($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineMAOilpanData = DB::select("
         SELECT
             model_group,
@@ -344,9 +376,9 @@ class DashboardController extends Controller
             FROM
                 tt_products
             WHERE
-                line LIKE 'MA%' AND model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%'
-                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+                line LIKE 'MA%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%')
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
         GROUP BY
             model_group;
@@ -355,8 +387,11 @@ class DashboardController extends Controller
         return $lineMAOilpanData;
     }
 
-    public function getLineASTCC()
+    public function getLineASTCC($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineASTCCData = DB::select("
         SELECT
             model_group,
@@ -371,8 +406,8 @@ class DashboardController extends Controller
                 tt_products
             WHERE
                 line LIKE 'AS%' AND model LIKE 'TCC%'
-                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
         GROUP BY
             model_group;
@@ -381,8 +416,11 @@ class DashboardController extends Controller
         return $lineASTCCData;
     }
 
-    public function getLineASOilpan()
+    public function getLineASOilpan($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineASOilpanData = DB::select("
         SELECT
             model_group,
@@ -396,9 +434,9 @@ class DashboardController extends Controller
             FROM
                 tt_products
             WHERE
-                line LIKE 'AS%' AND model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%'
-                AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-                AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+                line LIKE 'AS%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%')
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
         GROUP BY
             model_group;
@@ -407,8 +445,11 @@ class DashboardController extends Controller
         return $lineASOilpanData;
     }
 
-    public function getLineASWPOP()
+    public function getLineASWPOP($startMonth, $endMonth)
     {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
         $lineASWPOPData = DB::select("
         SELECT
             CASE
@@ -419,8 +460,8 @@ class DashboardController extends Controller
             SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
         FROM tt_products
         WHERE line LIKE 'AS%' AND (model LIKE 'WP%' OR model LIKE 'OP%')
-        AND planning_finished >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) 
-        AND planning_finished <= DATE_ADD(CURDATE(), INTERVAL 2 MONTH)
+        AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+        OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         GROUP BY model_group;
     ");
 

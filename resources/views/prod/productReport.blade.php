@@ -40,21 +40,20 @@
             <br>
 
             <form action="{{ route('product.report') }}" method="GET" class="mb-4 flex items-center space-x-4 align-middle">
-    <div class="flex flex-col">
-        <label for="start_date" class="text-sm text-gray-600">Start Date:</label>
-        <input type="date" name="start_date" id="start_date" class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
-    </div>
+                <div class="flex flex-col">
+                    <label for="start_date" class="text-sm text-gray-600">Start Date:</label>
+                    <input type="date" name="start_date" id="start_date" class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
 
-    <div class="flex flex-col">
-        <label for="end_date" class="text-sm text-gray-600">End Date:</label>
-        <input type="date" name="end_date" id="end_date" class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
-    </div>
+                <div class="flex flex-col">
+                    <label for="end_date" class="text-sm text-gray-600">End Date:</label>
+                    <input type="date" name="end_date" id="end_date" class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
 
-    <button type="submit" class="mt-5 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-        Filter
-    </button>
-</form>
-
+                <button type="submit" class="mt-5 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                    Filter
+                </button>
+            </form>
 
             <div class="overflow-x-auto mt-4 shadow-md sm:rounded-lg">
 
