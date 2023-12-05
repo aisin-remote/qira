@@ -8,6 +8,22 @@
     <div class="col-span-1 md:col-span-1 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
 
+            <form action="{{ route('project.report') }}" method="GET" class="mb-4 flex items-center space-x-4 align-middle">
+                <div class="flex flex-col">
+                    <label for="start_month" class="text-xs text-gray-600">Start Month:</label>
+                    <input type="month" name="start_month" id="start_month" value="{{ request('start_month') }}" class="mt-1 p-2 text-xs border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="end_month" class="text-xs text-gray-600">End Month:</label>
+                    <input type="month" name="end_month" id="end_month" value="{{ request('end_month') }}" class="mt-1 p-2 text-xs border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+
+                <button type="submit" class="mt-5 p-2 text-xs bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                    Filter
+                </button>
+            </form>
+
             @foreach ($projects as $project)
             <div class="mb-4">
                 <h3 class="text-lg font-semibold mb-2">{{ $project->pcr }}</h3>

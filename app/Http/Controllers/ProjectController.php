@@ -11,18 +11,35 @@ use SebastianBergmann\Type\NullType;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with('itemCheckProjects')
-            ->where('planning_masspro', '>=', Carbon::now()->subMonths(3))
-            ->get();
+        $startMonth = $request->input('start_month');
+        $endMonth = $request->input('end_month');
+
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
+        $query = Project::with('itemCheckProjects')
+            ->where(function ($query) use ($startMonth, $endMonth) {
+                if ($startMonth && $endMonth) {
+                    $query->whereRaw("DATE_FORMAT(planning_masspro, '%Y%m') BETWEEN $startMonth AND $endMonth");
+                } else {
+                    $query->where('planning_masspro', '>=', Carbon::now()->subMonths(3));
+                }
+            });
+
+        // Tampilkan raw SQL query
+        // dd($query->toSql());
+
+        $projects = $query->get();
+
+        // dd($projects);
 
         $statusCounts = $this->getStatusCounts($projects);
         $projectStatuses = $this->getProjectStatuses($projects);
 
         return view('proj.projectReport', compact('projects', 'statusCounts', 'projectStatuses'));
     }
-
 
     public function getProjectStatuses($projects)
     {
