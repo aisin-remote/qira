@@ -289,7 +289,7 @@ class DashboardController extends Controller
             FROM
                 tt_products
             WHERE
-                line LIKE 'DC%' AND model LIKE 'Oilpan%'
+                line LIKE 'DC%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OPN%' OR  model LIKE 'OP%')
                 AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
                 OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
