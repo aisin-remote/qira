@@ -376,7 +376,7 @@ class DashboardController extends Controller
             FROM
                 tt_products
             WHERE
-                line LIKE 'MA%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%')
+                line LIKE 'MA%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%' OR  model LIKE 'OPN%' OR  model LIKE 'OP%')
                 AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
                 OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
@@ -434,7 +434,7 @@ class DashboardController extends Controller
             FROM
                 tt_products
             WHERE
-                line LIKE 'AS%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%')
+                line LIKE 'AS%' AND (model LIKE 'Oilpan%' OR  model LIKE 'OIL PAN%' OR  model LIKE 'OPN%' OR  model LIKE 'OP%')
                 AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
                 OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
         ) AS subquery
@@ -452,17 +452,23 @@ class DashboardController extends Controller
 
         $lineASWPOPData = DB::select("
         SELECT
-            CASE
-                WHEN model LIKE 'WP%' OR model LIKE 'OP%' THEN 'WP/OP'
-                ELSE SUBSTRING_INDEX(model, ' ', 1)
-            END AS model_group,
+            model_group,
             SUM(CASE WHEN status = 'On Progress' THEN 1 ELSE 0 END) AS on_progress_count,
             SUM(CASE WHEN status = 'Finished' THEN 1 ELSE 0 END) AS finished_count
-        FROM tt_products
-        WHERE line LIKE 'AS%' AND (model LIKE 'WP%' OR model LIKE 'OP%')
-        AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
-        OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
-        GROUP BY model_group;
+        FROM (
+            SELECT
+                SUBSTRING(line, 1, 2) AS line_prefix,
+                SUBSTRING_INDEX(model, ' ', 1) AS model_group,
+                status
+            FROM
+                tt_products
+            WHERE
+                line LIKE 'AS%' AND (model LIKE 'WP%' OR model LIKE 'WP/OP%')
+                AND (DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                OR DATE_FORMAT(`tt_products`.`planning_finished`, '%Y%m') BETWEEN $startMonth AND $endMonth)
+        ) AS subquery
+        GROUP BY
+            model_group;
     ");
 
         return $lineASWPOPData;
