@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -40,7 +40,7 @@ class ProductController extends Controller
         })->values();
 
         // Kirim data ke tampilan
-        return view('prod.productReport', compact('products', 'asProducts', 'maProducts', 'dcProducts'));
+        return view('prod.productReport', compact('products', 'asProducts', 'maProducts', 'dcProducts', 'startDate', 'endDate'));
     }
 
     public function store(Request $request)
@@ -120,11 +120,17 @@ class ProductController extends Controller
             $product->status = 'Input Salah';
         }
 
-        $product->approval = $request->input('approval');
-
+        if (auth()->user()->posisi === 'SPV'){
+            $product->approval = 'Approved by SPV';
+        }elseif(auth()->user()->posisi === 'Manajer'){
+            $product->approval = 'Approved by Manager';
+        }else{
+            $product->approval = $request->input('approval');
+        }
+        
         $product->save();
 
-        return redirect()->route('product.report')->with('success', 'Product updated successfully.');
+        return redirect()->to(url()->previous())->with('success', 'Product updated successfully!');
     }
 
     public function delete($id)

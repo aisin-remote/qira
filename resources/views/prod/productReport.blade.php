@@ -5,6 +5,22 @@
         </h2>
     </x-slot>
 
+    @if (session('success'))
+        <div id="success-alert"
+            class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3" role="alert">
+            {{ session('success') }}
+            <button type="button" class="absolute top-0 right-0 mt-2 mr-2 text-green-700 hover:text-green-900"
+                onclick="dismissAlert()">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    @endif
+
+
     <div class="col-span-1 md:col-span-1 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
 
@@ -12,13 +28,13 @@
                 <div class="flex flex-row mb-2">
                     <div class="tab cursor-pointer mr-2" onclick="showChart('barChart')">All</div>
                     @if (count($asProducts) > 0)
-                    <div class="tab cursor-pointer mr-2" onclick="showChart('asChart')">AS Line</div>
+                        <div class="tab cursor-pointer mr-2" onclick="showChart('asChart')">AS Line</div>
                     @endif
                     @if (count($maProducts) > 0)
-                    <div class="tab cursor-pointer mr-2" onclick="showChart('maChart')">MA Line</div>
+                        <div class="tab cursor-pointer mr-2" onclick="showChart('maChart')">MA Line</div>
                     @endif
                     @if (count($dcProducts) > 0)
-                    <div class="tab cursor-pointer" onclick="showChart('dcChart')">DC Line</div>
+                        <div class="tab cursor-pointer" onclick="showChart('dcChart')">DC Line</div>
                     @endif
                 </div>
             </div>
@@ -26,31 +42,35 @@
             <div class="tab-content">
                 <canvas id="barChart" width="400" height="200"></canvas>
                 @if (count($asProducts) > 0)
-                <canvas id="asChart" width="400" height="200" style="display:none;"></canvas>
+                    <canvas id="asChart" width="400" height="200" style="display:none;"></canvas>
                 @endif
                 @if (count($maProducts) > 0)
-                <canvas id="maChart" width="400" height="200" style="display:none;"></canvas>
+                    <canvas id="maChart" width="400" height="200" style="display:none;"></canvas>
                 @endif
                 @if (count($dcProducts) > 0)
-                <canvas id="dcChart" width="400" height="200" style="display:none;"></canvas>
+                    <canvas id="dcChart" width="400" height="200" style="display:none;"></canvas>
                 @endif
             </div>
 
             <hr>
             <br>
 
-            <form action="{{ route('product.report') }}" method="GET" class="mb-4 flex items-center space-x-4 align-middle">
+            <form action="{{ route('product.report') }}" method="GET"
+                class="mb-4 flex items-center space-x-4 align-middle">
                 <div class="flex flex-col">
                     <label for="start_date" class="text-sm text-gray-600">Start Date:</label>
-                    <input type="date" name="start_date" id="start_date" class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                    <input type="date" name="start_date" id="start_date"
+                        class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
                 </div>
 
                 <div class="flex flex-col">
                     <label for="end_date" class="text-sm text-gray-600">End Date:</label>
-                    <input type="date" name="end_date" id="end_date" class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                    <input type="date" name="end_date" id="end_date"
+                        class="mt-1 p-2 border rounded-md focus:outline-none focus:border-blue-500">
                 </div>
 
-                <button type="submit" class="mt-5 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                <button type="submit"
+                    class="mt-5 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                     Filter
                 </button>
             </form>
@@ -74,70 +94,95 @@
 
                     <tbody>
                         @if (count($products) > 0)
-                        @foreach ($products as $product)
-                        <tr data-line="{{ substr($product->line, 0, 2) }}">
-                            <td class="px-4 py-2 border text-center">{{ $product->model }}</td>
-                            <td class="px-4 py-2 border text-center">{{ $product->line }}</td>
-                            <td class="px-4 py-2 border text-center">{{ $product->start_date }}</td>
-                            <td class="px-4 py-2 border text-center">{{ $product->planning_finished }}</td>
-                            <td class="px-4 py-2 border text-center">
-                                @if ($product->status === 'Finished' || $product->status === 'On Progress')
-                                {{ round(($product->finish_check / $product->target_check) * 100) }}%
-                                @elseif ($product->status === 'Input Salah')
-                                Input Salah
-                                @endif
-                            </td>
-                            <td class="px-4 py-2 border text-center">{{ $product->status }}</td>
-                            <td class="px-4 py-2 border text-center">
-                                @if ($product->approval === null || $product->approval === '')
-                                Waiting ...
-                                @else
-                                {{ $product->approval }}
-                                @endif
-                            </td>
-                            <td class="px-4 py-2 border text-center">
-                                @if ($product->document)
-                                <a href="{{ Storage::url($product->document) }}" class="text-blue-500 underline" download>
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block align-text-bottom" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                        </svg>
-                                        Download
-                                    </button>
-                                </a>
-                                @else
-                                <button disabled class="bg-gray-300 cursor-not-allowed text-white font-bold py-2 px-4 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block align-text-bottom" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                    Download
-                                </button>
-                                @endif
-                            </td>
-                            <td class="px-4 py-2 border text-center">
-                                <div class="flex justify-center space-x-2">
-                                    @if ((auth()->user()->posisi === 'Manajer') && ($product->approval === null || $product->approval === '' || $product->approval === 'Decline'))
-                                    <a href="#" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Approval</a>
-                                    <a href=" #" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
-                                    @elseif (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
-                                    <a href=" {{ route('products.edit', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Approval</a>
-                                    <a href="{{ route('products.delete', $product->id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
-                                    @elseif ($product->approval === null || $product->approval === '' || $product->approval === 'Decline' && (auth()->user()->posisi === 'LDR' || auth()->user()->posisi === 'JP' || auth()->user()->posisi === 'Sub JP'))
-                                    <a href=" {{ route('products.edit', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-                                    <a href="{{ route('products.delete', $product->id) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
-                                    @else
-                                    <a href="#" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Edit</a>
-                                    <a href=" #" class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
+                            @foreach ($products as $product)
+                                <tr data-line="{{ substr($product->line, 0, 2) }}">
+                                    <td class="px-4 py-2 border text-center">{{ $product->model }}</td>
+                                    <td class="px-4 py-2 border text-center">{{ $product->line }}</td>
+                                    <td class="px-4 py-2 border text-center">{{ $product->start_date }}</td>
+                                    <td class="px-4 py-2 border text-center">{{ $product->planning_finished }}</td>
+                                    <td class="px-4 py-2 border text-center">
+                                        @if ($product->status === 'Finished' || $product->status === 'On Progress')
+                                            {{ round(($product->finish_check / $product->target_check) * 100) }}%
+                                        @elseif ($product->status === 'Input Salah')
+                                            Input Salah
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-2 border text-center">{{ $product->status }}</td>
+                                    <td class="px-4 py-2 border text-center">
+                                        @if ($product->approval === null || $product->approval === '')
+                                            Waiting ...
+                                        @else
+                                            {{ $product->approval }}
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-2 border text-center">
+                                        @if ($product->document)
+                                            <a href="{{ Storage::url($product->document) }}"
+                                                class="text-blue-500 underline" download>
+                                                <button
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="h-4 w-4 inline-block align-text-bottom" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    Download
+                                                </button>
+                                            </a>
+                                        @else
+                                            <button disabled
+                                                class="bg-gray-300 cursor-not-allowed text-white font-bold py-2 px-4 rounded">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-4 w-4 inline-block align-text-bottom" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M9 5l7 7-7 7" />
+                                                </svg>
+                                                Download
+                                            </button>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-2 border text-center">
+                                        <div class="flex justify-center space-x-2">
+                                            @if (auth()->user()->posisi === 'Manajer' &&
+                                                    ($product->approval === null || $product->approval === '' || $product->approval === 'Decline'))
+                                                <a href="#"
+                                                    class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Approval</a>
+                                                <a href=" #"
+                                                    class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
+                                            @elseif (auth()->user()->posisi === 'SPV' || auth()->user()->posisi === 'Manajer')
+                                                <button
+                                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded approve"
+                                                    data-product-id="{{ $product->id }}"">Approve</button>
+                                                <a href="{{ route('products.delete', $product->id) }}"
+                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
+                                            @elseif (
+                                                $product->approval === null ||
+                                                    $product->approval === '' ||
+                                                    ($product->approval === 'Decline' &&
+                                                        (auth()->user()->posisi === 'LDR' ||
+                                                            auth()->user()->posisi === 'JP' ||
+                                                            auth()->user()->posisi === 'Sub JP')))
+                                                <a href=" {{ route('products.edit', $product->id) }}"
+                                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+                                                <a href="{{ route('products.delete', $product->id) }}"
+                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</a>
+                                            @else
+                                                <a href="#"
+                                                    class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Edit</a>
+                                                <a href=" #"
+                                                    class="bg-gray-300 text-gray-500 cursor-not-allowed inline-block px-4 py-2 rounded-lg pointer-events-none"">Hapus</a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @else
                             <tr>
                                 <td colspan=" 8" class="px-4 py-2 border text-center">No data available.
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>
@@ -147,40 +192,117 @@
         </div>
     </div>
 
+    @foreach ($products as $product)
+        <div id="{{ $product->id }}Approve"
+            class="fixed inset-0 z-50 hidden items-center justify-center bg-gray-800 bg-opacity-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
+                <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <h3 class="text-lg font-semibold">Approval</h3>
+                    <button onclick="closeModal('{{ $product->id }}Approve')"
+                        class="text-gray-500 hover:text-gray-800">&times;</button>
+                </div>
+                <form action="{{ route('products.updateData', $product->id) }}" method="POST" class="mt-4"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="start" value="{{ request('start_date', $product->start_date) }}">
+                    <input type="hidden" name="end" value="{{ request('end_date') }}">
+
+                    <input type="hidden" name="model" value="{{ $product->model }}">
+                    <input type="hidden" name="line" value="{{ $product->line }}">
+                    <input type="hidden" name="start_date" value="{{ $product->start_date }}">
+                    <input type="hidden" name="planning_finished" value="{{ $product->planning_finished }}">
+                    <input type="hidden" name="target_check" value="{{ $product->target_check }}">
+                    <input type="hidden" name="finish_check" value="{{ $product->finish_check }}">
+                    <p>Do you really want to approve?</p>
+                    <div class="flex justify-end mt-4">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Approve</button>
+                        <button type="button" onclick="closeModal('{{ $product->id }}Approve')"
+                            class="bg-gray-300 text-gray-700 px-4 py-2 rounded ml-2">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
+
     <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('.approve')) {
+                const productId = event.target.dataset.productId;
+                openModal(`${productId}Approve`);
+            }
+        });
+
+        function dismissAlert() {
+            var alert = document.getElementById('success-alert');
+            if (alert) {
+                alert.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var alert = document.getElementById('success-alert');
+
+            if (alert) {
+                setTimeout(function() {
+                    alert.style.opacity = 0;
+                    alert.style.transition = 'opacity 0.5s'; // Optional: for a fade-out effect
+                    setTimeout(function() {
+                        alert.style.display = 'none'; // Hide the alert after fade-out
+                    }, 500); // Match this duration to the fade-out time
+                }, 3000); // 3000 milliseconds = 3 seconds
+            }
+        });
+
         function showChart(chartId) {
             var charts = document.querySelectorAll('.tab-content canvas');
             charts.forEach(function(chart) {
                 chart.style.display = 'none';
             });
 
-            // Menghapus latar belakang dan teks putih dari semua tab
+            // Remove background and text color from all tabs
             var tabs = document.querySelectorAll('.tab');
             tabs.forEach(function(tab) {
-                tab.classList.remove('bg-green-600', 'text-white', 'rounded', 'px-8'); // Menghapus kelas latar belakang, teks putih, dan sudut bulat
+                tab.classList.remove('bg-green-600', 'text-white', 'rounded', 'px-8');
             });
 
-            // Menambahkan latar belakang hijau, teks putih, dan sudut bulat ke tab yang dipilih
+            // Add background and text color to the selected tab
             var selectedTab = document.querySelector('[onclick="showChart(\'' + chartId + '\')"]');
-            selectedTab.classList.add('bg-green-600', 'text-white', 'rounded', 'px-8'); // Menambahkan kelas latar belakang hijau, teks putih, dan sudut bulat yang lebih besar
+            selectedTab.classList.add('bg-green-600', 'text-white', 'rounded', 'px-8');
 
             var selectedChart = document.getElementById(chartId);
             selectedChart.style.display = 'block';
 
-            // Menampilkan semua baris tabel jika tab "All" dipilih
+            // Save the active tab to localStorage
+            localStorage.setItem('activeTab', chartId);
+
+            // Show or hide table rows based on the selected tab
             if (chartId === 'barChart') {
                 var tableRows = document.querySelectorAll('tbody tr');
                 tableRows.forEach(function(row) {
                     row.style.display = 'table-row';
                 });
             } else {
-                // Menyembunyikan semua baris tabel jika tab selain "All" dipilih
                 var tableRows = document.querySelectorAll('tbody tr');
                 tableRows.forEach(function(row) {
                     row.style.display = 'none';
                 });
 
-                // Menampilkan baris tabel sesuai dengan line yang dipilih
+                // Display table rows based on the selected line
                 if (chartId === 'asChart') {
                     var asTableRows = document.querySelectorAll('tbody tr[data-line="AS"]');
                     asTableRows.forEach(function(row) {
@@ -200,238 +322,246 @@
             }
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var activeTab = localStorage.getItem('activeTab') || 'barChart'; // Default to 'barChart' if none saved
+            showChart(activeTab);
+        });
+
+
         // Menampilkan kondisi default pada tab "All"
         var allTab = document.querySelector('.tab:first-child');
-        allTab.classList.add('bg-green-600', 'text-white', 'rounded', 'px-8'); // Menambahkan kelas latar belakang hijau, teks putih, dan sudut bulat yang lebih besar pada tab "All" secara default
+        allTab.classList.add('bg-green-600', 'text-white', 'rounded',
+            'px-8'
+        ); // Menambahkan kelas latar belakang hijau, teks putih, dan sudut bulat yang lebih besar pada tab "All" secara default
 
-        @if(count($products) > 0)
-        var products = @json($products);
-        var labels = products.map(function(product) {
-            return product.model;
-        });
+        @if (count($products) > 0)
+            var products = @json($products);
+            var labels = products.map(function(product) {
+                return product.model;
+            });
 
-        var finishCheckData = products.map(function(product) {
-            return product.finish_check;
-        });
+            var finishCheckData = products.map(function(product) {
+                return product.finish_check;
+            });
 
-        var targetCheckData = products.map(function(product) {
-            return product.target_check;
-        });
+            var targetCheckData = products.map(function(product) {
+                return product.target_check;
+            });
 
-        var onProgressData = products.map(function(product) {
-            return product.target_check - product.finish_check;
-        });
+            var onProgressData = products.map(function(product) {
+                return product.target_check - product.finish_check;
+            });
 
-        var ctx = document.getElementById('barChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: 'Finish Check',
-                        data: finishCheckData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Target Check',
-                        data: targetCheckData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'On Progress Check',
-                        data: onProgressData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            var ctx = document.getElementById('barChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                            label: 'Finish Check',
+                            data: finishCheckData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Target Check',
+                            data: targetCheckData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'On Progress Check',
+                            data: onProgressData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
         @endif
 
-        @if(count($asProducts) > 0)
-        var asProducts = @json($asProducts);
-        console.log(asProducts);
+        @if (count($asProducts) > 0)
+            var asProducts = @json($asProducts);
+            console.log(asProducts);
 
-        var asLabels = asProducts.map(function(product) {
-            return product.model;
-        });
+            var asLabels = asProducts.map(function(product) {
+                return product.model;
+            });
 
-        var asFinishCheckData = asProducts.map(function(product) {
-            return product.finish_check;
-        });
+            var asFinishCheckData = asProducts.map(function(product) {
+                return product.finish_check;
+            });
 
-        var asTargetCheckData = asProducts.map(function(product) {
-            return product.target_check;
-        });
+            var asTargetCheckData = asProducts.map(function(product) {
+                return product.target_check;
+            });
 
-        var asOnProgressData = asProducts.map(function(product) {
-            return product.target_check - product.finish_check;
-        });
+            var asOnProgressData = asProducts.map(function(product) {
+                return product.target_check - product.finish_check;
+            });
 
-        var asCtx = document.getElementById('asChart').getContext('2d');
-        var asChart = new Chart(asCtx, {
-            type: 'bar',
-            data: {
-                labels: asLabels,
-                datasets: [{
-                        label: 'Finish Check',
-                        data: asFinishCheckData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Target Check',
-                        data: asTargetCheckData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'On Progress Check',
-                        data: asOnProgressData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            var asCtx = document.getElementById('asChart').getContext('2d');
+            var asChart = new Chart(asCtx, {
+                type: 'bar',
+                data: {
+                    labels: asLabels,
+                    datasets: [{
+                            label: 'Finish Check',
+                            data: asFinishCheckData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Target Check',
+                            data: asTargetCheckData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'On Progress Check',
+                            data: asOnProgressData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
         @endif
 
-        @if(count($maProducts) > 0)
-        var maProducts = @json($maProducts);
-        console.log(maProducts);
+        @if (count($maProducts) > 0)
+            var maProducts = @json($maProducts);
+            console.log(maProducts);
 
-        var maLabels = maProducts.map(function(product) {
-            return product.model;
-        });
+            var maLabels = maProducts.map(function(product) {
+                return product.model;
+            });
 
-        var maFinishCheckData = maProducts.map(function(product) {
-            return product.finish_check;
-        });
+            var maFinishCheckData = maProducts.map(function(product) {
+                return product.finish_check;
+            });
 
-        var maTargetCheckData = maProducts.map(function(product) {
-            return product.target_check;
-        });
+            var maTargetCheckData = maProducts.map(function(product) {
+                return product.target_check;
+            });
 
-        var maOnProgressData = maProducts.map(function(product) {
-            return product.target_check - product.finish_check;
-        });
+            var maOnProgressData = maProducts.map(function(product) {
+                return product.target_check - product.finish_check;
+            });
 
-        var maCtx = document.getElementById('maChart').getContext('2d');
-        var maChart = new Chart(maCtx, {
-            type: 'bar',
-            data: {
-                labels: maLabels,
-                datasets: [{
-                        label: 'Finish Check',
-                        data: maFinishCheckData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Target Check',
-                        data: maTargetCheckData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'On Progress Check',
-                        data: maOnProgressData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            var maCtx = document.getElementById('maChart').getContext('2d');
+            var maChart = new Chart(maCtx, {
+                type: 'bar',
+                data: {
+                    labels: maLabels,
+                    datasets: [{
+                            label: 'Finish Check',
+                            data: maFinishCheckData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Target Check',
+                            data: maTargetCheckData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'On Progress Check',
+                            data: maOnProgressData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
         @endif
 
-        @if(count($dcProducts) > 0)
-        var dcProducts = @json($dcProducts);
-        console.log(dcProducts);
+        @if (count($dcProducts) > 0)
+            var dcProducts = @json($dcProducts);
+            console.log(dcProducts);
 
-        var dcLabels = dcProducts.map(function(product) {
-            return product.model;
-        });
+            var dcLabels = dcProducts.map(function(product) {
+                return product.model;
+            });
 
-        var dcFinishCheckData = dcProducts.map(function(product) {
-            return product.finish_check;
-        });
+            var dcFinishCheckData = dcProducts.map(function(product) {
+                return product.finish_check;
+            });
 
-        var dcTargetCheckData = dcProducts.map(function(product) {
-            return product.target_check;
-        });
+            var dcTargetCheckData = dcProducts.map(function(product) {
+                return product.target_check;
+            });
 
-        var dcOnProgressData = dcProducts.map(function(product) {
-            return product.target_check - product.finish_check;
-        });
+            var dcOnProgressData = dcProducts.map(function(product) {
+                return product.target_check - product.finish_check;
+            });
 
-        var dcCtx = document.getElementById('dcChart').getContext('2d');
-        var dcChart = new Chart(dcCtx, {
-            type: 'bar',
-            data: {
-                labels: dcLabels,
-                datasets: [{
-                        label: 'Finish Check',
-                        data: dcFinishCheckData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Target Check',
-                        data: dcTargetCheckData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'On Progress Check',
-                        data: dcOnProgressData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            var dcCtx = document.getElementById('dcChart').getContext('2d');
+            var dcChart = new Chart(dcCtx, {
+                type: 'bar',
+                data: {
+                    labels: dcLabels,
+                    datasets: [{
+                            label: 'Finish Check',
+                            data: dcFinishCheckData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Target Check',
+                            data: dcTargetCheckData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'On Progress Check',
+                            data: dcOnProgressData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
         @endif
     </script>
 
