@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
 
+
     <div class="col-span-1 md:col-span-1 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
 

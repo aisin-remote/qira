@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Project Check') }}
+            {{ __('Project Check Quality Body') }}
         </h2>
     </x-slot>
 
@@ -23,7 +23,7 @@
 
     <div class="overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
         <div class="p-6 text-gray-900">
-            <form action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('projects.body.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex w-full mb-3">
                     <div class="w-full">

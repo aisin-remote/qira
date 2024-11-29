@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Customer Information Problem') }}
+            {{ __('Customer Information Problem Quality Body') }}
         </h2>
     </x-slot>
 
@@ -23,7 +23,7 @@
 
     <div class="flex flex-col lg:flex-row">
         <div class="w-full lg:w-1/3 p-6 overflow-hidden bg-white rounded-md shadow-md dark:bg-dark-eval-1">
-            <form action="{{ route('customer-problems.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('customer-problems-body.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="space-y-4">
                     <div class="font-bold">
@@ -124,16 +124,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($customerProblems as $customerProblem)
+                        @foreach($customerProblemsBody as $customerProblemBody)
                         <tr>
-                            <td class="px-4 py-2 border">{{ $customerProblem->problem }}</td>
-                            <td class="px-4 py-2 border">{{ $customerProblem->date_of_problem }}</td>
-                            <td class="px-4 py-2 border">{{ $customerProblem->customer }}</td>
-                            <td class="px-4 py-2 border">{{ $customerProblem->model_product }}</td>
-                            <td class="px-4 py-2 border">{{ $customerProblem->process_problem }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblemBody->problem }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblemBody->date_of_problem }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblemBody->customer }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblemBody->model_product }}</td>
+                            <td class="px-4 py-2 border">{{ $customerProblemBody->process_problem }}</td>
                             <td class="px-4 py-2 border">
-                                <a href="{{ route('customer-problems.show', $customerProblem) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs">Lihat</a>
-                                <a href="{{ route('customer-problems.delete', $customerProblem) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs">Hapus</a>
+                                <a href="{{ route('customer-problems-body.show', $customerProblemBody) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs">Lihat</a>
+                                <a href="{{ route('customer-problems-body.delete', $customerProblemBody) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs">Hapus</a>
                             </td>
                         </tr>
                         @endforeach

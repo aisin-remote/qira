@@ -35,6 +35,7 @@ class RegisteredUserController extends Controller
             'npk' => ['required', 'string', 'numeric', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'posisi' => ['required', 'string'],
+            'department' => ['required', 'string', 'in:quality_unit,quality_body'],
         ]);
 
         $user = User::create([
@@ -42,12 +43,17 @@ class RegisteredUserController extends Controller
             'npk' => $request->npk,
             'password' => Hash::make($request->password),
             'posisi' => $request->posisi,
+            'department' => $request->department,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if ($user->department === 'quality_unit') {
+            return redirect(RouteServiceProvider::HOME); // Quality Unit redirect ke Home
+        } else {
+            return redirect()->route('dashboard.quality_body'); // Quality Body redirect ke dashboard khusus
+        }
     }
 }
