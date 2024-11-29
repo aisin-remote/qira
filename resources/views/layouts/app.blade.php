@@ -9,13 +9,17 @@
     <title>{{ config('app.name', 'QIRA') }}</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Styles -->
     <style>
         [x-cloak] {
             display: none;
+        }
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
         }
     </style>
 
@@ -44,11 +48,26 @@
                 <header>
                     <div class="p-4 sm:p-6">
                         {{ $header }}
+                        <div>
+                            <h2>Welcome, {{ Auth::user()->name }}!</h2>
+                        </div>
                     </div>
                 </header>
 
                 <!-- Page Content -->
                 <main class="px-4 sm:px-6 flex-1">
+                    @if(Auth::user()->department === 'quality_body')
+                        <h1>Quality Body Dashboard</h1>
+                        <!-- Quality Body specific content -->
+                    @else
+                        <h1>Quality Unit Dashboard</h1>
+                        <!-- Tautan terkait produk hanya ditampilkan untuk pengguna di departemen lain -->
+                        @if(auth()->user()->department !== 'quality_body')
+                            <ul>
+
+                            </ul>
+                        @endif
+                    @endif
                     {{ $slot }}
                 </main>
 
@@ -57,6 +76,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Your custom JavaScript here
+        console.log('Custom script loaded');
+    </script>
 </body>
 
 </html>
