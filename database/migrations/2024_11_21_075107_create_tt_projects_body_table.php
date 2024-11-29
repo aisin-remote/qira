@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tt_projects_body', function (Blueprint $table) {
             $table->string('id', 191)->primary();
-            $table->string('name', 191);
-            $table->string('npk', 191)->unique();
-            $table->string('posisi', 191);
-            $table->string('department', 191);
-            $table->string('password', 191);
+            $table->string('line', 191);
+            $table->string('pcr', 191);
+            $table->date('planning_masspro');
+            $table->string('approval', 191)->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tt_projects_body');
     }
 };
