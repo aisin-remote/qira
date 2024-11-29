@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Problem') }}
+            {{ __('Edit Problem Quality Body') }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
     @endif
 
     <div class="p-6 bg-white rounded-md shadow-md">
-        <form action="{{ route('customer-problems.update', $customerProblem->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('customer-problems-body.update', $customerProblemBody->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -25,63 +25,63 @@
                     Problem
                 </div>
                 <div>
-                    <input type="text" name="problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->problem }}">
+                    <input type="text" name="problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->problem }}">
                 </div>
 
                 <div class="font-bold">
                     Date of Problem
                 </div>
                 <div>
-                    <input type="date" name="date_of_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->date_of_problem }}">
+                    <input type="date" name="date_of_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->date_of_problem }}">
                 </div>
 
                 <div class="font-bold">
                     Customer
                 </div>
                 <div>
-                    <input type="text" name="customer" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->customer }}">
+                    <input type="text" name="customer" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->customer }}">
                 </div>
 
                 <div class="font-bold">
                     Model Product
                 </div>
                 <div>
-                    <input type="text" name="model_product" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->model_product }}">
+                    <input type="text" name="model_product" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->model_product }}">
                 </div>
 
                 <div class="font-bold">
                     Quantity Product
                 </div>
                 <div>
-                    <input type="number" name="quantity_product" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->quantity_product }}">
+                    <input type="number" name="quantity_product" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->quantity_product }}">
                 </div>
 
                 <div class="font-bold">
                     Process Problem
                 </div>
                 <div>
-                    <input type="text" name="process_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->process_problem }}">
+                    <input type="text" name="process_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->process_problem }}">
                 </div>
 
                 <div class="font-bold">
                     Date of Process
                 </div>
                 <div>
-                    <input type="date" name="date_of_process" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->date_of_process }}">
+                    <input type="date" name="date_of_process" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->date_of_process }}">
                 </div>
 
                 <div class="font-bold">
                     Status Problem
                 </div>
                 <div>
-                    <input type="text" name="status_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->status_problem }}">
+                    <input type="text" name="status_problem" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->status_problem }}">
                 </div>
 
                 <div class="font-bold">
                     Status Kaizen
                 </div>
                 <div>
-                    <input type="text" name="status_kaizen" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblem->status_kaizen }}">
+                    <input type="text" name="status_kaizen" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md" value="{{ $customerProblemBody->status_kaizen }}">
                 </div>
 
                 <div class="font-bold">
@@ -90,9 +90,9 @@
                 <div>
                     <input type="file" name="report" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                 </div>
-                @if ($customerProblem->report)
+                @if ($customerProblemBody->report)
                 <div class="mt-2">
-                    <a href="{{ Storage::url($customerProblem->report) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                    <a href="{{ Storage::url($customerProblemBody->report) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
                 </div>
                 @endif
 
@@ -100,8 +100,8 @@
                     Photo
                 </div>
                 <div class="flex items-center">
-                    @if ($customerProblem->photo)
-                    <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-xs h-auto mr-4">
+                    @if ($customerProblemBody->photo)
+                    <img src="{{ Storage::url($customerProblemBody->photo) }}" alt="Problem Photo" class="max-w-xs h-auto mr-4">
                     @else
                     No photo available
                     @endif

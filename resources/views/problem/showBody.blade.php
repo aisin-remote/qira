@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Problem Details') }}
+            {{ __('Problem Details Quality Body') }}
         </h2>
     </x-slot>
 
@@ -25,57 +25,57 @@
         <table class="w-full border-collapse">
             <tbody>
                 <tr>
-                    <td rowspan="10" class="w-1/4 py-2 px-4 border">@if ($customerProblem->photo)
-                        <img src="{{ Storage::url($customerProblem->photo) }}" alt="Problem Photo" class="max-w-full h-auto">
+                    <td rowspan="10" class="w-1/4 py-2 px-4 border">@if ($customerProblemBody->photo)
+                        <img src="{{ Storage::url($customerProblemBody->photo) }}" alt="Problem Photo" class="max-w-full h-auto">
                         @else
                         No photo available
                         @endif
                     </td>
                     <td class="font-semibold py-2 px-4 border">Problem:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->problem }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->problem }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Date of Problem:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->date_of_problem }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->date_of_problem }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Customer:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->customer }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->customer }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Model Product:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->model_product }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->model_product }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Quantity Product:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->quantity_product }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->quantity_product }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Process Problem:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->process_problem }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->process_problem }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Date of Process:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->date_of_process }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->date_of_process }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Status Problem:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->status_problem }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->status_problem }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">Status Kaizen:</td>
-                    <td class="py-2 px-4 border">{{ $customerProblem->status_kaizen }}</td>
+                    <td class="py-2 px-4 border">{{ $customerProblemBody->status_kaizen }}</td>
                 </tr>
                 <tr>
                     <td class="font-semibold py-2 px-4 border">File Report:</td>
                     <td class="py-2 px-4 border">
-                        <a href="{{ Storage::url($customerProblem->report) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
+                        <a href="{{ Storage::url($customerProblemBody->report) }}" class="text-blue-500 underline" target="_blank">Lihat File</a>
                     </td>
                 </tr>
             </tbody>
         </table>
         <div class="flex justify-end mt-3">
-            <a href="{{ route('customer-problems.edit', $customerProblem->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
+            <a href="{{ route('customer-problems-body.edit', $customerProblemBody->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Edit</a>
         </div>
     </div>
 </x-app-layout>
