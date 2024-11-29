@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomerProblem;
+use App\Models\CustomerProblemBody;
 use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $startMonth = $request->input('start_month');
-        $endMonth = $request->input('end_month');
+        // Memeriksa apakah pengguna adalah bagian dari 'quality_body'
+        if (Auth::user()->department === 'quality_body') {
+            return $this->qualityBodyDashboard($request);
+        }
 
-        // Set default values if not provided
-        $startMonth = $startMonth ?: Carbon::now()->startOfMonth()->format('Y-m');
-        $endMonth = $endMonth ?: Carbon::now()->endOfMonth()->format('Y-m');
+        $startMonth = $request->input('start_month') ?: Carbon::now()->startOfMonth()->format('Y-m');
+        $endMonth = $request->input('end_month') ?: Carbon::now()->endOfMonth()->format('Y-m');
 
         $customerProblems = CustomerProblem::latest('date_of_problem')->take(1)->get();
         $customerChartData = $this->getCustomerQuantityChartData();
@@ -33,7 +36,47 @@ class DashboardController extends Controller
         $lineASOilpanData = $this->getLineASOilpan($startMonth, $endMonth);
         $lineASWPOPData = $this->getLineASWPOP($startMonth, $endMonth);
 
-        return view('dashboard', compact('customerProblems', 'customerChartData', 'customerChartDataYear', 'lineDiecastingProjectData', 'lineMachiningProjectData', 'lineAssemblingProjectData', 'linedctcc', 'lineDCOilpanData', 'linedccsh', 'lineMATCCData', 'lineMAOilpanData', 'lineASTCCData', 'lineASOilpanData', 'lineASWPOPData'));
+        return view('dashboard', compact(
+            'customerProblems',
+            'customerChartData',
+            'customerChartDataYear',
+            'lineDiecastingProjectData',
+            'lineMachiningProjectData',
+            'lineAssemblingProjectData',
+            'linedctcc',
+            'lineDCOilpanData',
+            'linedccsh',
+            'lineMATCCData',
+            'lineMAOilpanData',
+            'lineASTCCData',
+            'lineASOilpanData',
+            'lineASWPOPData'
+        ));
+    }
+
+    // Method untuk menampilkan dashboard khusus quality_body
+    public function qualityBodyDashboard(Request $request)
+    {
+        $startMonth = $request->input('start_month') ?: Carbon::now()->startOfMonth()->format('Y-m');
+        $endMonth = $request->input('end_month') ?: Carbon::now()->endOfMonth()->format('Y-m');
+
+        $customerProblemsBody = CustomerProblemBody::latest('date_of_problem')->take(1)->get();
+        $customerChartData = $this->getCustomerQuantityChartData();
+        $customerChartDataYear = $this->getCustomerQuantityChartDataYear();
+        $lineDiecastingProjectDataBody = $this->getLineDiecastingProjectDataBody($startMonth, $endMonth);
+        $lineMachiningProjectDataBody = $this->getLineMachiningProjectDataBody($startMonth, $endMonth);
+        $lineAssemblingProjectDataBody = $this->getLineAssemblingProjectDataBody($startMonth, $endMonth);
+        // Data yang sama atau data khusus untuk quality_body dapat ditambahkan di sini
+
+        return view('quality_body', compact(
+            'customerProblemsBody',
+            'customerChartData',
+            'customerChartDataYear',
+            'lineDiecastingProjectDataBody',
+            'lineMachiningProjectDataBody',
+            'lineAssemblingProjectDataBody'
+
+        ));
     }
 
     public function getCustomerQuantityChartData()
@@ -75,6 +118,70 @@ class DashboardController extends Controller
                 $customerQuantity = 0;
 
                 foreach ($customerData as $item) {
+                    if ($item->customer === $customer && $item->month_year === $label) {
+                        $customerQuantity = $item->total_quantity_product;
+                        break;
+                    }
+                }
+
+                $customerQuantities[] = $customerQuantity;
+            }
+
+            $dataset = [
+                'label' => $customer,
+                'backgroundColor' => '#' . substr(md5(rand()), 0, 6),
+                'data' => $customerQuantities
+            ];
+            $datasets[] = $dataset;
+        }
+
+        $chartData = [
+            'labels' => $labels,
+            'datasets' => $datasets
+        ];
+
+        return $chartData;
+    }
+
+    public function getCustomerQuantityChartDataBody()
+    {
+        $customerDataBody = DB::select("
+            SELECT
+              `customer`,
+              SUM(`quantity_product`) as `total_quantity_product`,
+              DATE_FORMAT(`date_of_problem`, '%Y-%m') as `month_year`
+            FROM
+              `tm_customer_problems_body`
+            WHERE
+              `date_of_problem` >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+            GROUP BY
+              `customer`,
+              `month_year`
+            ORDER BY
+              `month_year`, `customer`
+        ");
+
+        $labels = [];
+        $uniqueCustomers = [];
+
+        foreach ($customerDataBody as $item) {
+            if (!in_array($item->month_year, $labels)) {
+                $labels[] = $item->month_year;
+            }
+            if (!in_array($item->customer, $uniqueCustomers)) {
+                $uniqueCustomers[] = $item->customer;
+            }
+        }
+
+        $datasets = [];
+
+        foreach ($uniqueCustomers as $customer) {
+            $customerQuantities = [];
+
+            foreach ($labels as $label) {
+                $customerQuantity = 0;
+
+                foreach ($customerDataBody as $item) {
                     if ($item->customer === $customer && $item->month_year === $label) {
                         $customerQuantity = $item->total_quantity_product;
                         break;
@@ -164,6 +271,70 @@ class DashboardController extends Controller
         return $chartDataYear;
     }
 
+    public function getCustomerQuantityChartDataYearBody()
+    {
+        $customerDataYearBody = DB::select("
+        SELECT
+          `customer`,
+          SUM(`quantity_product`) as `total_quantity_product`,
+          DATE_FORMAT(`date_of_problem`, '%Y') as `year`
+        FROM
+          `tm_customer_problems_body`
+        WHERE
+          `date_of_problem` >= DATE_SUB(NOW(), INTERVAL 3 YEAR)
+        GROUP BY
+          `customer`,
+          `year`
+        ORDER BY
+          `year`, `customer`
+    ");
+
+        $labelsYear = [];
+        $uniqueCustomersYear = [];
+
+        foreach ($customerDataYearBody as $item) {
+            if (!in_array($item->year, $labelsYear)) {
+                $labelsYear[] = $item->year;
+            }
+            if (!in_array($item->customer, $uniqueCustomersYear)) {
+                $uniqueCustomersYear[] = $item->customer;
+            }
+        }
+
+        $datasetsYear = [];
+
+        foreach ($uniqueCustomersYear as $customer) {
+            $customerQuantitiesYear = [];
+
+            foreach ($labelsYear as $labelYear) {
+                $customerQuantityYear = 0;
+
+                foreach ($customerDataYearBody as $item) {
+                    if ($item->customer === $customer && $item->year === $labelYear) {
+                        $customerQuantityYear = $item->total_quantity_product;
+                        break;
+                    }
+                }
+
+                $customerQuantitiesYear[] = $customerQuantityYear;
+            }
+
+            $datasetYear = [
+                'label' => $customer,
+                'backgroundColor' => '#' . substr(md5(rand()), 0, 6),
+                'data' => $customerQuantitiesYear
+            ];
+            $datasetsYear[] = $datasetYear;
+        }
+
+        $chartDataYear = [
+            'labels' => $labelsYear,
+            'datasets' => $datasetsYear
+        ];
+
+        return $chartDataYear;
+    }
+
     public function getLineDiecastingProjectData($startMonth, $endMonth)
     {
         $startMonth = str_replace('-', '', $startMonth);
@@ -184,10 +355,36 @@ class DashboardController extends Controller
         GROUP BY
             `line_group`
         ORDER BY
-            `line_group`;    
+            `line_group`;
         ");
 
         return $lineDiecastingProjectData;
+    }
+
+    public function getLineDiecastingProjectDataBody($startMonth, $endMonth)
+    {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
+        $lineDiecastingProjectDataBody = DB::select("
+        SELECT
+            SUBSTRING(`line`, 1, 2) AS `line_group`,
+            SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+            SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+        FROM
+            `tt_item_check_projects_body`
+        JOIN
+            `tt_projects_body` ON `tt_item_check_projects_body`.`project_id` = `tt_projects_body`.`id`
+        WHERE
+            DATE_FORMAT(`tt_projects_body`.`planning_masspro`, '%Y%m') BETWEEN $startMonth AND $endMonth
+            AND `line` LIKE 'DC%'
+        GROUP BY
+            `line_group`
+        ORDER BY
+            `line_group`;
+        ");
+
+        return $lineDiecastingProjectDataBody;
     }
 
     public function getLineMachiningProjectData($startMonth, $endMonth)
@@ -216,6 +413,33 @@ class DashboardController extends Controller
         return $lineMachiningProjectData;
     }
 
+    public function getLineMachiningProjectDataBody($startMonth, $endMonth)
+    {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
+        $lineMachiningProjectDataBody = DB::select("
+            SELECT
+                SUBSTRING(`line`, 1, 2) AS `line_group`,
+                SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+                SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+            FROM
+                `tt_item_check_projects_body`
+            JOIN
+                `tt_projects_body` ON `tt_item_check_projects_body`.`project_id` = `tt_projects_body`.`id`
+            WHERE
+                DATE_FORMAT(`tt_projects_body`.`planning_masspro`, '%Y%m') BETWEEN $startMonth AND $endMonth
+                AND `line` LIKE 'MA%'
+            GROUP BY
+                `line_group`
+            ORDER BY
+                `line_group`
+        ");
+
+        return $lineMachiningProjectDataBody;
+    }
+
+
     public function getLineAssemblingProjectData($startMonth, $endMonth)
     {
         $startMonth = str_replace('-', '', $startMonth);
@@ -240,6 +464,32 @@ class DashboardController extends Controller
         ");
 
         return $lineAssemblingProjectData;
+    }
+
+    public function getLineAssemblingProjectDataBody($startMonth, $endMonth)
+    {
+        $startMonth = str_replace('-', '', $startMonth);
+        $endMonth = str_replace('-', '', $endMonth);
+
+        $lineAssemblingProjectDataBody = DB::select("
+        SELECT
+            SUBSTRING(`line`, 1, 2) AS `line_group`,
+            SUM(CASE WHEN `status` = 'finished' THEN 1 ELSE 0 END) AS `finished_count`,
+            SUM(CASE WHEN `status` = 'onprogress' THEN 1 ELSE 0 END) AS `onprogress_count`
+        FROM
+            `tt_item_check_projects_body`
+        JOIN
+            `tt_projects_body` ON `tt_item_check_projects_body`.`project_id` = `tt_projects_body`.`id`
+        WHERE
+            DATE_FORMAT(`tt_projects_body`.`planning_masspro`, '%Y%m') BETWEEN $startMonth AND $endMonth
+            AND `line` LIKE 'AS%'
+        GROUP BY
+            `line_group`
+        ORDER BY
+            `line_group`
+        ");
+
+        return $lineAssemblingProjectDataBody;
     }
 
     public function getLineDCTCC($startMonth, $endMonth)
