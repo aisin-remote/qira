@@ -44,6 +44,7 @@ class PicaController extends Controller
     public function showCustomerData()
     {
     $customerProblemData = QualityReport::all();
+
     return view('pica.customer', compact('customerProblemData'));
     }
 
@@ -437,6 +438,9 @@ public function storeInternal(Request $request)
 
     $qualityInternal->save();
 
+if (!$qualityInternal) {
+    return redirect()->route('pica.internal')->with('error', 'Quality report tidak ditemukan!');
+}
     foreach ($request->qty as $index => $qty) {
         PenangananInternals::create([
             'quality_internal_id' => $qualityInternal->id,
@@ -478,6 +482,50 @@ public function downloadExcelInternal($id)
     $sheet->setCellValue("AF9", $qualityInternal->actual);
     $sheet->setCellValue("C32", $qualityInternal->problem_analysis);
 
+$relativePhotoPath = $qualityInternal->visual_ok;
+$photoPath = storage_path('app/' . $relativePhotoPath);
+if (file_exists($photoPath)) {
+    $drawing = new Drawing();
+    $drawing->setName('Visual OK');
+    $drawing->setDescription('Visual OK Image');
+    $drawing->setPath($photoPath);
+    $drawing->setHeight(40);
+    $drawing->setWidth(215);
+    $drawing->setCoordinates('T10');
+    $drawing->setWorksheet($sheet);
+} else {
+    Log::error('Gambar tidak ditemukan di path: ' . $photoPath);
+}
+
+$relativePhotoPath = $qualityInternal->visual_ng;
+$photoPath = storage_path('app/' . $relativePhotoPath);
+if (file_exists($photoPath)) {
+    $drawing = new Drawing();
+    $drawing->setName('Visual NG');
+    $drawing->setDescription('Visual NG Image');
+    $drawing->setPath($photoPath);
+    $drawing->setHeight(40);
+    $drawing->setWidth(215);
+    $drawing->setCoordinates('AC10');
+    $drawing->setWorksheet($sheet);
+} else {
+    Log::error('Gambar tidak ditemukan di path: ' . $photoPath);
+}
+
+$relativePhotoPath = $qualityInternal->measurement_photo;
+$photoPath = storage_path('app/' . $relativePhotoPath);
+if (file_exists($photoPath)) {
+    $drawing = new Drawing();
+    $drawing->setName('Measurement Photo');
+    $drawing->setDescription('Measurement Image');
+    $drawing->setPath($photoPath);
+    $drawing->setHeight(100);
+    $drawing->setWidth(250);
+    $drawing->setCoordinates('D20');
+    $drawing->setWorksheet($sheet);
+} else {
+    Log::error('Gambar tidak ditemukan di path: ' . $photoPath);
+}
     $relativePhotoPath = $qualityInternal->visual_ok;
     $photoPath = storage_path('app/' . $relativePhotoPath);
 
@@ -594,7 +642,7 @@ if ($correctiveActions) {
     }
 }
 
-
+    $writer = new Xlsx($spreadsheet);
     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $tempFile = tempnam(sys_get_temp_dir(), 'excel_');
     $writer->save($tempFile);
@@ -781,8 +829,6 @@ if ($correctiveActions) {
 
 
             }
-
-
             $qualityReport->qty = json_encode($request->input('qty'));
             $qualityReport->ok = json_encode($request->input('ok'));
             $qualityReport->ng = json_encode($request->input('ng'));
@@ -792,7 +838,6 @@ if ($correctiveActions) {
             $qualityReport->outflow = $request->input('outflow');
             $qualityReport->temporary_actions = json_encode($request->input('temporary'));
             $qualityReport->corrective_actions = json_encode($request->input('corrective'));
-
 
             $qualityReport->save();
 
@@ -823,12 +868,11 @@ if ($correctiveActions) {
 
 public function updateInternal(Request $request, $id)
     {
+        $qualityInternal = new QualityInternal();
 
         try {
 
             $qualityInternal = QualityInternal::findOrFail($id);
-
-
         $qualityInternal->tanggal = $request->input('tanggal');
         $qualityInternal->section = $request->input('section');
         $qualityInternal->line = $request->input('line');
@@ -852,7 +896,6 @@ public function updateInternal(Request $request, $id)
         $qualityInternal->corrective_actions = json_encode($request->input('corrective'));
 
         if ($request->hasFile('visual_ok')) {
-
             if ($qualityInternal->visual_ok) {
                 Storage::delete($qualityInternal->visual_ok);
             }
@@ -897,7 +940,6 @@ public function updateInternal(Request $request, $id)
         $qualityInternal->temporary_actions = json_encode($request->input('temporary'));
         $qualityInternal->corrective_actions = json_encode($request->input('corrective'));
 
-
         $qualityInternal->save();
 
 
@@ -908,14 +950,13 @@ public function updateInternal(Request $request, $id)
         foreach ($request->qty as $index => $qty) {
             PenangananInternals::create([
                 'quality_internal_id' => $qualityInternal->id,
-                'komponen' => 'Komponen', 
+                'komponen' => 'Komponen',
                 'qty' => $qty,
                 'ok' => $request->ok[$index],
                 'ng' => $request->ng[$index],
                 'pic' => $request->pic[$index],
             ]);
         }
-
         return redirect()->route('pica.internal')->with('success', 'Data Pica Internal berhasil diubah.');
     } catch (\Exception $e) {
         Log::error('Error saat mengupdate data: ' . $e->getMessage());

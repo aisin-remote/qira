@@ -82,7 +82,7 @@
                                     <a href="{{ Storage::url($data->visual_ok) }}" class="text-blue-500 underline" target="_blank">Lihat Foto</a>
 
                                 @else
-                                    <span>Foto Unavailable</span> <!-- Menampilkan pesan jika file belum ada -->
+                                    <span>Foto Unavailable</span>
                                 @endif
                             </td>
 
@@ -91,7 +91,7 @@
                                     <a href="{{ Storage::url($data->visual_ng) }}" class="text-blue-500 underline" target="_blank">Lihat Foto</a>
 
                                 @else
-                                    <span>Foto Unavailable</span> <!-- Menampilkan pesan jika file belum ada -->
+                                    <span>Foto Unavailable</span>
                                 @endif
                             </td>
 
@@ -100,7 +100,7 @@
                                     <a href="{{ Storage::url($data->measurement_photo) }}" class="text-blue-500 underline" target="_blank">Lihat Foto</a>
 
                                 @else
-                                    <span>Foto Unavailable</span> <!-- Menampilkan pesan jika file belum ada -->
+                                    <span>Foto Unavailable</span> 
                                 @endif
                             </td>
 
@@ -502,7 +502,7 @@
                                 <div class="form-group">
                                     <label for="occure" class="block font-bold mb-2">Occure</label>
                                     <div class="space-y-2">
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1" >
+                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1" required>
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W2" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W3" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W4">
@@ -513,8 +513,8 @@
                                 <!-- Outflow Section -->
                                 <div class="form-group mt-4">
                                     <label for="outflow" class="block font-bold mb-2">Outflow</label>
-                                    <div class="space-y-2"> <!-- Menambahkan jarak antar input -->
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" >
+                                    <div class="space-y-2">
+                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" required >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W2" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W3" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W4" >

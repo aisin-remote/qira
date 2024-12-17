@@ -150,7 +150,6 @@
                                 <!-- Menampilkan PIC -->
                                 <td class="px-4 py-2">
                                     @php
-                                        // Memastikan data $data->pic adalah string, jika bukan string maka ubah menjadi string kosong
                                         $picData = is_string($data->pic) ? $data->pic : '';
                                     @endphp
                                     {{ $picData }}
@@ -502,7 +501,7 @@
                                                     <div class="form-group">
                                                         <label for="occure" class="block font-bold mb-2">Occure</label>
                                                         <div class="space-y-2">
-                                                            <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1">
+                                                            <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1" required>
                                                             <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W2" >
                                                             <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W3" >
                                                             <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W4">
@@ -514,7 +513,7 @@
                                                     <div class="form-group mt-4">
                                                         <label for="outflow" class="block font-bold mb-2">Outflow</label>
                                                         <div class="space-y-2"> <!-- Menambahkan jarak antar input -->
-                                                            <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" >
+                                                            <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" required >
                                                             <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W2" >
                                                             <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W3" >
                                                             <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W4" >
