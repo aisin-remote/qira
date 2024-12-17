@@ -24,6 +24,7 @@ class User extends Authenticatable
         'npk',
         'posisi',
         'password',
+        'department',
     ];
 
     /**
@@ -43,6 +44,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 
     public $incrementing = false;
 }

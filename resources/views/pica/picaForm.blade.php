@@ -84,7 +84,12 @@
                         </td>
                         <td class="px-4 py-2 text-center">
                             <a href="{{ route('pica.editData', $data->id) }}" class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
-                            <a href="{{ route('pica.delete', ['id' => $data->id]) }}" class="text-red-500 hover:text-red-700 font-bold">Hapus</a>
+
+                            <form action="{{ route('pica.delete', ['id' => $data->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 font-bold">Hapus</button>
+                            </form>
                         </td>
 
                     </tr>
@@ -158,8 +163,15 @@
                         </td>
                         <td class="px-4 py-2 text-center">
                             <a href="{{ route('pica.editData', $data->id) }}" class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
-                            <a href="{{ route('pica.delete', ['id' => $data->id]) }}" class="text-red-500 hover:text-red-700 font-bold">Hapus</a>
+
+                            <form action="{{ route('pica.delete', ['id' => $data->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 font-bold">Hapus</button>
+                            </form>
                         </td>
+
+
 
                     </tr>
                     @endforeach

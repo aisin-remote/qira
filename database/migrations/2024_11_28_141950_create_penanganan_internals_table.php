@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('id', 191)->primary();
-            $table->string('name', 191);
-            $table->string('npk', 191)->unique();
-            $table->string('posisi', 191);
-            $table->string('department', 191);
-            $table->string('password', 191);
+        Schema::create('penanganan_internals', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('quality_internal_id')->constrained()->onDelete('cascade');
+            $table->string('komponen');
+            $table->integer('qty');
+            $table->integer('ok');
+            $table->integer('ng');
+            $table->string('pic');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('penanganan_internals');
     }
 };
