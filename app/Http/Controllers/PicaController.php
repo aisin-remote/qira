@@ -43,7 +43,11 @@ class PicaController extends Controller
 
     public function showCustomerData()
     {
+<<<<<<< HEAD
     $customerProblemData = QualityReport::all(); // Mengambil semua data dari tabel quality_reports
+=======
+    $customerProblemData = QualityReport::all();
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
     return view('pica.customer', compact('customerProblemData'));
     }
 
@@ -437,12 +441,15 @@ public function storeInternal(Request $request)
 
     $qualityInternal->save();
 
+<<<<<<< HEAD
     
 
 if (!$qualityInternal) {
     return redirect()->route('pica.internal')->with('error', 'Quality report tidak ditemukan!');
 }
 
+=======
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
     foreach ($request->qty as $index => $qty) {
         PenangananInternals::create([
             'quality_internal_id' => $qualityInternal->id,
@@ -466,7 +473,11 @@ public function downloadExcelInternal($id)
         abort(404, 'Template file not found.');
     }
 
+<<<<<<< HEAD
 
+=======
+    $spreadsheet = new Spreadsheet();
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
     $spreadsheet = IOFactory::load($templatePath);
     $sheet = $spreadsheet->getActiveSheet();
 
@@ -484,6 +495,7 @@ public function downloadExcelInternal($id)
     $sheet->setCellValue("AF9", $qualityInternal->actual);
     $sheet->setCellValue("C32", $qualityInternal->problem_analysis);
 
+<<<<<<< HEAD
 $relativePhotoPath = $qualityInternal->visual_ok;
 $photoPath = storage_path('app/' . $relativePhotoPath);
 if (file_exists($photoPath)) {
@@ -528,6 +540,49 @@ if (file_exists($photoPath)) {
 } else {
     Log::error('Gambar tidak ditemukan di path: ' . $photoPath);
 }
+=======
+    $relativePhotoPath = $qualityInternal->visual_ok;
+    $photoPath = storage_path('app/' . $relativePhotoPath);
+
+    if (file_exists($photoPath)) {
+        $drawing = new Drawing();
+        $drawing->setName('Visual OK');
+        $drawing->setDescription('Visual OK Image');
+        $drawing->setPath($photoPath);
+        $drawing->setHeight(40);
+        $drawing->setWidth(215);
+        $drawing->setCoordinates('T10');
+        $drawing->setWorksheet($sheet);
+    }
+
+    $relativePhotoPath = $qualityInternal->visual_ng;
+    $photoPath = storage_path('app/' . $relativePhotoPath);
+
+    if (file_exists($photoPath)) {
+        $drawing = new Drawing();
+        $drawing->setName('Visual NG');
+        $drawing->setDescription('Visual NG Image');
+        $drawing->setPath($photoPath);
+        $drawing->setHeight(40);
+        $drawing->setWidth(215);
+        $drawing->setCoordinates('AC10');
+        $drawing->setWorksheet($sheet);
+    }
+
+    $relativePhotoPath = $qualityInternal->measurement_photo;
+    $photoPath = storage_path('app/' . $relativePhotoPath);
+
+    if (file_exists($photoPath)) {
+        $drawing = new Drawing();
+        $drawing->setName('Measurement Photo');
+        $drawing->setDescription('Measurement Image');
+        $drawing->setPath($photoPath);
+        $drawing->setHeight(100);
+        $drawing->setWidth(250);
+        $drawing->setCoordinates('D20');
+        $drawing->setWorksheet($sheet);
+    }
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
 
     $sheet->setCellValue("H32", $qualityInternal->occure[0]);
     $sheet->getStyle('H32')->getAlignment()->setTextRotation(0);
@@ -604,7 +659,11 @@ if ($correctiveActions) {
 }
 
 
+<<<<<<< HEAD
     $writer = new Xlsx($spreadsheet);
+=======
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
     $tempFile = tempnam(sys_get_temp_dir(), 'excel_');
     $writer->save($tempFile);
 
@@ -742,10 +801,17 @@ if ($correctiveActions) {
     {
 
         try {
+<<<<<<< HEAD
             // Mencari QualityReport berdasarkan ID
             $qualityReport = QualityReport::findOrFail($id);
 
             // Mengupdate data QualityReport
+=======
+
+            $qualityReport = QualityReport::findOrFail($id);
+
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
             $qualityReport->tanggal = $request->input('tanggal');
             $qualityReport->section = $request->input('section');
             $qualityReport->line = $request->input('line');
@@ -757,7 +823,11 @@ if ($correctiveActions) {
             $qualityReport->actual = $request->input('actual');
 
             if ($request->hasFile('visual_ok')) {
+<<<<<<< HEAD
                 // Hapus foto lama jika ada
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                 if ($qualityReport->visual_ok) {
                     Storage::delete($qualityReport->visual_ok);
                 }
@@ -768,7 +838,11 @@ if ($correctiveActions) {
             }
 
             if ($request->hasFile('visual_ng')) {
+<<<<<<< HEAD
                 // Hapus foto lama jika ada
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                 if ($qualityReport->visual_ng) {
                     Storage::delete($qualityReport->visual_ng);
                 }
@@ -779,7 +853,11 @@ if ($correctiveActions) {
             }
 
             if ($request->hasFile('measurement_photo')) {
+<<<<<<< HEAD
                 // Hapus foto lama jika ada
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                 if ($qualityReport->measurement_photo) {
                     Storage::delete($qualityReport->measurement_photo);
                 }
@@ -791,7 +869,11 @@ if ($correctiveActions) {
 
             }
 
+<<<<<<< HEAD
             // Menyimpan data lainnya dalam format JSON (untuk qty, ok, ng, pic, dll.)
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
             $qualityReport->qty = json_encode($request->input('qty'));
             $qualityReport->ok = json_encode($request->input('ok'));
             $qualityReport->ng = json_encode($request->input('ng'));
@@ -802,6 +884,7 @@ if ($correctiveActions) {
             $qualityReport->temporary_actions = json_encode($request->input('temporary'));
             $qualityReport->corrective_actions = json_encode($request->input('corrective'));
 
+<<<<<<< HEAD
             // Simpan perubahan pada QualityReport
             $qualityReport->save();
 
@@ -814,6 +897,20 @@ if ($correctiveActions) {
                 PenangananStock::create([
                     'quality_report_id' => $qualityReport->id, // Relasi dengan tabel quality_reports
                     'komponen' => 'Komponen', // Anda dapat mengganti 'Komponen' jika perlu
+=======
+
+            $qualityReport->save();
+
+
+            PenangananStock::where('quality_report_id', $qualityReport->id)->delete();
+
+
+
+            foreach ($request->qty as $index => $qty) {
+                PenangananStock::create([
+                    'quality_report_id' => $qualityReport->id,
+                    'komponen' => 'Komponen',
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                     'qty' => $qty,
                     'ok' => $request->ok[$index],
                     'ng' => $request->ng[$index],
@@ -832,7 +929,16 @@ if ($correctiveActions) {
 
 public function updateInternal(Request $request, $id)
     {
+<<<<<<< HEAD
         $qualityInternal = new QualityInternal();
+=======
+
+        try {
+
+            $qualityInternal = QualityInternal::findOrFail($id);
+
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
         $qualityInternal->tanggal = $request->input('tanggal');
         $qualityInternal->section = $request->input('section');
         $qualityInternal->line = $request->input('line');
@@ -856,7 +962,11 @@ public function updateInternal(Request $request, $id)
         $qualityInternal->corrective_actions = json_encode($request->input('corrective'));
 
         if ($request->hasFile('visual_ok')) {
+<<<<<<< HEAD
             // Hapus foto lama jika ada
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
             if ($qualityInternal->visual_ok) {
                 Storage::delete($qualityInternal->visual_ok);
             }
@@ -867,7 +977,11 @@ public function updateInternal(Request $request, $id)
         }
 
         if ($request->hasFile('visual_ng')) {
+<<<<<<< HEAD
             // Hapus foto lama jika ada
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
             if ($qualityInternal->visual_ng) {
                 Storage::delete($qualityInternal->visual_ng);
             }
@@ -878,7 +992,11 @@ public function updateInternal(Request $request, $id)
         }
 
         if ($request->hasFile('measurement_photo')) {
+<<<<<<< HEAD
             // Hapus foto lama jika ada
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
             if ($qualityInternal->measurement_photo) {
                 Storage::delete($qualityInternal->measurement_photo);
             }
@@ -890,7 +1008,11 @@ public function updateInternal(Request $request, $id)
 
         }
 
+<<<<<<< HEAD
         // Menyimpan data lainnya dalam format JSON (untuk qty, ok, ng, pic, dll.)
+=======
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
         $qualityInternal->qty = json_encode($request->input('qty'));
         $qualityInternal->ok = json_encode($request->input('ok'));
         $qualityInternal->ng = json_encode($request->input('ng'));
@@ -901,6 +1023,7 @@ public function updateInternal(Request $request, $id)
         $qualityInternal->temporary_actions = json_encode($request->input('temporary'));
         $qualityInternal->corrective_actions = json_encode($request->input('corrective'));
 
+<<<<<<< HEAD
         // Simpan perubahan pada QualityReport
         $qualityInternal->save();
 
@@ -913,6 +1036,20 @@ public function updateInternal(Request $request, $id)
             PenangananInternals::create([
                 'quality_internal_id' => $qualityInternal->id, // Relasi dengan tabel quality_reports
                 'komponen' => 'Komponen', // Anda dapat mengganti 'Komponen' jika perlu
+=======
+
+        $qualityInternal->save();
+
+
+        PenangananInternals::where('quality_internal_id', $qualityInternal->id)->delete();
+
+
+
+        foreach ($request->qty as $index => $qty) {
+            PenangananInternals::create([
+                'quality_internal_id' => $qualityInternal->id,
+                'komponen' => 'Komponen', 
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                 'qty' => $qty,
                 'ok' => $request->ok[$index],
                 'ng' => $request->ng[$index],
@@ -921,8 +1058,18 @@ public function updateInternal(Request $request, $id)
         }
 
         return redirect()->route('pica.internal')->with('success', 'Data Pica Internal berhasil diubah.');
+<<<<<<< HEAD
     }
 
+=======
+    } catch (\Exception $e) {
+        Log::error('Error saat mengupdate data: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Gagal mengupdate data.');
+    }
+
+}
+
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
 
 
     public function deleteCustomer($id)

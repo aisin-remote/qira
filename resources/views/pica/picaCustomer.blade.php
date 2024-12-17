@@ -419,19 +419,31 @@
                         <!-- Visual OK Upload -->
                         <div class="grid grid-cols-1 gap-4 mb-4">
                             <label for="visual_ok" class="block font-bold">Visual OK</label>
+<<<<<<< HEAD
                             <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="visual_ok" accept="image/*">
+=======
+                            <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="visual_ok" accept="image/*" required>
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                         </div>
 
                         <!-- Visual NG Upload -->
                         <div class="grid grid-cols-1 gap-4 mb-4">
                             <label for="visual_ng" class="block font-bold">Visual NG</label>
+<<<<<<< HEAD
                             <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="visual_ng" accept="image/*">
+=======
+                            <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="visual_ng" accept="image/*" required>
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                         </div>
 
                         <h4 class="text-lg font-semibold mb-4">2. Measurement</h4>
                             <div class="form-group">
                                 <label for="measurement_photo" class="block font-bold">Measurement Photo</label>
+<<<<<<< HEAD
                                 <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="measurement_photo" name="measurement_photo" accept="image/*">
+=======
+                                <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="measurement_photo" name="measurement_photo" accept="image/*" required>
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                             </div>
                         </div>
 
@@ -502,7 +514,11 @@
                                 <div class="form-group">
                                     <label for="occure" class="block font-bold mb-2">Occure</label>
                                     <div class="space-y-2">
+<<<<<<< HEAD
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1" required>
+=======
+                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1" >
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W2" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W3" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W4">
@@ -514,7 +530,11 @@
                                 <div class="form-group mt-4">
                                     <label for="outflow" class="block font-bold mb-2">Outflow</label>
                                     <div class="space-y-2"> <!-- Menambahkan jarak antar input -->
+<<<<<<< HEAD
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" required >
+=======
+                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" >
+>>>>>>> fceb8e1aa86e904000ca7b76d127eeac60fd9738
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W2" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W3" >
                                         <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W4" >
