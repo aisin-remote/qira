@@ -100,7 +100,7 @@
                                     <a href="{{ Storage::url($data->measurement_photo) }}" class="text-blue-500 underline" target="_blank">Lihat Foto</a>
 
                                 @else
-                                    <span>Foto Unavailable</span> 
+                                    <span>Foto Unavailable</span>
                                 @endif
                             </td>
 
@@ -256,14 +256,17 @@
         </div>
 
 
+        <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+            <div class="modal-content w-full lg:w-2/3 p-4 max-h-screen overflow-y-auto">
+                <div class="flex flex-col lg:flex-row text-xs">
+                    <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-tl-md rounded-bl-md dark:bg-dark-eval-1">
 
-    <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
-        <div class="modal-content w-full lg:w-2/3 p-4 max-h-screen">
-            <div class="flex flex-col lg:flex-row text-xs">
-                <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-tl-md rounded-bl-md dark:bg-dark-eval-1">
-                    <!-- Close Button -->
-                    <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800">
-                    </button>
+                        <!-- Close Button -->
+                        <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
 
                     <form action="{{ route('pica.customer.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -734,30 +737,35 @@
             }
         }
 
-        // Ambil elemen tombol dan modal
-        var openModalButton = document.getElementById("openModalButton");
-        var closeModalButton = document.getElementById("closeModalButton");
-        var modal = document.getElementById("myModal");
+                          // Ambil elemen tombol dan modal
+                             document.addEventListener("DOMContentLoaded", function() {
+                          var openModalButton = document.getElementById("openModalButton");
+                          var closeModalButton = document.getElementById("closeModalButton");
+                          var modal = document.getElementById("myModal");
 
-        // @if($errors -> any())
-        // document.addEventListener("DOMContentLoaded", function() {
-        // modal.classList.remove("hidden");
-        // });
-        // @endif
+                          // Menggunakan kondisional @if di Blade untuk menampilkan modal jika ada error
+                             @if($errors->any())
+                                  modal.classList.remove("hidden");
+                              @endif
 
-        openModalButton.addEventListener("click", function() {
-            modal.classList.remove("hidden");
-        });
+                          // Menampilkan modal saat tombol openModalButton diklik
+                              openModalButton.addEventListener("click", function() {
+                                modal.classList.remove("hidden");
+                             });
 
-        closeModalButton.addEventListener("click", function() {
-            modal.classList.add("hidden");
-        });
+                          // Menutup modal saat tombol closeModalButton diklik
+                              closeModalButton.addEventListener("click", function() {
+                                   modal.classList.add("hidden");
+                             });
 
-        modal.addEventListener("click", function(event) {
-            if (event.target === modal) {
-                modal.classList.add("hidden");
-            }
-        });
+                            // Menutup modal jika pengguna mengklik area luar modal
+                                modal.addEventListener("click", function(event) {
+                                   if (event.target === modal) {
+                                      modal.classList.add("hidden");
+                                    }
+                                });
+                             });
+
 
         function filterByDateInt() {
             var inputDate = document.getElementById("filterDateInt").value; // Dapatkan nilai input tanggal
