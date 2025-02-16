@@ -48,7 +48,7 @@
                                                     <option value="" selected disabled>Select</option>
                                                     <option value="DC01" {{ $qualityReport->line === 'DC01' ? 'selected' : '' }}>DC01</option>
                                                     <option value="DC02" {{ $qualityReport->line === 'DC02' ? 'selected' : '' }}>DC02</option>
-                                                    <option value="DC03" {{ $qualityReport->line === 'DC03' ? 'selected' : '' }} >DC03</option>
+                                                    <option value="DC03" {{ $qualityReport->line === 'DC03' ? 'selected' : '' }}>DC03</option>
                                                     <option value="DC04" {{ $qualityReport->line === 'DC04' ? 'selected' : '' }}>DC04</option>
                                                     <option value="DC05" {{ $qualityReport->line === 'DC05' ? 'selected' : '' }}>DC05</option>
                                                     <option value="DC06" {{ $qualityReport->line === 'DC06' ? 'selected' : '' }}>DC06</option>

@@ -737,26 +737,29 @@
             }
         }
 
-                          // Ambil elemen tombol dan modal
-                             document.addEventListener("DOMContentLoaded", function() {
-                          var openModalButton = document.getElementById("openModalButton");
-                          var closeModalButton = document.getElementById("closeModalButton");
-                          var modal = document.getElementById("myModal");
+        document.addEventListener("DOMContentLoaded", function() {
+        var openModalButton = document.getElementById("openModalButton");
+        var closeModalButton = document.getElementById("closeModalButton");
+        var modal = document.getElementById("myModal");
 
-                          // Menggunakan kondisional @if di Blade untuk menampilkan modal jika ada error
-                             @if($errors->any())
-                                  modal.classList.remove("hidden");
-                              @endif
+        // Pastikan modal ditampilkan jika ada error dari Blade
+        @if ($errors->any())
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("myModal").classList.remove("hidden");
+            });
+        @endif
 
-                          // Menampilkan modal saat tombol openModalButton diklik
-                              openModalButton.addEventListener("click", function() {
-                                modal.classList.remove("hidden");
-                             });
+        // Menampilkan modal saat tombol diklik
+        openModalButton.addEventListener("click", function() {
+            modal.classList.remove("hidden");
+        });
 
-                          // Menutup modal saat tombol closeModalButton diklik
-                              closeModalButton.addEventListener("click", function() {
-                                   modal.classList.add("hidden");
-                             });
+        // Menutup modal saat tombol diklik
+        closeModalButton.addEventListener("click", function() {
+            modal.classList.add("hidden");
+        });
+                            
+                              
 
                             // Menutup modal jika pengguna mengklik area luar modal
                                 modal.addEventListener("click", function(event) {
@@ -764,7 +767,8 @@
                                       modal.classList.add("hidden");
                                     }
                                 });
-                             });
+                            });
+                        
 
 
         function filterByDateInt() {
