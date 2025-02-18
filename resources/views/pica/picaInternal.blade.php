@@ -255,12 +255,11 @@
         </div>
 
 
-
         <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
-        <div class="modal-content w-full lg:w-2/3 p-4 max-h-screen">
-        <div class="flex flex-col lg:flex-row text-xs">
-            <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-tl-md rounded-bl-md dark:bg-dark-eval-1">
-                
+            <div class="modal-content w-full lg:w-2/3 xl:w-2/3 2xl:w-1/2 p-2 max-h-[80vh] overflow-y-auto bg-white rounded-lg">
+                <div class="flex flex-col lg:flex-row text-xs relative">
+                    <!-- Apply rounded corners to all sides -->
+                    <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-lg dark:bg-dark-eval-1">
                 <!-- Close Button -->
                 <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -269,7 +268,7 @@
                 </button>
 
                 <!-- Navigation Tabs -->
-                <div class="mb-4">
+                <div class="mb-6">
                     <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button active" onclick="showTab('define')">Define</button>
                     <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('measurement')">Measurement</button>
                     <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('analysis')">Analysis</button>
@@ -283,7 +282,7 @@
                     <!-- Define Section -->
                     <div id="define" class="tab-content">
                         <h4 class="text-lg font-semibold mb-4">1. Define</h4>
-                        <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="grid-cols-1 gap-4 mb-4">
                             <div class="form-group">
                                 <label for="tanggal" class="block font-bold">Tanggal</label>
                                 <input type="date" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="tanggal" name="tanggal" required>

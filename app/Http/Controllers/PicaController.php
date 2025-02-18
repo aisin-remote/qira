@@ -872,7 +872,7 @@ public function updateInternal(Request $request, $id)
 
         try {
 
-            $qualityInternal = QualityInternal::findOrFail($id);
+        $qualityInternal = QualityInternal::findOrFail($id);
         $qualityInternal->tanggal = $request->input('tanggal');
         $qualityInternal->section = $request->input('section');
         $qualityInternal->line = $request->input('line');
