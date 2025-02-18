@@ -256,7 +256,7 @@
 
 
         <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
-            <div class="modal-content w-full lg:w-2/3 xl:w-2/3 2xl:w-1/2 p-2 max-h-[80vh] overflow-y-auto bg-white rounded-lg">
+            <div class="modal-content w-full lg:w-2/3 xl:w-2/3 2xl:w-1/2 p-2 max-h-[100vh] overflow-y-auto bg-white rounded-lg">
                 <div class="flex flex-col lg:flex-row text-xs relative">
                     <!-- Apply rounded corners to all sides -->
                     <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-lg dark:bg-dark-eval-1">
@@ -296,10 +296,10 @@
                             <div class="form-group">
                                 <label for="line" class="block font-bold">Line</label>
                                 <select name="line" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
-                                    <option value="" selected disabled>Select</option>
-                                    <option value="DC01">DC01</option>
-                                    <option value="DC02">DC02</option>
-                                    <option value="DC03">DC03</option>
+                                <option value="" selected disabled>Select</option>
+                                <option value="DC01">DC01</option>
+                                <option value="DC02">DC02</option>
+                                <option value="DC03">DC03</option>
                                 <option value="DC04">DC04</option>
                                 <option value="DC05">DC05</option>
                                 <option value="DC06">DC06</option>

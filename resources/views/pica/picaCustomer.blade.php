@@ -232,7 +232,6 @@
 
 
 
-
                                 <!-- Action Buttons (Edit & Delete) -->
                                 <td class="px-4 py-2 text-center">
                                     <a href="{{ route('pica.customer.edit', $data->id) }}" class="text-blue-500 hover:text-blue-700 font-bold">Edit</a>
@@ -257,23 +256,31 @@
 
 
         <div id="myModal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
-            <div class="modal-content w-full lg:w-2/3 p-4 max-h-screen overflow-y-auto">
+            <div class="modal-content w-full lg:w-2/3 p-4 max-h-screen">
                 <div class="flex flex-col lg:flex-row text-xs">
                     <div class="lg:w-2/3 p-6 overflow-hidden bg-white rounded-tl-md rounded-bl-md dark:bg-dark-eval-1">
-
-                        <!-- Close Button -->
                         <button id="closeModalButton" class="absolute top-3 right-3 text-gray-600 hover:text-gray-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
                         </button>
+
+                 <!-- Navigation Tabs -->
+                 <div class="mb-6">
+                    <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button active" onclick="showTab('define')">Define</button>
+                    <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('measurement')">Measurement</button>
+                    <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('penangananstock')">Penanganan Stock</button>
+                    <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('analysis')">Analysis</button>
+                    <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('temporary')">Temporary Action</button>
+                    <button class="p-2 bg-blue-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-blue-500" class="tab-button" onclick="showTab('corrective')">Corrective Action</button>
+                </div>
+
 
                     <form action="{{ route('pica.customer.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <div class="space-y-4">
 
-                        <!-- Tanggal dan Section (Kolom Kiri) -->
+                        <!-- Define Section -->
+                    <div id="define" class="tab-content">
                         <h4 class="text-lg font-semibold mb-4">1. Define</h4>
-                        <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <div class="form-group">
                                 <label for="tanggal" class="block font-bold">Tanggal</label>
                                 <input type="date" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="tanggal" name="tanggal" required>
@@ -283,14 +290,10 @@
                                 <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="section" name="section" required>
                             </div>
                         </div>
-
-                        <!-- Line dan Model (Kolom Kiri) -->
-                        <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <div class="form-group">
                                 <label for="line" class="block font-bold">Line</label>
-                            </div>
-                        <div>
-                            <select name="line" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                <select name="line" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
                                 <option value="" selected disabled>Select</option>
                                 <option value="DC01">DC01</option>
                                 <option value="DC02">DC02</option>
@@ -312,24 +315,19 @@
                                 <option value="AS02">AS02</option>
                                 <option value="AS03">AS03</option>
                                 <option value="AS04">AS04</option>
-                            </select>
-                        </div>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="model" class="block font-bold">Model</label>
                                 <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="model" name="model" required>
                             </div>
                         </div>
-
-                        <!-- Part Name dan Problem (Kolom Kiri) -->
-                        <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <div class="form-group">
                                 <label for="part_name" class="block font-bold">Part Name</label>
-                            </div>
-                            <div>
-                            <select required name="part_name" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
-                                <option value="" selected disabled>Select</option>
-                                <!-- CUSTOMER -->
-                                <optgroup label="CUSTOMER">
+                                <select required name="part_name" class="w-full border-2 border-gray-300 px-3 py-2 rounded-md">
+                                    <option value="" selected disabled>Select</option>
+                                    <optgroup label="CUSTOMER">
                                     <option value="TCC 4A91">TCC 4A91</option>
                                     <option value="CSH D98E">CSH D98E</option>
                                     <option value="CSH D05E">CSH D05E</option>
@@ -391,24 +389,21 @@
                                     <option value="CSH D98E DC">CSH D98E DC</option>
                                     <option value="CSH D05E DC">CSH D05E DC</option>
                                 </optgroup>
-                            </select>
-                        </div>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="problem" class="block font-bold">Problem</label>
                                 <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="problem" name="problem" required>
                             </div>
                         </div>
-
-                        <!-- Quantity dan Measurement Photo (Kolom Kiri) -->
-                        <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <div class="form-group">
                                 <label for="quantity" class="block font-bold">Quantity</label>
                                 <input type="number" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="quantity" name="quantity" required>
                             </div>
-
-
+                        </div>
                         <h4 class="text-lg font-semibold mb-4">Detail Problem</h4>
-                        <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <div class="form-group">
                                 <label for="standard" class="block font-bold">Standard</label>
                                 <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="standard" name="standard" required>
@@ -418,28 +413,28 @@
                                 <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="actual" name="actual" required>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Visual OK Upload -->
+                    <!-- Measurement Section -->
+                    <div id="measurement" class="tab-content hidden">
+                        <h4 class="text-lg font-semibold mb-4">2. Measurement</h4>
                         <div class="grid grid-cols-1 gap-4 mb-4">
                             <label for="visual_ok" class="block font-bold">Visual OK</label>
                             <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="visual_ok" accept="image/*" required>
                         </div>
-
-                        <!-- Visual NG Upload -->
                         <div class="grid grid-cols-1 gap-4 mb-4">
                             <label for="visual_ng" class="block font-bold">Visual NG</label>
                             <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="visual_ng" accept="image/*" required>
                         </div>
-
-                        <h4 class="text-lg font-semibold mb-4">2. Measurement</h4>
-                            <div class="form-group">
-                                <label for="measurement_photo" class="block font-bold">Measurement Photo</label>
-                                <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="measurement_photo" name="measurement_photo" accept="image/*" required>
-                            </div>
+                        <div class="grid grid-cols-1 gap-4 mb-4">
+                            <label for="measurement_photo" class="block font-bold">Measurement Photo</label>
+                            <input type="file" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="measurement_photo" name="measurement_photo" accept="image/*" required>
                         </div>
+                    </div>
 
                         @csrf
                         <!-- Komponen, Qty, OK, NG, PIC fields (Kolom Kanan) -->
+                        <div id="penangananstock" class="tab-content hidden">
                         <h4 class="text-lg font-semibold mb-4">Penanganan Stock</h4>
                         <div id="component-container">
                             <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
@@ -490,120 +485,101 @@
                                 <input type="text" class="form-control w-full border-2 border-gray-300 px-1 py-2 rounded-md" name="pic[]" placeholder="PIC" required>
                             </div>
                             </div>
-
-
-
-                            <!-- Occure, Outflow Data (Kolom Kanan) -->
-
-                            <h4 class="text-lg font-semibold mb-4">3. Analysis</h4>
-                            <div class="form-group mb-4">
-                                <label for="problem_analysis" class="block font-bold">Problem Analysis </label>
-                                <textarea class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="problem_analysis" name="problem_analysis" rows="3" required></textarea>
-                            </div>
-                            <div class="grid grid-cols-1 gap-4 mb-4">
-                                <!-- Occure Section -->
-                                <div class="form-group">
-                                    <label for="occure" class="block font-bold mb-2">Occure</label>
-                                    <div class="space-y-2">
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W1" required>
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W2" >
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W3" >
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W4">
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="occure" name="occure[]" placeholder="W5" >
-                                    </div>
-                                </div>
-
-                                <!-- Outflow Section -->
-                                <div class="form-group mt-4">
-                                    <label for="outflow" class="block font-bold mb-2">Outflow</label>
-                                    <div class="space-y-2">
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W1" required >
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W2" >
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W3" >
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W4" >
-                                        <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="outflow" name="outflow[]" placeholder="W5" >
-                                    </div>
-                                </div>
-                            </div>
-                </div>
-
-                <!-- Kolom Kanan -->
-                <div class="lg:w-1/2 p-6 overflow-hidden bg-white rounded-tr-md rounded-br-md dark:bg-dark-eval-1">
-                    <!-- Temporary Action Section -->
-                    <h4 class="text-lg font-semibold mb-4">4. Countermeasure</h4>
-                    <h4 class="text-lg font-semibold mb-6">Temporary Action</h4>
-                      @for ($i = 0; $i < 4; $i++)
-                    <div class="mb-6 border-b border-gray-200 pb-4">
-                       <!-- Activity Label -->
-                    <h5 class="font-bold text-gray-600 mb-2">Activity {{ $i + 1 }}</h5>
-
-                       <!-- Activity Input -->
-                    <div class="mb-4">
-                        <textarea id="temporary_activity_{{ $i }}" name="temporary[{{ $i }}][activity]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" rows="2" placeholder="Temporary Activity"></textarea>
                     </div>
 
-                       <!-- PIC Input -->
-                    <div class="mb-4">
-                         <label class="block font-bold mb-1" for="temporary_pic_{{ $i }}">PIC</label>
-                         <input type="text" id="temporary_pic_{{ $i }}" name="temporary[{{ $i }}][pic]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="PIC">
-                    </div>
-
-                       <!-- Due Date Input -->
-                    <div class="mb-4">
-                         <label class="block font-bold mb-1" for="temporary_due_date_{{ $i }}">Due Date</label>
-                         <input type="date" id="temporary_due_date_{{ $i }}" name="temporary[{{ $i }}][due_date]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Due Date">
-                    </div>
-
-                       <!-- Status Input -->
-                    <div class="mb-4">
-                         <label class="block font-bold mb-1" for="temporary_status_{{ $i }}">Status</label>
-                         <input type="text" id="temporary_status_{{ $i }}" name="temporary[{{ $i }}][status]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Status">
-                    </div>
-                  </div>
-                @endfor
-
-                       <!-- Corrective Action Section -->
-                   <h4 class="text-lg font-semibold mt-8 mb-6">Corrective Action</h4>
-                     @for ($i = 0; $i < 4; $i++)
-                     <div class="mb-6 border-b border-gray-200 pb-4">
-                       <!-- Activity Label -->
-                   <h5 class="font-bold text-gray-600 mb-2">Activity {{ $i + 1 }}</h5>
-
-                       <!-- Activity Input -->
-                      <div class="mb-4">
-                         <textarea id="corrective_activity_{{ $i }}" name="corrective[{{ $i }}][activity]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" rows="2" placeholder="Corrective Activity"></textarea>
-                      </div>
-
-                       <!-- PIC Input -->
-                       <div class="mb-4">
-                          <label class="block font-bold mb-1" for="corrective_pic_{{ $i }}">PIC</label>
-                          <input type="text" id="corrective_pic_{{ $i }}" name="corrective[{{ $i }}][pic]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="PIC">
-                       </div>
-
-                       <!-- Due Date Input -->
-                       <div class="mb-4">
-                          <label class="block font-bold mb-1" for="corrective_due_date_{{ $i }}">Due Date</label>
-                          <input type="date" id="corrective_due_date_{{ $i }}" name="corrective[{{ $i }}][due_date]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Due Date">
-                       </div>
-
-                       <!-- Status Input -->
-                       <div class="mb-4">
-                          <label class="block font-bold mb-1" for="corrective_status_{{ $i }}">Status</label>
-                          <input type="text" id="corrective_status_{{ $i }}" name="corrective[{{ $i }}][status]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Status">
-                       </div>
-                     </div>
-                     @endfor
-
-
-                       <!-- Submit Button -->
-                        <div class="flex justify-end items-end">
-                            <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-green-500">
+                    <!-- Analysis Section -->
+                    <div id="analysis" class="tab-content hidden">
+                        <h4 class="text-lg font-semibold mb-4">3. Analysis</h4>
+                        <div class="form-group mb-4">
+                            <label for="problem_analysis" class="block font-bold">Problem Analysis </label>
+                            <textarea class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" id="problem_analysis" name="problem_analysis" rows="3" required></textarea>
                         </div>
-                    </form>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label for="occure" class="block font-bold mb-2">Occure</label>
+                                <div class="space-y-2">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="occure[]" placeholder="W1" required>
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="occure[]" placeholder="W2">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="occure[]" placeholder="W3">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="occure[]" placeholder="W4">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="occure[]" placeholder="W5">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="outflow" class="block font-bold mb-2">Outflow</label>
+                                <div class="space-y-2">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="outflow[]" placeholder="W1" required>
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="outflow[]" placeholder="W2">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="outflow[]" placeholder="W3">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="outflow[]" placeholder="W4">
+                                    <input type="text" class="form-control w-full border-2 border-gray-300 px-3 py-2 rounded-md" name="outflow[]" placeholder="W5">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <!-- Countermeasure Section -->
+                    <div id="temporary" class="tab-content hidden">
+                        <h4 class="text-lg font-semibold mb-6">Temporary Action</h4>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        @for ($i = 0; $i < 4; $i++)
+                        <div class="mb-6 border-b border-gray-200 pb-4">
+                            <h5 class="font-bold text-gray-600 mb-2">Activity {{ $i + 1 }}</h5>
+                            <div class="mb-4">
+                                <textarea id="temporary_activity_{{ $i }}" name="temporary[{{ $i }}][activity]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" rows="2" placeholder="Temporary Activity"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-bold mb-1" for="temporary_pic_{{ $i }}">PIC</label>
+                                <input type="text" id="temporary_pic_{{ $i }}" name="temporary[{{ $i }}][pic]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="PIC">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-bold mb-1" for="temporary_due_date_{{ $i }}">Due Date</label>
+                                <input type="date" id="temporary_due_date_{{ $i }}" name="temporary[{{ $i }}][due_date]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Due Date">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-bold mb-1" for="temporary_status_{{ $i }}">Status</label>
+                                <input type="text" id="temporary_status_{{ $i }}" name="temporary[{{ $i }}][status]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Status">
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+                    </div>
+
+                        <div id="corrective" class="tab-content hidden">
+                            <h4 class="text-lg font-semibold mb-6">Corrective Action</h4>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        @for ($i = 0; $i < 4; $i++)
+                        <div class="mb-6 border-b border-gray-200 pb-4">
+                            <h5 class="font-bold text-gray-600 mb-2">Activity {{ $i + 1 }}</h5>
+                            <div class="mb-4">
+                                <textarea id="corrective_activity_{{ $i }}" name="corrective[{{ $i }}][activity]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" rows="2" placeholder="Corrective Activity"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-bold mb-1" for="corrective_pic_{{ $i }}">PIC</label>
+                                <input type="text" id="corrective_pic_{{ $i }}" name="corrective[{{ $i }}][pic]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="PIC">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-bold mb-1" for="corrective_due_date_{{ $i }}">Due Date</label>
+                                <input type="date" id="corrective_due_date_{{ $i }}" name="corrective[{{ $i }}][due_date]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Due Date">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block font-bold mb-1" for="corrective_status_{{ $i }}">Status</label>
+                                <input type="text" id="corrective_status_{{ $i }}" name="corrective[{{ $i }}][status]" class="form-control w-full border border-gray-300 px-2 py-1 rounded-md" placeholder="Status">
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end items-end">
+                        <input type="submit" value="Simpan" class="p-2 bg-green-300 inline-block font-bold text-white mx-2 mt-3 rounded-md cursor-pointer hover:bg-green-500">
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
 
 
                         <script>
@@ -737,38 +713,64 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-        var openModalButton = document.getElementById("openModalButton");
+         function showTab(tabId) {
+
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabContents.forEach(tab => {
+
+                tab.classList.add('hidden');
+
+            });
+
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+
+            tabButtons.forEach(button => {
+
+                button.classList.remove('active');
+
+            });
+
+
+            document.getElementById(tabId).classList.remove('hidden');
+
+
+            const activeButton = Array.from(tabButtons).find(button => button.textContent.includes(tabId.charAt(0).toUpperCase() + tabId.slice(1)));
+
+            if (activeButton) {
+
+                activeButton.classList.add('active');
+
+            }
+
+        }
+
+
+       // Ambil elemen tombol dan modal
+       var openModalButton = document.getElementById("openModalButton");
         var closeModalButton = document.getElementById("closeModalButton");
         var modal = document.getElementById("myModal");
 
-        // Pastikan modal ditampilkan jika ada error dari Blade
-        @if ($errors->any())
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById("myModal").classList.remove("hidden");
-            });
-        @endif
+        // @if($errors -> any())
+        // document.addEventListener("DOMContentLoaded", function() {
+        // modal.classList.remove("hidden");
+        // });
+        // @endif
 
-        // Menampilkan modal saat tombol diklik
         openModalButton.addEventListener("click", function() {
             modal.classList.remove("hidden");
         });
 
-        // Menutup modal saat tombol diklik
         closeModalButton.addEventListener("click", function() {
             modal.classList.add("hidden");
         });
-                            
-                              
 
-                            // Menutup modal jika pengguna mengklik area luar modal
-                                modal.addEventListener("click", function(event) {
-                                   if (event.target === modal) {
-                                      modal.classList.add("hidden");
-                                    }
-                                });
-                            });
-                        
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.classList.add("hidden");
+            }
+        });
 
 
         function filterByDateInt() {
@@ -806,4 +808,5 @@
         }
     </script>
 </x-app-layout>
+
 
